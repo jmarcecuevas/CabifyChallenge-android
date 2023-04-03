@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
-import com.marcelocuevas.cabify.data.Product
+import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.presentation.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
@@ -74,7 +74,7 @@ fun ProductItemView(
             }
             InfoPill(text = "Promotion")
             Text(
-                text = product.name,
+                text = product.name!!,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h6,
@@ -131,7 +131,7 @@ private fun ProductImage(
 @Composable
 private fun PreviewProductItemView() {
     CabifyTheme {
-        val product = Product("Cabify Coffee Mug", "20.00 €", "https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
+        val product = Product("VOUCHER","Cabify Coffee Mug", "20.00 €", "","","https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
         ProductItemView(
             product = product,
             index = 0,

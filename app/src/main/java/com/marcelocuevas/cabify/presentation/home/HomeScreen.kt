@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.marcelocuevas.cabify.data.Product
+import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.presentation.components.CabifySurface
 import com.marcelocuevas.cabify.presentation.components.CabifyTopAppBar
 import com.marcelocuevas.cabify.presentation.components.bottomsheet.SheetContentCollapsed
@@ -33,7 +33,32 @@ private val sheetPeekHeight = 92.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+
+) {
+    BottomSheetScaffold(
+        modifier = Modifier.fillMaxSize(),
+        backgroundColor = CabifyTheme.colors.uiBackground,
+        sheetElevation = 16.dp,
+        sheetGesturesEnabled = false,
+        topBar = { CabifyTopAppBar() },
+        sheetContent = {
+            SheetContentCollapsed {
+                OrderContentView()
+            }
+        },
+        sheetPeekHeight = sheetPeekHeight
+    ) {
+        ProductsGrid()
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun HomeScreen(
+    viewModel: HomeViewModel
+) {
+
     BottomSheetScaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = CabifyTheme.colors.uiBackground,
@@ -60,7 +85,7 @@ private fun ProductsGrid(modifier: Modifier = Modifier) {
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 items(3) { product ->
-                    val testProduct = Product("Cabify Coffee Mug", "20.00 €", "https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
+                    val testProduct = Product("VOUCHER","Cabify Coffee Mug", "20.00 €", "", "2 x 1","https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
                     ProductItemView(
                         product = testProduct,
                         index = 0,
