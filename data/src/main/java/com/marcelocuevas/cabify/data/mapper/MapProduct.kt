@@ -20,6 +20,7 @@ fun mapProductDtoToProductDomain(input: ProductItemDTO): Product {
         input.code.toString(),
         input.name.orEmpty(),
         input.price.toString(),
+        "${input.price.toString()} €",
         promotionDescription = getPromotionDescription(input.code),
         imageUrl = getImageUrl(input.code)
     )
@@ -52,7 +53,7 @@ fun getPromotionDescription(code: ProductCodeDTO?): String {
                 "2 x 1"
             }
             ProductCodeDTO.VOUCHER -> {
-                "Buy 3+, get 5% off"
+                "Up to 5% off"
             }
             else -> { "" }
         }

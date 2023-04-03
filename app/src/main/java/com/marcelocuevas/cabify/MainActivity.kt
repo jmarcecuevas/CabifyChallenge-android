@@ -21,12 +21,10 @@ class MainActivity : ComponentActivity() {
             CabifyApp()
         }
 
-        viewModel.fetchProducts()
-
-        viewModel.productsData.observe(this) {
-            Log.e("asd", it.toString())
-        }
-
-
+//        viewModel.fetchProducts()
+//
+//        viewModel.productsData.observe(this) {
+//            Log.e("asd", it.toString())
+//        }
     }
 }

@@ -72,9 +72,9 @@ fun ProductItemView(
                         .align(Alignment.BottomCenter)
                 )
             }
-            InfoPill(text = "Promotion")
+            InfoPill(text = product.promotionDescription)
             Text(
-                text = product.name!!,
+                text = product.name,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h6,
@@ -84,7 +84,7 @@ fun ProductItemView(
             Spacer(modifier = Modifier.height(4.dp))
             Row {
                 Text(
-                    text = product.price,
+                    text = product.priceWithCurrency,
                     style = MaterialTheme.typography.subtitle2,
                     fontSize = 18.sp,
                     color = CabifyTheme.colors.textHelp,
@@ -121,7 +121,7 @@ private fun ProductImage(
             contentDescription = contentDescription,
             placeholder = painterResource(R.drawable.placeholder),
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillBounds,
         )
     }
 }
@@ -131,7 +131,7 @@ private fun ProductImage(
 @Composable
 private fun PreviewProductItemView() {
     CabifyTheme {
-        val product = Product("VOUCHER","Cabify Coffee Mug", "20.00 €", "","","https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
+        val product = Product("VOUCHER","Cabify Coffee Mug", "20.0", "20.00 €","€","2 x 1", "https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
         ProductItemView(
             product = product,
             index = 0,

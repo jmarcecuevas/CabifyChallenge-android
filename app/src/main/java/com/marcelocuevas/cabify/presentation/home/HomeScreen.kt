@@ -1,13 +1,11 @@
 package com.marcelocuevas.cabify.presentation.home
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -15,10 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.marcelocuevas.cabify.data.model.Product
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.marcelocuevas.cabify.presentation.components.CabifySurface
 import com.marcelocuevas.cabify.presentation.components.CabifyTopAppBar
+import com.marcelocuevas.cabify.presentation.components.ShimmerGridItem
 import com.marcelocuevas.cabify.presentation.components.bottomsheet.SheetContentCollapsed
+import com.marcelocuevas.cabify.state.HomeUiState
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 private val gradientWidth
@@ -29,35 +29,15 @@ private val gradientWidth
 
 private val HighlightCardWidth = 170.dp
 private val HighlightCardPadding = 16.dp
-private val sheetPeekHeight = 92.dp
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun HomeScreen(
-
-) {
-    BottomSheetScaffold(
-        modifier = Modifier.fillMaxSize(),
-        backgroundColor = CabifyTheme.colors.uiBackground,
-        sheetElevation = 16.dp,
-        sheetGesturesEnabled = false,
-        topBar = { CabifyTopAppBar() },
-        sheetContent = {
-            SheetContentCollapsed {
-                OrderContentView()
-            }
-        },
-        sheetPeekHeight = sheetPeekHeight
-    ) {
-        ProductsGrid()
-    }
-}
+//private val sheetPeekHeight = 92.dp
+private val sheetPeekHeight = 0.dp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel
 ) {
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
 
     BottomSheetScaffold(
         modifier = Modifier.fillMaxSize(),
@@ -72,29 +52,49 @@ fun HomeScreen(
         },
         sheetPeekHeight = sheetPeekHeight
     ) {
-        ProductsGrid()
+        HomeContent(
+            uiState = uiState.value
+        )
     }
 }
 
 @Composable
-private fun ProductsGrid(modifier: Modifier = Modifier) {
-    CabifySurface(modifier = Modifier.fillMaxSize()) {
+private fun HomeContent(
+    uiState: HomeUiState,
+    modifier: Modifier = Modifier
+
+) {
+    CabifySurface(modifier = modifier.fillMaxWidth()) {
         Box(modifier = modifier.padding(16.dp)) {
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(3) { product ->
-                    val testProduct = Product("VOUCHER","Cabify Coffee Mug", "20.00 €", "", "2 x 1","https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
-                    ProductItemView(
-                        product = testProduct,
-                        index = 0,
-                        gradient = CabifyTheme.colors.gradient6_1,
-                        gradientWidth = gradientWidth,
-                        scroll = 0
-                    )
-                }
-            }
+            ProductsGrid(
+                uiState = uiState,
+                modifier = modifier
+            )
+        }
+    }
+}
+
+@Composable
+private fun ProductsGrid(
+    uiState: HomeUiState,
+    modifier: Modifier = Modifier
+){
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(uiState.products) {
+            ShimmerGridItem(isLoading = false, contentAfterLoading = {
+                ProductItemView(
+                    product = it ,
+                    index = 0,
+                    gradient = CabifyTheme.colors.gradient6_1,
+                    gradientWidth = gradientWidth ,
+                    scroll = 0
+                )
+            }, modifier = modifier
+                .fillMaxWidth()
+                .padding(16.dp))
         }
     }
 }
@@ -104,7 +104,7 @@ private fun ProductsGrid(modifier: Modifier = Modifier) {
 @Composable
 fun PreviewHomeScreen() {
     CabifyTheme {
-        HomeScreen()
+        //HomeScreen()
     }
 }
 
