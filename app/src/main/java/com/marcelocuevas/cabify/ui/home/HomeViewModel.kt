@@ -1,11 +1,14 @@
 package com.marcelocuevas.cabify.ui.home
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.GetProductsUseCase
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.uistate.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 
@@ -35,20 +38,20 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchProducts() {
-//        viewModelScope.launch {
-//            _uiState.value = HomeUiState(isLoading = true)
-//            getProductsUsecase()
-//                .flowOn(Dispatchers.IO)
-//                .catch { e ->
-//
-//                }
-//                .collect {
-//                    val homeUiState = HomeUiState(
-//                        isLoading = false,
-//                        products = it
-//                    )
-//                    _uiState.value = homeUiState
-//                }
-//        }
+        viewModelScope.launch {
+            _uiState.value = HomeUiState(isLoading = true)
+            getProductsUsecase()
+                .flowOn(Dispatchers.IO)
+                .catch { e ->
+
+                }
+                .collect {
+                    val homeUiState = HomeUiState(
+                        isLoading = false,
+                        products = it
+                    )
+                    _uiState.value = homeUiState
+                }
+        }
     }
 }

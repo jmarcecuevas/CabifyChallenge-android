@@ -11,7 +11,8 @@ import javax.inject.Inject
 
 class OfflineFirstProductsRepository @Inject constructor(
     private val networkDataSource: ProductsDataSource,
-    private val localDataSource: LocalProductsDataSource
+    private val localDataSource: LocalProductsDataSource,
+    private val mapper: Mapper
 ): ProductsRepository {
 
     override fun getProducts(): Flow<List<Product>> {
@@ -24,11 +25,12 @@ class OfflineFirstProductsRepository @Inject constructor(
     }
 
     override fun refreshProducts(): Flow<List<Product>> {
-//        networkDataSource.getProducts()
-//        networkDataSource.getProducts().map {
-//
-//        }
+        return networkDataSource.getProducts()
+            .map {
+                mapper.map(it)
+//            }
+//            .onEach {
+//                localDataSource.deleteAndInsert(it)
+            }
     }
-
-
 }

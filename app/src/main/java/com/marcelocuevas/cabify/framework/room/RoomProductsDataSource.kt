@@ -5,8 +5,9 @@ import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.framework.mapper.asEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class RoomProductsDataSource(
+class RoomProductsDataSource @Inject constructor(
     private val productsDao: ProductDao
 ): LocalProductsDataSource {
 
