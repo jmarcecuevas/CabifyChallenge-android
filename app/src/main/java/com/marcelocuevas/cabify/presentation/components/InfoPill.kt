@@ -18,19 +18,21 @@ fun InfoPill(
     color: Color = CabifyTheme.colors.brandSecondary,
     textColor: Color = CabifyTheme.colors.textSecondary
 ){
-    CabifyCard(
-        modifier = modifier.padding(all = 16.dp),
-        color = color,
-        elevation = 0.dp,
-        content = {
-            Text(
-                text = text,
-                style = MaterialTheme.typography.caption,
-                color = textColor,
-                modifier = Modifier.padding(4.dp)
-            )
-        }
-    )
+    if (text.isNotEmpty()) {
+        CabifyCard(
+            modifier = modifier.padding(all = 16.dp),
+            color = color,
+            elevation = 0.dp,
+            content = {
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.caption,
+                    color = textColor,
+                    modifier = Modifier.padding(4.dp)
+                )
+            }
+        )
+    }
 }
 
 @Preview("dafault")

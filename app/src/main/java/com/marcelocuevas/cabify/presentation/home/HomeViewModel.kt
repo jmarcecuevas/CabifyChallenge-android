@@ -26,20 +26,20 @@ class HomeViewModel @Inject constructor(
     }
 
     fun fetchProducts() {
-        viewModelScope.launch {
-            _uiState.value = HomeUiState(isLoading = true)
-            getProductsUsecase()
-                .flowOn(Dispatchers.IO)
-                .catch { e ->
-
-                }
-                .collect {
-                    val homeUiState = HomeUiState(
-                        isLoading = false,
-                        products = it
-                    )
-                    _uiState.value = homeUiState
-                }
-        }
+//        viewModelScope.launch {
+//            _uiState.value = HomeUiState(isLoading = true)
+//            getProductsUsecase()
+//                .flowOn(Dispatchers.IO)
+//                .catch { e ->
+//
+//                }
+//                .collect {
+//                    val homeUiState = HomeUiState(
+//                        isLoading = false,
+//                        products = it
+//                    )
+//                    _uiState.value = homeUiState
+//                }
+//        }
     }
 }

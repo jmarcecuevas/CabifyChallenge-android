@@ -29,7 +29,7 @@ fun CabifyGradientTintedIconButton(
     onClick: () -> Unit,
     contentDescription: String?,
     modifier: Modifier = Modifier,
-    colors: List<Color> = CabifyTheme.colors.interactiveSecondary
+    colors: List<Color> = CabifyTheme.colors.interactivePrimary
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -43,23 +44,34 @@ fun ProductItemView(
     scroll: Int,
     modifier: Modifier = Modifier
 ) {
+
+    val descriptionDiscount = remember {
+        product.promotionDescription
+    }
+
     val left = index * with(LocalDensity.current) {
         (CardWidth + CardPadding).toPx()
     }
     CabifyCard(
         modifier = modifier
-            .size(width = 170.dp, height = 325.dp)
+            //.size(width = 170.dp, height = 325.dp)
+            //.height(325.dp)
             .padding(bottom = 16.dp)
     ) {
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = modifier
+                .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp)
+
         ) {
             Box(
-                modifier = Modifier.height(160.dp).fillMaxWidth()
+                modifier = modifier
+                    .height(160.dp)
+                    .fillMaxWidth()
             ) {
                 val gradientOffset = left - (scroll / 3f)
                 Box(
-                    modifier = Modifier
+                    modifier = modifier
                         .height(100.dp)
                         .fillMaxWidth()
                         .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
@@ -67,7 +79,7 @@ fun ProductItemView(
                 ProductImage(
                     imageUrl = product.imageUrl,
                     contentDescription = null,
-                    modifier = Modifier
+                    modifier = modifier
                         .size(120.dp)
                         .align(Alignment.BottomCenter)
                 )
@@ -79,16 +91,18 @@ fun ProductItemView(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h6,
                 color = CabifyTheme.colors.textSecondary,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = modifier.padding(horizontal = 16.dp)
             )
-            Spacer(modifier = Modifier.height(4.dp))
-            Row {
+            Spacer(modifier = modifier.height(4.dp))
+            Row(Modifier.padding(bottom = 16.dp)) {
                 Text(
                     text = product.priceWithCurrency,
                     style = MaterialTheme.typography.subtitle2,
                     fontSize = 18.sp,
                     color = CabifyTheme.colors.textHelp,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = modifier
+                        .padding(horizontal = 16.dp)
+                        .weight(1f)
                 )
                 QuantitySelector(
                     count = 1,

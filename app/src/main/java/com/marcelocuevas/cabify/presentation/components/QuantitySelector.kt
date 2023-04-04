@@ -49,7 +49,7 @@ fun QuantitySelector(
                 fontSize = 16.sp,
                 color = CabifyTheme.colors.textPrimary,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.widthIn(min = 24.dp)
+                modifier = Modifier.widthIn(min = 18.dp)
             )
         }
         CabifyGradientTintedIconButton(

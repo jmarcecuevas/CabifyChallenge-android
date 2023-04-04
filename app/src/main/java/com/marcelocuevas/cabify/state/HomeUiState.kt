@@ -1,8 +1,17 @@
 package com.marcelocuevas.cabify.state
 
-import com.marcelocuevas.cabify.data.model.Product
-
 data class HomeUiState(
     val isLoading: Boolean = false,
-    val products: List<Product> = emptyList()
+    val isBottomSheetExpanded: Boolean = false,
+    val totalCount: Int = 0,
+    val products: List<ProductItemUiState> = emptyList()
+)
+
+data class ProductItemUiState(
+    val code: String,
+    val name: String,
+    val priceWithCurrency: String,
+    val promotionDescription: String,
+    val imageUrl: String,
+    val currentCount: Int = 0
 )
