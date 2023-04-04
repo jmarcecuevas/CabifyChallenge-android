@@ -11,7 +11,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
+
+@Immutable
+sealed interface ProductsUiState {
+    data class Success(val products: List<Product>) : ProductsUiState
+    object Error : ProductsUiState
+    object Loading : ProductsUiState
+}
+
+data class HomeUiState(
+    val products: ProductsUiState,
+    val isRefreshing: Boolean,
+    val isError: Boolean
+)
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(

@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class ProductsRepositoryImp @Inject constructor(
-    private val dataSource: ProductsDataSource,
+class OfflineFirstProductsRepository @Inject constructor(
+    private val networkDataSource: ProductsDataSource,
     private val mapper: Mapper
 ): ProductsRepository {
 
     override fun getProducts(): Flow<List<Product>> {
-        return dataSource.getProducts().map { mapper.map(it) }
+        return networkDataSource.getProducts().map { mapper.map(it) }
     }
 }
