@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation.components
+package com.marcelocuevas.cabify.ui.components
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

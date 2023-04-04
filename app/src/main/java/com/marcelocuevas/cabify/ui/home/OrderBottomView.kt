@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation.home
+package com.marcelocuevas.cabify.ui.home
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -15,7 +15,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.marcelocuevas.cabify.presentation.components.CabifyCard
+import com.marcelocuevas.cabify.ui.components.CabifyCard
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 @Composable

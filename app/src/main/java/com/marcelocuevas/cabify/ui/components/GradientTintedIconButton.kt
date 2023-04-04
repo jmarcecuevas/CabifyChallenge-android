@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation.components
+package com.marcelocuevas.cabify.ui.components
 
 import android.content.res.Configuration
 import androidx.compose.foundation.background

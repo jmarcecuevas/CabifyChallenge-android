@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation.home
+package com.marcelocuevas.cabify.ui.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -15,11 +15,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.marcelocuevas.cabify.presentation.components.CabifySurface
-import com.marcelocuevas.cabify.presentation.components.CabifyTopAppBar
-import com.marcelocuevas.cabify.presentation.components.ShimmerGridItem
-import com.marcelocuevas.cabify.presentation.components.bottomsheet.SheetContentCollapsed
-import com.marcelocuevas.cabify.state.HomeUiState
+import com.marcelocuevas.cabify.ui.components.CabifySurface
+import com.marcelocuevas.cabify.ui.components.CabifyTopAppBar
+import com.marcelocuevas.cabify.ui.components.ShimmerGridItem
+import com.marcelocuevas.cabify.ui.components.bottomsheet.SheetContentCollapsed
+import com.marcelocuevas.cabify.uistate.HomeUiState
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 private val gradientWidth

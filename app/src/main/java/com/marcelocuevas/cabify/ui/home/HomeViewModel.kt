@@ -1,16 +1,11 @@
-package com.marcelocuevas.cabify.presentation.home
+package com.marcelocuevas.cabify.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.GetProductsUseCase
 import com.marcelocuevas.cabify.data.model.Product
-import com.marcelocuevas.cabify.state.HomeUiState
+import com.marcelocuevas.cabify.uistate.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 

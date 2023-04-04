@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation.home
+package com.marcelocuevas.cabify.ui.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
@@ -22,7 +22,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.data.model.Product
-import com.marcelocuevas.cabify.presentation.components.*
+import com.marcelocuevas.cabify.framework.components.*
+import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 private val CardWidth = 170.dp

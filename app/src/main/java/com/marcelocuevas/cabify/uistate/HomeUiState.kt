@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.state
+package com.marcelocuevas.cabify.uistate
 
 data class HomeUiState(
     val isLoading: Boolean = false,

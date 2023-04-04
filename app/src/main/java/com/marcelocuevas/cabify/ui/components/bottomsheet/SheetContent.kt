@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation.components.bottomsheet
+package com.marcelocuevas.cabify.ui.components.bottomsheet
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

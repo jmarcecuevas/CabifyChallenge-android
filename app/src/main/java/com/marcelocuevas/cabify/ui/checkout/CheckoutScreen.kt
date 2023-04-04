@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.presentation
+package com.marcelocuevas.cabify.framework
 
 import androidx.compose.runtime.Composable
 
