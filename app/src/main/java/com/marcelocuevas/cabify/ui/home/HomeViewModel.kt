@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.GetProductsUseCase
 import com.marcelocuevas.cabify.data.model.Product
-import com.marcelocuevas.cabify.uistate.HomeUiState
+import com.marcelocuevas.cabify.data.network.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.annotation.concurrent.Immutable
@@ -25,32 +24,39 @@ data class HomeUiState(
     val isError: Boolean
 )
 
+/**
+ * A sealed hierarchy describing the state of the feed of news resources.
+ */
+sealed interface NewsFeedUiState {
+    /**
+     * The feed is still loading.
+     */
+    object Loading : NewsFeedUiState
+
+    /**
+     * The feed is loaded with the given list of news resources.
+     */
+    data class Success(
+        /**
+         * The list of news resources contained in this feed.
+         */
+        val products: List<Product>,
+    ) : NewsFeedUiState
+}
+
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getProductsUsecase: GetProductsUseCase
+    private val getProducts: GetProductsUseCase
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(HomeUiState(isLoading = true))
-    val uiState: StateFlow<HomeUiState> = _uiState
+    private val _uiState = MutableStateFlow<Result<List<Product>>>(Result.Loading())
+    val uiState: StateFlow<Result<List<Product>>> = _uiState
 
     init {
-        fetchProducts()
-    }
-
-    fun fetchProducts() {
         viewModelScope.launch {
-            _uiState.value = HomeUiState(isLoading = true)
-            getProductsUsecase()
-                .flowOn(Dispatchers.IO)
-                .catch { e ->
-
-                }
+            getProducts.invoke()
                 .collect {
-                    val homeUiState = HomeUiState(
-                        isLoading = false,
-                        products = it
-                    )
-                    _uiState.value = homeUiState
+                    _uiState.value = it
                 }
         }
     }

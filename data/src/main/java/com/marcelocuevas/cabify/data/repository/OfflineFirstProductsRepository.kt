@@ -1,36 +1,33 @@
 package com.marcelocuevas.cabify.data.repository
 
-import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
+import com.marcelocuevas.cabify.data.api.ProductItemDTO
+import com.marcelocuevas.cabify.data.datasource.CartDataSource
 import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
-import com.marcelocuevas.cabify.data.mapper.Mapper
+import com.marcelocuevas.cabify.data.model.CartItem
 import com.marcelocuevas.cabify.data.model.Product
+import com.marcelocuevas.cabify.data.network.toDataModel
+import com.marcelocuevas.cabify.data.network.Result
+import com.marcelocuevas.cabify.data.network.toListResult
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class OfflineFirstProductsRepository @Inject constructor(
-    private val networkDataSource: ProductsDataSource,
-    private val localDataSource: LocalProductsDataSource,
-    private val mapper: Mapper
+    private val productsDataSource: ProductsDataSource,
+    private val cartDataSource: CartDataSource,
+    private val mapper: (ProductItemDTO) -> (Product)
 ): ProductsRepository {
 
-    override fun getProducts(): Flow<List<Product>> {
-        return localDataSource.getProductsStream()
-            .onEach {
-                if (it.isEmpty()) {
-                    refreshProducts()
-                }
-            }
+    override suspend fun getProducts(): Flow<Result<List<Product>>> {
+        return flow {
+            emit ( productsDataSource
+                .getProducts()
+                .toListResult()
+                .toDataModel(mapper)
+            )
+        }
     }
 
-    override fun refreshProducts(): Flow<List<Product>> {
-        return networkDataSource.getProducts()
-            .map {
-                mapper.map(it)
-//            }
-//            .onEach {
-//                localDataSource.deleteAndInsert(it)
-            }
-    }
+    override suspend fun getCartItems(): Flow<List<CartItem>> =
+        cartDataSource.getCartItems()
 }

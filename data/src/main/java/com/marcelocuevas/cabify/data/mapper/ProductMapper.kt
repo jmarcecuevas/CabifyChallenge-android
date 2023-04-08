@@ -4,27 +4,16 @@ import com.marcelocuevas.cabify.data.api.ProductCodeDTO
 import com.marcelocuevas.cabify.data.api.ProductItemDTO
 import com.marcelocuevas.cabify.data.model.Product
 
-fun mapListProductDTOtoListProduct(
-    input: List<ProductItemDTO>
-): List<Product> {
-    val products: MutableList<Product> = mutableListOf()
-    for (productDTO in input) {
-        val product = mapProductDtoToProductDomain(productDTO)
-        products.add(product)
-    }
-    return products
-}
-
-fun mapProductDtoToProductDomain(input: ProductItemDTO): Product {
-    return Product(
-        input.code.toString(),
-        input.name.orEmpty(),
-        input.price.toString(),
-        "${input.price.toString()} €",
+fun mapProductDto(input: ProductItemDTO) =
+    Product(
+        code = input.code.toString(),
+        name = input.name.orEmpty(),
+        price = input.price.orZero().toString(),
+        priceWithCurrency = "${input.price.toString()} €",
+        currency = "€",
         promotionDescription = getPromotionDescription(input.code),
         imageUrl = getImageUrl(input.code)
     )
-}
 
 fun getImageUrl(code: ProductCodeDTO?): String {
     code?.let { return when (code) {
@@ -49,13 +38,9 @@ fun getImageUrl(code: ProductCodeDTO?): String {
 fun getPromotionDescription(code: ProductCodeDTO?): String {
     code?.let {
         return when (it) {
-            ProductCodeDTO.T_SHIRT -> {
-                "2 x 1"
-            }
-            ProductCodeDTO.VOUCHER -> {
-                "Up to 5% off"
-            }
-            else -> { "" }
+            ProductCodeDTO.T_SHIRT -> "2 x 1"
+            ProductCodeDTO.VOUCHER -> "Up to 5% off"
+            else -> {""}
         }
     }
     return ""

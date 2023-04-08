@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -14,13 +13,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.CabifyTopAppBar
 import com.marcelocuevas.cabify.ui.components.ShimmerGridItem
 import com.marcelocuevas.cabify.ui.components.bottomsheet.SheetContentCollapsed
-import com.marcelocuevas.cabify.uistate.HomeUiState
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import com.marcelocuevas.cabify.data.model.Product
+import com.marcelocuevas.cabify.data.network.Result
 
 private val gradientWidth
     @Composable
@@ -33,13 +38,26 @@ private val HighlightCardPadding = 16.dp
 //private val sheetPeekHeight = 92.dp
 private val sheetPeekHeight = 0.dp
 
+@Composable
+fun HomeRoute(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    HomeScreen(
+        viewModel = viewModel,
+        uiState = uiState,
+        modifier = modifier
+    )
+}
+
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel
+private fun HomeScreen(
+    viewModel: HomeViewModel,
+    uiState: Result<List<Product>>,
+    modifier: Modifier = Modifier
 ) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-
     BottomSheetScaffold(
         modifier = Modifier.fillMaxSize(),
         backgroundColor = CabifyTheme.colors.uiBackground,
@@ -54,14 +72,14 @@ fun HomeScreen(
         sheetPeekHeight = sheetPeekHeight
     ) {
         HomeContent(
-            uiState = uiState.value
+            uiState = uiState
         )
     }
 }
 
 @Composable
 private fun HomeContent(
-    uiState: HomeUiState,
+    uiState: Result<List<Product>>,
     modifier: Modifier = Modifier
 
 ) {
@@ -78,27 +96,37 @@ private fun HomeContent(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ProductsGrid(
-    uiState: HomeUiState,
+    uiState: Result<List<Product>>,
     modifier: Modifier = Modifier
 ){
-    LazyVerticalStaggeredGrid(
-        columns = StaggeredGridCells.Adaptive(170.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        items(uiState.products) {
-            ShimmerGridItem(isLoading = false, contentAfterLoading = {
-                ProductItemView(
-                    product = it ,
-                    index = 0,
-                    gradient = CabifyTheme.colors.gradient6_1,
-                    gradientWidth = gradientWidth ,
-                    scroll = 0
-                )
-            }, modifier = modifier
-                .fillMaxWidth()
-                .padding(16.dp))
+    var isLoading by remember { mutableStateOf(true) }
+    when (uiState) {
+        is Result.Loading -> {}
+        is Result.Success -> {
+        isLoading = false
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Adaptive(170.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(uiState.data?.size ?: 3) {
+                    ShimmerGridItem(isLoading = uiState.data == null, contentAfterLoading = {
+                        ProductItemView(
+                            product = uiState.data!![it],
+                            index = 0,
+                            gradient = CabifyTheme.colors.gradient6_1,
+                            gradientWidth = gradientWidth ,
+                            scroll = 0
+                        )
+                    }, modifier = modifier
+                        .fillMaxWidth()
+                        .padding(16.dp))
+                }
+            }
         }
+        is Result.Error -> print("")
     }
+
+
 }
 
 @Preview("default")

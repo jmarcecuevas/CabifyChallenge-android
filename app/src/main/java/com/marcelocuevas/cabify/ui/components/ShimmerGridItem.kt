@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.delay
 
 @Composable
 fun ShimmerGridItem(
@@ -30,6 +31,9 @@ fun ShimmerGridItem(
                 .shimmerEffect()
         ){}
     } else {
+        LaunchedEffect(key1 = true) {
+            delay(4000)
+        }
         contentAfterLoading()
     }
 }
@@ -46,7 +50,6 @@ fun Modifier.shimmerEffect(): Modifier = composed {
             animation = tween(1000)
         )
     )
-
     background(
         brush = Brush.linearGradient(
             colors = listOf(

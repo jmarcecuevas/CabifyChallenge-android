@@ -1,9 +1,9 @@
 package com.marcelocuevas.cabify.data.datasource
 
-import com.marcelocuevas.cabify.data.api.ProductItemDTO
-import kotlinx.coroutines.flow.Flow
+import com.marcelocuevas.cabify.data.api.ProductDTO
+import com.marcelocuevas.cabify.data.network.Result
 
 interface ProductsDataSource {
 
-    fun getProducts(): Flow<List<ProductItemDTO>>
+    suspend fun getProducts(): Result<ProductDTO>
 }

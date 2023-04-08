@@ -7,9 +7,5 @@ interface LocalProductsDataSource {
 
     fun getProductsStream(): Flow<List<Product>>
 
-    suspend fun deleteProducts()
-
-    suspend fun insertOrIgnoreProduct(products: List<Product>): List<Long>
-
-    suspend fun deleteAndInsert(products: List<Product>)
+    suspend fun saveProducts(products: List<Product>)
 }

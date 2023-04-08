@@ -1,10 +1,12 @@
 package com.marcelocuevas.cabify.di
 
+import com.marcelocuevas.cabify.data.datasource.CartDataSource
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.NetworkProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
 import com.marcelocuevas.cabify.data.repository.ProductsRepository
 import com.marcelocuevas.cabify.data.repository.OfflineFirstProductsRepository
+import com.marcelocuevas.cabify.framework.room.RoomCartDataSource
 import com.marcelocuevas.cabify.framework.room.RoomProductsDataSource
 import dagger.Binds
 import dagger.Module
@@ -15,18 +17,24 @@ import dagger.hilt.android.components.ViewModelComponent
 @InstallIn(ViewModelComponent::class)
 abstract class RepositoryModule {
 
-    @Binds
-    abstract fun bindProductsRepository(
-        repositoryImp: OfflineFirstProductsRepository
-    ): ProductsRepository
+//    @Binds
+//    abstract fun bindProductsRepository(
+//        repositoryImp: OfflineFirstProductsRepository
+//    ): ProductsRepository
 
     @Binds
     abstract fun bindLocalDataSource(
         dataSourceImp: RoomProductsDataSource
     ): LocalProductsDataSource
 
-    @Binds
-    abstract fun bindProductsDataSource(
-        dataSourceImp: NetworkProductsDataSource
-    ): ProductsDataSource
+//    @Binds
+//    abstract fun bindProductsDataSource(
+//        dataSourceImp: NetworkProductsDataSource
+//    ): ProductsDataSource
+//
+//    @Binds
+//    abstract fun bindCartDataSource(
+//        dataSourceImp: RoomCartDataSource
+//    ): CartDataSource
 }
+

@@ -1,16 +1,15 @@
 package com.marcelocuevas.cabify.data.datasource
 
-import com.marcelocuevas.cabify.data.api.ProductItemDTO
+import com.marcelocuevas.cabify.data.api.ProductDTO
 import com.marcelocuevas.cabify.data.api.ProductsAPI
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import com.marcelocuevas.cabify.data.network.Result
+import com.marcelocuevas.cabify.data.network.safeApiCall
 import javax.inject.Inject
 
 class NetworkProductsDataSource @Inject constructor(
     private val productsAPI : ProductsAPI
 ) : ProductsDataSource {
 
-    override fun getProducts(): Flow<List<ProductItemDTO>> = flow {
-            emit(productsAPI.getProducts().products)
-        }
+    override suspend fun getProducts(): Result<ProductDTO> =
+        safeApiCall { productsAPI.getProducts() }
 }
