@@ -1,12 +1,6 @@
 package com.marcelocuevas.cabify.di
 
-import com.marcelocuevas.cabify.data.datasource.CartDataSource
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
-import com.marcelocuevas.cabify.data.datasource.NetworkProductsDataSource
-import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
-import com.marcelocuevas.cabify.data.repository.ProductsRepository
-import com.marcelocuevas.cabify.data.repository.OfflineFirstProductsRepository
-import com.marcelocuevas.cabify.framework.room.RoomCartDataSource
 import com.marcelocuevas.cabify.framework.room.RoomProductsDataSource
 import dagger.Binds
 import dagger.Module
@@ -26,6 +20,7 @@ abstract class RepositoryModule {
     abstract fun bindLocalDataSource(
         dataSourceImp: RoomProductsDataSource
     ): LocalProductsDataSource
+
 
 //    @Binds
 //    abstract fun bindProductsDataSource(

@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccessAlarm
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
@@ -34,10 +33,11 @@ fun QuantitySelector(
     Row(modifier = modifier) {
         CabifyGradientTintedIconButton(
             imageVector = Icons.Default.Remove,
-            onClick = decreaseItemCount,
+            onClick = { decreaseItemCount() },
             contentDescription = stringResource(R.string.label_decrease),
-            modifier = Modifier.align(Alignment.CenterVertically)
+            modifier = Modifier.align(Alignment.CenterVertically),
         )
+
         Crossfade(
             targetState = count,
             modifier = Modifier
@@ -54,7 +54,7 @@ fun QuantitySelector(
         }
         CabifyGradientTintedIconButton(
             imageVector = Icons.Default.Add,
-            onClick = increaseItemCount,
+            onClick = { increaseItemCount() },
             contentDescription = stringResource(R.string.label_increase),
             modifier = Modifier.align(Alignment.CenterVertically)
         )
@@ -67,7 +67,7 @@ fun QuantitySelector(
 fun QuantitySelectorPreview() {
     CabifyTheme {
         CabifySurface {
-            QuantitySelector(1, {}, {})
+            //QuantitySelector(1, {}, {})
         }
     }
 }
@@ -78,7 +78,7 @@ fun QuantitySelectorPreviewRtl() {
     CabifyTheme {
         CabifySurface {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                QuantitySelector(1, {}, {})
+                //QuantitySelector(1, {}, {})
             }
         }
     }

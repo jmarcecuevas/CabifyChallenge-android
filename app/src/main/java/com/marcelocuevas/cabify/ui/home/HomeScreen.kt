@@ -45,8 +45,13 @@ fun HomeRoute(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
-        viewModel = viewModel,
         uiState = uiState,
+        onIncreaseClick = { productId, quantity ->
+            viewModel.onIncreaseItemClicked(productId, quantity)
+        },
+        onDecreaseClick = { productId, quantity ->
+            viewModel.onIncreaseItemClicked(productId, quantity)
+        },
         modifier = modifier
     )
 }
@@ -54,8 +59,9 @@ fun HomeRoute(
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun HomeScreen(
-    viewModel: HomeViewModel,
     uiState: Result<List<Product>>,
+    onIncreaseClick: (String, Int) -> Unit,
+    onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     BottomSheetScaffold(
@@ -72,7 +78,9 @@ private fun HomeScreen(
         sheetPeekHeight = sheetPeekHeight
     ) {
         HomeContent(
-            uiState = uiState
+            uiState = uiState,
+            onIncreaseClick = onIncreaseClick,
+            onDecreaseClick = onDecreaseClick
         )
     }
 }
@@ -80,6 +88,8 @@ private fun HomeScreen(
 @Composable
 private fun HomeContent(
     uiState: Result<List<Product>>,
+    onIncreaseClick: (String, Int) -> Unit,
+    onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
 
 ) {
@@ -87,7 +97,9 @@ private fun HomeContent(
         Box(modifier = modifier.padding(16.dp)) {
             ProductsGrid(
                 uiState = uiState,
-                modifier = modifier
+                modifier = modifier,
+                onIncreaseClick = onIncreaseClick,
+                onDecreaseClick = onDecreaseClick
             )
         }
     }
@@ -97,6 +109,8 @@ private fun HomeContent(
 @Composable
 private fun ProductsGrid(
     uiState: Result<List<Product>>,
+    onIncreaseClick: (String, Int) -> Unit,
+    onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
 ){
     var isLoading by remember { mutableStateOf(true) }
@@ -112,6 +126,8 @@ private fun ProductsGrid(
                     ShimmerGridItem(isLoading = uiState.data == null, contentAfterLoading = {
                         ProductItemView(
                             product = uiState.data!![it],
+                            onIncreaseClick = onIncreaseClick,
+                            onDecreaseClick = onDecreaseClick,
                             index = 0,
                             gradient = CabifyTheme.colors.gradient6_1,
                             gradientWidth = gradientWidth ,

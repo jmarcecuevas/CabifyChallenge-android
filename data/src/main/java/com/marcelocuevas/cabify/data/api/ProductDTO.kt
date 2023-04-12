@@ -9,7 +9,7 @@ data class ProductDTO(
 data class ProductItemDTO(
     val code: ProductCodeDTO?,
     val name: String?,
-    val price: Float?
+    val price: Double?
 )
 
 enum class ProductCodeDTO{

@@ -8,8 +8,7 @@ fun mapProductDto(input: ProductItemDTO) =
     Product(
         code = input.code.toString(),
         name = input.name.orEmpty(),
-        price = input.price.orZero().toString(),
-        priceWithCurrency = "${input.price.toString()} €",
+        price = input.price.orZero(),
         currency = "€",
         promotionDescription = getPromotionDescription(input.code),
         imageUrl = getImageUrl(input.code)

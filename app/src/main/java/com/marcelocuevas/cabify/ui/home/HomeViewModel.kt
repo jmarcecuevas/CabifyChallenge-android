@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.GetProductsUseCase
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.data.network.Result
+import com.marcelocuevas.cabify.domain.UpdateCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -46,7 +47,8 @@ sealed interface NewsFeedUiState {
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getProducts: GetProductsUseCase
+    private val getProducts: GetProductsUseCase,
+    private val updateCart: UpdateCartUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<Result<List<Product>>>(Result.Loading())
@@ -59,5 +61,14 @@ class HomeViewModel @Inject constructor(
                     _uiState.value = it
                 }
         }
+    }
+
+    fun onIncreaseItemClicked(code: String, newQuantity: Int) =
+        viewModelScope.launch {
+            updateCart.invoke(code, quantity = newQuantity)
+        }
+
+    fun onDecreaseItemCount(code: String) {
+        print("asd")
     }
 }

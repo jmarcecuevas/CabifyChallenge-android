@@ -11,4 +11,4 @@ fun <I, O> mapList(input: List<I>, mapListItem: (I) -> O): List<O> {
     return input.map { mapListItem(it) }
 }
 
-fun Float?.orZero(): Float = this ?: 0f
+fun Double?.orZero(): Double = this ?: 0.0

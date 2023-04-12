@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.marcelocuevas.cabify.framework.room.CabifyDatabase
 import com.marcelocuevas.cabify.framework.room.CartDao
 import com.marcelocuevas.cabify.framework.room.ProductDao
+import com.marcelocuevas.cabify.framework.room.entity.OrderDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,7 +39,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideCartDao(database: CabifyDatabase): CartDao {
-        return database.cartDao()
+    fun provideOrderDao(database: CabifyDatabase): OrderDao {
+        return database.orderDao()
     }
 }

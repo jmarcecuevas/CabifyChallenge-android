@@ -4,8 +4,10 @@ import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.framework.mapper.toDataModel
 import com.marcelocuevas.cabify.framework.mapper.toEntity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class RoomProductsDataSource @Inject constructor(
@@ -23,5 +25,11 @@ class RoomProductsDataSource @Inject constructor(
     override suspend fun saveProducts(products: List<Product>) {
         val entities = products.map { it.toEntity() }
         productsDao.saveProducts(entities)
+    }
+
+    override suspend fun updateOrderIdInProduct(productCode: String, orderItemId: String) {
+        withContext(Dispatchers.IO) {
+            productsDao.updateOrderIdInProduct(productCode, orderItemId)
+        }
     }
 }

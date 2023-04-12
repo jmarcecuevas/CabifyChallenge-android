@@ -8,4 +8,6 @@ interface LocalProductsDataSource {
     fun getProductsStream(): Flow<List<Product>>
 
     suspend fun saveProducts(products: List<Product>)
+
+    suspend fun updateOrderIdInProduct(productCode: String, orderItemId: String)
 }

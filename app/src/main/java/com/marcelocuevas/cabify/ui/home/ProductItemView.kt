@@ -38,17 +38,14 @@ private val gradientWidth
 @Composable
 fun ProductItemView(
     product: Product,
+    onIncreaseClick: (String, Int) -> Unit,
+    onDecreaseClick: (String, Int) -> Unit,
     index: Int,
     gradient: List<Color>,
     gradientWidth: Float,
     scroll: Int,
     modifier: Modifier = Modifier
 ) {
-
-    val descriptionDiscount = remember {
-        product.promotionDescription
-    }
-
     val left = index * with(LocalDensity.current) {
         (CardWidth + CardPadding).toPx()
     }
@@ -96,7 +93,7 @@ fun ProductItemView(
             Spacer(modifier = modifier.height(4.dp))
             Row(Modifier.padding(bottom = 16.dp)) {
                 Text(
-                    text = product.priceWithCurrency,
+                    text = "${product.price}${product.currency}",
                     style = MaterialTheme.typography.subtitle2,
                     fontSize = 18.sp,
                     color = CabifyTheme.colors.textHelp,
@@ -105,9 +102,15 @@ fun ProductItemView(
                         .weight(1f)
                 )
                 QuantitySelector(
-                    count = 1,
-                    decreaseItemCount = { /*TODO*/ },
-                    increaseItemCount = { /*TODO*/ }
+                    count = product.quantity,
+                    decreaseItemCount = {
+                        product.quantity = product.quantity + 1
+                        onDecreaseClick(product.code, product.quantity)
+                                        },
+                    increaseItemCount = {
+                        product.quantity = product.quantity - 1
+                        onIncreaseClick(product.code, product.quantity)
+                    }
                 )
             }
         }
@@ -145,14 +148,14 @@ private fun ProductImage(
 @Composable
 private fun PreviewProductItemView() {
     CabifyTheme {
-        val product = Product("VOUCHER","Cabify Coffee Mug", "20.0", "20.00 €","€","2 x 1", "https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
-        ProductItemView(
-            product = product,
-            index = 0,
-            gradient = CabifyTheme.colors.gradient6_1,
-            gradientWidth = gradientWidth,
-            scroll = 0
-        )
+//        val product = Product("VOUCHER","Cabify Coffee Mug", "20.0", "20.00 €","€","2 x 1", "https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
+//        ProductItemView(
+//            product = product,
+//            index = 0,
+//            gradient = CabifyTheme.colors.gradient6_1,
+//            gradientWidth = gradientWidth,
+//            scroll = 0
+//        )
     }
 }
 
