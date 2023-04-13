@@ -5,16 +5,14 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "order_item"/*,
-    indices = [Index(value = ["productId"], unique = true)]*/
-)
+@Entity(tableName = "order_item")
 data class OrderItemEntity(
     @PrimaryKey
     @ColumnInfo(name = "orderItemId")
     val productId: String,
 
     @ColumnInfo(name = "quantity")
-    var quantity: Int,
+    var quantity: Int = 0,
 
     @ColumnInfo(name = "subtotal")
     var subtotal: Double? = 0.0,

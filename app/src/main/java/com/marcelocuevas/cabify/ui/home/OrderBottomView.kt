@@ -22,7 +22,7 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 fun OrderContentView() {
     CabifyCard(
         Modifier
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 32.dp)
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp)
             .fillMaxSize(),
         color = CabifyTheme.colors.brand
     ) {

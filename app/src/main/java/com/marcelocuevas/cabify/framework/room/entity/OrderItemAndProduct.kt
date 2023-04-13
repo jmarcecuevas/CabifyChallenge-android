@@ -7,7 +7,7 @@ data class OrderItemAndProduct(
     @Embedded val orderItem: OrderItemEntity,
     @Relation(
         parentColumn = "orderItemId",
-        entityColumn = "orderItemId",
+        entityColumn = "orderOwnerItemId",
     )
-    val product: ProductEntity
+    val product: ProductEntity,
 )

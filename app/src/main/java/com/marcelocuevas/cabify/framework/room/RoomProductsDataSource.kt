@@ -22,6 +22,12 @@ class RoomProductsDataSource @Inject constructor(
         }
     }
 
+    override suspend fun isEmpty(): Boolean {
+        return withContext(Dispatchers.IO) {
+            productsDao.productsCount() <= 0
+        }
+    }
+
     override suspend fun saveProducts(products: List<Product>) {
         val entities = products.map { it.toEntity() }
         productsDao.saveProducts(entities)

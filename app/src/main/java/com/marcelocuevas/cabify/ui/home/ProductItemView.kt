@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
+import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
@@ -93,7 +94,7 @@ fun ProductItemView(
             Spacer(modifier = modifier.height(4.dp))
             Row(Modifier.padding(bottom = 16.dp)) {
                 Text(
-                    text = "${product.price}${product.currency}",
+                    text = "${product.price} ${product.currency}",
                     style = MaterialTheme.typography.subtitle2,
                     fontSize = 18.sp,
                     color = CabifyTheme.colors.textHelp,
@@ -104,11 +105,8 @@ fun ProductItemView(
                 QuantitySelector(
                     count = product.quantity,
                     decreaseItemCount = {
-                        product.quantity = product.quantity + 1
-                        onDecreaseClick(product.code, product.quantity)
-                                        },
+                        onDecreaseClick(product.code, product.quantity)},
                     increaseItemCount = {
-                        product.quantity = product.quantity - 1
                         onIncreaseClick(product.code, product.quantity)
                     }
                 )

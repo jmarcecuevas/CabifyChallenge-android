@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "product")
 data class ProductEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "productId")
     val code: String,
 
-    @ColumnInfo(name = "orderItemId")
-    val orderItemId: String?,
+    @ColumnInfo(name = "orderOwnerItemId")
+    val orderOwnerItemId: String?,
 
     @ColumnInfo(name = "name")
     var name: String,

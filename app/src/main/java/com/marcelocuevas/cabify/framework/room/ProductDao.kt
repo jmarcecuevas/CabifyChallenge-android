@@ -16,6 +16,9 @@ interface ProductDao {
     @Upsert
     suspend fun saveProducts(products: List<ProductEntity>)
 
-    @Query("UPDATE product SET orderItemId = :orderItemId WHERE productId = :productCode")
+    @Query("SELECT COUNT(*) from product")
+    fun productsCount(): Int
+
+    @Query("UPDATE product SET orderOwnerItemId = :orderItemId WHERE productId = :productCode")
     fun updateOrderIdInProduct(productCode: String, orderItemId: String): Int
 }

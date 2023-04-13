@@ -3,7 +3,6 @@ package com.marcelocuevas.cabify.di
 import android.content.Context
 import androidx.room.Room
 import com.marcelocuevas.cabify.framework.room.CabifyDatabase
-import com.marcelocuevas.cabify.framework.room.CartDao
 import com.marcelocuevas.cabify.framework.room.ProductDao
 import com.marcelocuevas.cabify.framework.room.entity.OrderDao
 import dagger.Module

@@ -1,18 +1,38 @@
 package com.marcelocuevas.cabify.framework.room.entity
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.Upsert
+import androidx.room.*
+import com.marcelocuevas.cabify.data.model.Product
 import kotlinx.coroutines.flow.Flow
+
 
 @Dao
 interface OrderDao {
-//    //Get all line item in along with its product
-//    @Transaction
-//    @Query("SELECT * FROM line_items ")
-//    fun getAlOrders(): Flow<List<OrderItemAndProduct>>
+
+    @Transaction
+    @Query("SELECT * FROM order_item")
+    fun getAllOrderItems(): Flow<List<OrderItemAndProduct>>
 
     @Upsert
-    fun upsertOrder(orderItem: OrderItemEntity): Long
+    fun upsertOrder(orderItem: OrderItemEntity)
+
+    @Query("UPDATE product SET orderOwnerItemId = :orderItemId WHERE productId = :productCode")
+    fun updateOrderIdInProduct(productCode: String, orderItemId: String?)
+
+    @Transaction
+    fun todo(orderItem: OrderItemEntity) {
+        upsertOrder(orderItem)
+        updateOrderIdInProduct(orderItem.productId, orderItem.productId)
+    }
+
+    @Query("DELETE FROM order_item WHERE orderItemId = :code")
+    fun deleteOrderItem(code: String)
+
+    @Transaction
+    fun algo(code: String) {
+        deleteOrderItem(code)
+        updateOrderIdInProduct(code, null)
+    }
+
+//    @Query("SELECT *, (SELECT sum(spent_table.amount)  FROM spent_table WHERE spent_table.accountId = a.id) AS sumOfSpent   FROM account_table AS a")
+
 }

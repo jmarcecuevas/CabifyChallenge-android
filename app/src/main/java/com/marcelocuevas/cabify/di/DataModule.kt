@@ -10,7 +10,6 @@ import com.marcelocuevas.cabify.data.repository.CartRepository
 import com.marcelocuevas.cabify.data.repository.CartRepositoryImp
 import com.marcelocuevas.cabify.data.repository.OfflineFirstProductsRepository
 import com.marcelocuevas.cabify.data.repository.ProductsRepository
-import com.marcelocuevas.cabify.framework.room.CartDao
 import com.marcelocuevas.cabify.framework.room.ProductDao
 import com.marcelocuevas.cabify.framework.room.RoomOrderDataSource
 import com.marcelocuevas.cabify.framework.room.RoomProductsDataSource
@@ -49,8 +48,7 @@ class DataModule {
 
     @Provides
     fun provideCartRepository(
-        productsDataSource: LocalProductsDataSource,
         orderDataSource: OrderDataSource
     ): CartRepository =
-        CartRepositoryImp(productsDataSource, orderDataSource)
+        CartRepositoryImp(orderDataSource)
 }

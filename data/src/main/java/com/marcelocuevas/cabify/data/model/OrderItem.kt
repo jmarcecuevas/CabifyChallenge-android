@@ -2,6 +2,6 @@ package com.marcelocuevas.cabify.data.model
 
 data class OrderItem(
     val productId: String,
-    var quantity: Int,
+    var quantity: Int = 0,
     var subtotal: Double? = 0.0,
 )
