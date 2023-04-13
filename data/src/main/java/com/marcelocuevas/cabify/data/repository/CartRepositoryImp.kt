@@ -4,6 +4,8 @@ import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 
 class CartRepositoryImp(
     private val orderDataSource: OrderDataSource
@@ -18,7 +20,12 @@ class CartRepositoryImp(
     }
 
     override fun getOrderItems(): Flow<List<OrderItemAndProduct>> {
-        return orderDataSource.getOrderItems()
+        return orderDataSource.getOrderItems().onEach {
+            it.map {
+                it.total = 2.0
+            }
+        }
+
     }
 
     override suspend fun deleteOrderItem(code: String) {
