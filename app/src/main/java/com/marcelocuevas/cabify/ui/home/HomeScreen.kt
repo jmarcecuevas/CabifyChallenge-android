@@ -60,16 +60,10 @@ private fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
-
-    if (uiState is HomeUiState.Success) {
-        LaunchedEffect(uiState) {
-            if (uiState.shouldShowOrdersBottomSheet && bottomSheetScaffoldState.bottomSheetState.isCollapsed) {
-                bottomSheetScaffoldState.bottomSheetState.expand()
-            } else if (!uiState.shouldShowOrdersBottomSheet && bottomSheetScaffoldState.bottomSheetState.isExpanded) {
-                bottomSheetScaffoldState.bottomSheetState.collapse()
-            }
-        }
-    }
+    HandleBottomSheetState(
+        uiState = uiState,
+        bottomSheetState = bottomSheetScaffoldState
+    )
 
     BottomSheetScaffold(
         modifier = Modifier.fillMaxSize(),
@@ -79,7 +73,9 @@ private fun HomeScreen(
         topBar = { CabifyTopAppBar() },
         sheetContent = {
             SheetContentCollapsed {
-                OrderContentView()
+                if (uiState is HomeUiState.Success) {
+                    OrderContentView(uiState)
+                }
             }
         },
         sheetPeekHeight = sheetPeekHeight,
@@ -91,6 +87,30 @@ private fun HomeScreen(
             onIncreaseClick = onIncreaseClick,
             onDecreaseClick = onDecreaseClick
         )
+    }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+private fun HandleBottomSheetState(
+    uiState: HomeUiState,
+    bottomSheetState: BottomSheetScaffoldState
+) {
+    if (uiState is HomeUiState.Success) {
+        LaunchedEffect(uiState) {
+            when (uiState.shouldShowOrdersBottomSheet) {
+                true -> {
+                    if (bottomSheetState.bottomSheetState.isCollapsed) {
+                        bottomSheetState.bottomSheetState.expand()
+                    }
+                }
+                false -> {
+                    if (bottomSheetState.bottomSheetState.isExpanded) {
+                        bottomSheetState.bottomSheetState.collapse()
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -142,7 +162,7 @@ private fun ProductsGrid(
                         onIncreaseClick = onIncreaseClick,
                         onDecreaseClick = onDecreaseClick,
                         index = 0,
-                        gradient = CabifyTheme.colors.gradient6_1,
+                        gradient = CabifyTheme.colors.gradient3_1,
                         gradientWidth = gradientWidth ,
                         scroll = 0
                     )

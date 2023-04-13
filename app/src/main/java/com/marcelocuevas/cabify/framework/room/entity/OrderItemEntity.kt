@@ -13,7 +13,4 @@ data class OrderItemEntity(
 
     @ColumnInfo(name = "quantity")
     var quantity: Int = 0,
-
-    @ColumnInfo(name = "subtotal")
-    var subtotal: Double? = 0.0,
 )

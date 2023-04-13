@@ -7,7 +7,7 @@ import com.marcelocuevas.cabify.framework.room.entity.OrderDao
 import com.marcelocuevas.cabify.framework.room.entity.OrderItemEntity
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 
-private const val DATABASE_VERSION = 2
+private const val DATABASE_VERSION = 3
 
 @Database(
     entities = [ProductEntity::class, OrderItemEntity::class],

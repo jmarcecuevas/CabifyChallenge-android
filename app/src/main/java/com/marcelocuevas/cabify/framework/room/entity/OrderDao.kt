@@ -9,8 +9,9 @@ import kotlinx.coroutines.flow.Flow
 interface OrderDao {
 
     @Transaction
-    @Query("SELECT * FROM order_item")
+    @Query("SELECT *, (i.quantity * p.price) as subtotal FROM order_item i INNER JOIN product p ON p.productId == i.orderItemId")
     fun getAllOrderItems(): Flow<List<OrderItemAndProduct>>
+
 
     @Upsert
     fun upsertOrder(orderItem: OrderItemEntity)
@@ -32,7 +33,5 @@ interface OrderDao {
         deleteOrderItem(code)
         updateOrderIdInProduct(code, null)
     }
-
-//    @Query("SELECT *, (SELECT sum(spent_table.amount)  FROM spent_table WHERE spent_table.accountId = a.id) AS sumOfSpent   FROM account_table AS a")
 
 }

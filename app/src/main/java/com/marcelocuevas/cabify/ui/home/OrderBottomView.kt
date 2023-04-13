@@ -3,13 +3,10 @@ package com.marcelocuevas.cabify.ui.home
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AddShoppingCart
 import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,10 +16,12 @@ import com.marcelocuevas.cabify.ui.components.CabifyCard
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 @Composable
-fun OrderContentView() {
+fun OrderContentView(
+    uiState: HomeUiState.Success
+) {
     CabifyCard(
         Modifier
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp)
+            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
             .fillMaxSize(),
         color = CabifyTheme.colors.brand
     ) {
@@ -39,7 +38,7 @@ fun OrderContentView() {
                 modifier = Modifier.align(Alignment.Center)
             )
             Text(
-                text = "45.00 €",
+                text = "${uiState.subtotal} €",
                 color = CabifyTheme.colors.textInteractive,
                 style = MaterialTheme.typography.caption,
                 fontSize = 16.sp,
@@ -50,10 +49,9 @@ fun OrderContentView() {
                 modifier = Modifier.align(Alignment.CenterStart),
                 badge = {
                     Badge(
-                        modifier = Modifier.offset(y=10.dp),
                         backgroundColor = CabifyTheme.colors.brandSecondary
                     ){
-                        val badgeNumber = "2"
+                        val badgeNumber = uiState.qtyItemsAdded.toString()
                         Text(
                             badgeNumber,
                             modifier = Modifier.semantics {
@@ -75,5 +73,5 @@ fun OrderContentView() {
 @Preview
 @Composable
 fun Preview() {
-    OrderContentView()
+    //OrderContentView()
 }
