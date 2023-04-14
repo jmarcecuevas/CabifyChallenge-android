@@ -56,7 +56,7 @@ fun OrderContentView(
                 text = "${uiState.subtotal} €",
                 color = CabifyTheme.colors.textInteractive,
                 style = MaterialTheme.typography.caption,
-                fontSize = 16.sp,
+                fontSize = 18.sp,
                 modifier = Modifier.align(Alignment.CenterEnd)
             )
 
