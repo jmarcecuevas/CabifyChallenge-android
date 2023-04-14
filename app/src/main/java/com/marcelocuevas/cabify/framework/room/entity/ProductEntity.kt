@@ -23,5 +23,8 @@ data class ProductEntity(
     var promotionDescription: String,
 
     @ColumnInfo("imageUrl")
-    val imageUrl: String
+    val imageUrl: String,
+
+    @ColumnInfo("quantity")
+    val quantity: Int = 0
 )

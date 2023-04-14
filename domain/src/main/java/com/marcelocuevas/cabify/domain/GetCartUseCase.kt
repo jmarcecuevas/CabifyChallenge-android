@@ -1,13 +1,12 @@
 package com.marcelocuevas.cabify.domain
 
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
-import com.marcelocuevas.cabify.data.repository.CartRepository
+import com.marcelocuevas.cabify.data.repository.OrdersRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetCartUseCase @Inject constructor(
-    private val repository: CartRepository
+    private val repository: OrdersRepository
 ) {
 
     operator fun invoke(): Flow<List<OrderItemAndProduct>> {

@@ -2,8 +2,7 @@ package com.marcelocuevas.cabify.framework.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.marcelocuevas.cabify.data.model.OrderItem
-import com.marcelocuevas.cabify.framework.room.entity.OrderDao
+import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
 import com.marcelocuevas.cabify.framework.room.entity.OrderItemEntity
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 
@@ -17,5 +16,5 @@ abstract class CabifyDatabase : RoomDatabase() {
 
     abstract fun productDao(): ProductDao
 
-    abstract fun orderDao(): OrderDao
+    abstract fun orderDao(): OrderProductsDao
 }

@@ -1,17 +1,25 @@
 package com.marcelocuevas.cabify.ui.home
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material.BadgedBox
+import androidx.compose.material.Icon
+import androidx.compose.material.Badge
+import androidx.compose.material.Text
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.ui.components.CabifyCard
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
@@ -19,19 +27,26 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 fun OrderContentView(
     uiState: HomeUiState.Success
 ) {
+    val defaultPadding = dimensionResource(id = R.dimen.padding_default)
+    val noPadding = dimensionResource(id = R.dimen.no_padding)
     CabifyCard(
         Modifier
-            .padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 0.dp)
+            .padding(
+                start = defaultPadding,
+                top = defaultPadding,
+                end = defaultPadding,
+                bottom = noPadding
+            )
             .fillMaxSize(),
         color = CabifyTheme.colors.brand
     ) {
         Box(
             Modifier
                 .fillMaxSize()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = defaultPadding, end = defaultPadding)
         ) {
             Text(
-                text = "Ver mi pedido",
+                text = stringResource(id = R.string.see_orders_label),
                 color = CabifyTheme.colors.textInteractive,
                 style = MaterialTheme.typography.subtitle2,
                 fontSize = 16.sp,
@@ -55,7 +70,7 @@ fun OrderContentView(
                         Text(
                             badgeNumber,
                             modifier = Modifier.semantics {
-                                contentDescription = " new shopping cart"
+                                contentDescription = "New shopping cart"
                             }
                         )
                     }

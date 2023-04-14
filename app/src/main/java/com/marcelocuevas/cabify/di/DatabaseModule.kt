@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.marcelocuevas.cabify.framework.room.CabifyDatabase
 import com.marcelocuevas.cabify.framework.room.ProductDao
-import com.marcelocuevas.cabify.framework.room.entity.OrderDao
+import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,7 +38,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideOrderDao(database: CabifyDatabase): OrderDao {
+    fun provideOrderDao(database: CabifyDatabase): OrderProductsDao {
         return database.orderDao()
     }
 }

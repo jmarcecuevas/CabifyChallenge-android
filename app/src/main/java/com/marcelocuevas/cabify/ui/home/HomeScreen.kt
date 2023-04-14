@@ -27,8 +27,10 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.res.dimensionResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.CabifyTopAppBar
 import com.marcelocuevas.cabify.ui.components.bottomsheet.SheetContentCollapsed
@@ -85,10 +87,11 @@ private fun HomeScreen(
         bottomSheetState = bottomSheetScaffoldState
     )
 
+    val sheetElevation = dimensionResource(id = R.dimen.sheet_elevation)
     BottomSheetScaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = CabifyTheme.colors.uiBackground,
-        sheetElevation = 16.dp,
+        sheetElevation = sheetElevation,
         sheetGesturesEnabled = false,
         topBar = { CabifyTopAppBar() },
         sheetContent = {
@@ -146,8 +149,9 @@ private fun HomeContent(
     modifier: Modifier = Modifier
 
 ) {
+    val defaultPadding = dimensionResource(R.dimen.padding_default)
     CabifySurface(modifier = modifier.fillMaxWidth()) {
-        Box(modifier = modifier.padding(16.dp)) {
+        Box(modifier = modifier.padding(defaultPadding)) {
             ProductsGrid(
                 uiState = uiState,
                 isRefreshing = isRefreshing,
@@ -181,7 +185,7 @@ private fun ProductsGrid(
                     horizontalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     items(uiState.products) {
-                        ProductItemView(
+                        ProductItem(
                             product = it,
                             onIncreaseClick = onIncreaseClick,
                             onDecreaseClick = onDecreaseClick,

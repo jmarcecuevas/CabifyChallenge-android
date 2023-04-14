@@ -18,7 +18,8 @@ fun Product.toEntity() = ProductEntity(
     orderOwnerItemId = orderItemId,
     price = price,
     promotionDescription = promotionDescription,
-    imageUrl = imageUrl
+    imageUrl = imageUrl,
+    quantity = quantity
 )
 
 fun ProductEntity.toDataModel() = Product(
@@ -27,7 +28,8 @@ fun ProductEntity.toDataModel() = Product(
     orderItemId = orderOwnerItemId,
     price = price,
     promotionDescription = promotionDescription,
-    imageUrl = imageUrl
+    imageUrl = imageUrl,
+    quantity = quantity
 )
 
 fun OrderItemEntity.toDataModel() = OrderItem(

@@ -6,14 +6,14 @@ import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.NetworkProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
 import com.marcelocuevas.cabify.data.mapper.makeProductDtoMapper
-import com.marcelocuevas.cabify.data.repository.CartRepository
-import com.marcelocuevas.cabify.data.repository.CartRepositoryImp
+import com.marcelocuevas.cabify.data.repository.OrdersRepository
+import com.marcelocuevas.cabify.data.repository.OrdersRepositoryImp
 import com.marcelocuevas.cabify.data.repository.OfflineFirstProductsRepository
 import com.marcelocuevas.cabify.data.repository.ProductsRepository
 import com.marcelocuevas.cabify.framework.room.ProductDao
 import com.marcelocuevas.cabify.framework.room.RoomOrderDataSource
 import com.marcelocuevas.cabify.framework.room.RoomProductsDataSource
-import com.marcelocuevas.cabify.framework.room.entity.OrderDao
+import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,8 +32,8 @@ class DataModule {
         RoomProductsDataSource(productsDao)
 
     @Provides
-    fun provideOrderDataSource(dao: OrderDao): OrderDataSource =
-        RoomOrderDataSource(dao)
+    fun provideOrderDataSource(orderDao: OrderProductsDao): OrderDataSource =
+        RoomOrderDataSource(orderDao)
 
     @Provides
     fun provideProductsRepository(
@@ -49,6 +49,6 @@ class DataModule {
     @Provides
     fun provideCartRepository(
         orderDataSource: OrderDataSource
-    ): CartRepository =
-        CartRepositoryImp(orderDataSource)
+    ): OrdersRepository =
+        OrdersRepositoryImp(orderDataSource)
 }

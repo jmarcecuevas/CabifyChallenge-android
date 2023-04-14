@@ -3,8 +3,7 @@ package com.marcelocuevas.cabify.data.repository
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import kotlinx.coroutines.flow.Flow
 
-
-interface CartRepository {
+interface OrdersRepository {
 
       suspend fun upsertOrderItem(productId: String, quantity: Int)
 

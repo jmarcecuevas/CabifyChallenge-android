@@ -4,12 +4,12 @@ import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
 
-class CartRepositoryImp(
+class OrdersRepositoryImp @Inject constructor(
     private val orderDataSource: OrderDataSource
-): CartRepository {
+): OrdersRepository {
 
     override suspend fun upsertOrderItem(productId: String, quantity: Int) {
         val orderItem = OrderItem(
@@ -25,7 +25,6 @@ class CartRepositoryImp(
                 it.total = 2.0
             }
         }
-
     }
 
     override suspend fun deleteOrderItem(code: String) {

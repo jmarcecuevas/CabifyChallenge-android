@@ -1,17 +1,26 @@
 package com.marcelocuevas.cabify.ui.home
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.Text
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,7 +30,6 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
-import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
@@ -29,15 +37,8 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 private val CardWidth = 170.dp
 private val CardPadding = 16.dp
 
-// The Cards show a gradient which spans 3 cards and scrolls with parallax.
-private val gradientWidth
-    @Composable
-    get() = with(LocalDensity.current) {
-        (3 * (CardWidth + CardPadding).toPx())
-    }
-
 @Composable
-fun ProductItemView(
+fun ProductItem(
     product: Product,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
@@ -50,16 +51,15 @@ fun ProductItemView(
     val left = index * with(LocalDensity.current) {
         (CardWidth + CardPadding).toPx()
     }
+    val defaultPadding = dimensionResource(id = R.dimen.padding_default)
     CabifyCard(
         modifier = modifier
-            //.size(width = 170.dp, height = 325.dp)
-            //.height(325.dp)
-            .padding(bottom = 16.dp)
+            .padding(bottom = defaultPadding)
     ) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(start = 16.dp, end = 16.dp)
+                .padding(start = defaultPadding, end = defaultPadding)
 
         ) {
             Box(
@@ -89,17 +89,17 @@ fun ProductItemView(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h6,
                 color = CabifyTheme.colors.textSecondary,
-                modifier = modifier.padding(horizontal = 16.dp)
+                modifier = modifier.padding(horizontal = defaultPadding)
             )
             Spacer(modifier = modifier.height(4.dp))
-            Row(Modifier.padding(bottom = 16.dp)) {
+            Row(Modifier.padding(bottom = defaultPadding)) {
                 Text(
                     text = "${product.price} ${product.currency}",
                     style = MaterialTheme.typography.subtitle2,
                     fontSize = 18.sp,
                     color = CabifyTheme.colors.textHelp,
                     modifier = modifier
-                        .padding(horizontal = 16.dp)
+                        .padding(horizontal = defaultPadding)
                         .weight(1f)
                 )
                 QuantitySelector(
