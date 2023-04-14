@@ -2,25 +2,31 @@ package com.marcelocuevas.cabify.ui.home
 
 import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.padding
 
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.BottomSheetScaffoldState
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.PullRefreshState
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.runtime.*
+import androidx.compose.material.rememberBottomSheetScaffoldState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.marcelocuevas.cabify.ui.components.CabifySurface
@@ -80,7 +86,7 @@ private fun HomeScreen(
     )
 
     BottomSheetScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         backgroundColor = CabifyTheme.colors.uiBackground,
         sheetElevation = 16.dp,
         sheetGesturesEnabled = false,
@@ -99,7 +105,6 @@ private fun HomeScreen(
             uiState = uiState,
             isRefreshing = isRefreshing,
             pullRefreshState = pullRefreshState,
-            bottomSheetState = bottomSheetScaffoldState,
             onIncreaseClick = onIncreaseClick,
             onDecreaseClick = onDecreaseClick
         )
@@ -136,7 +141,6 @@ private fun HomeContent(
     uiState: HomeUiState,
     isRefreshing: Boolean,
     pullRefreshState: PullRefreshState,
-    bottomSheetState: BottomSheetScaffoldState,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -164,7 +168,6 @@ private fun ProductsGrid(
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
 ){
-
     when (uiState) {
         is HomeUiState.Loading -> {
 
@@ -205,8 +208,6 @@ private fun ProductsGrid(
 @Composable
 fun PreviewHomeScreen() {
     CabifyTheme {
-        //HomeScreen()
+        HomeRoute()
     }
 }
-
-
