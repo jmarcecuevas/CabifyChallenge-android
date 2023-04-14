@@ -9,8 +9,6 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
@@ -36,7 +34,8 @@ private val sheetPeekHeight = 0.dp
 @Composable
 fun HomeRoute(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onOrderButtonClick: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     HomeScreen(
@@ -47,6 +46,7 @@ fun HomeRoute(
         onDecreaseClick = { productId, quantity ->
             viewModel.onDecreaseItemCount(productId, quantity)
         },
+        onOrderButtonClick = onOrderButtonClick,
         modifier = modifier
     )
 }
@@ -57,6 +57,7 @@ private fun HomeScreen(
     uiState: HomeUiState,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
+    onOrderButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
@@ -66,7 +67,7 @@ private fun HomeScreen(
     )
 
     BottomSheetScaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         backgroundColor = CabifyTheme.colors.uiBackground,
         sheetElevation = 16.dp,
         sheetGesturesEnabled = false,
@@ -74,7 +75,10 @@ private fun HomeScreen(
         sheetContent = {
             SheetContentCollapsed {
                 if (uiState is HomeUiState.Success) {
-                    OrderContentView(uiState)
+                    OrderContentView(
+                        uiState = uiState,
+                        onOrderButtonClick = onOrderButtonClick
+                    )
                 }
             }
         },

@@ -1,5 +1,6 @@
 package com.marcelocuevas.cabify.ui.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -17,7 +18,8 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 @Composable
 fun OrderContentView(
-    uiState: HomeUiState.Success
+    uiState: HomeUiState.Success,
+    onOrderButtonClick: () -> Unit
 ) {
     CabifyCard(
         Modifier
@@ -29,6 +31,7 @@ fun OrderContentView(
             Modifier
                 .fillMaxSize()
                 .padding(start = 16.dp, end = 16.dp)
+                .clickable { onOrderButtonClick() }
         ) {
             Text(
                 text = "Ver mi pedido",

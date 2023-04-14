@@ -4,7 +4,6 @@ import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 
 class CartRepositoryImp(
@@ -25,7 +24,6 @@ class CartRepositoryImp(
                 it.total = 2.0
             }
         }
-
     }
 
     override suspend fun deleteOrderItem(code: String) {
