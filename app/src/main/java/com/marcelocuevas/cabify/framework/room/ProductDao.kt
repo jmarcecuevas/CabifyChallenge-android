@@ -1,9 +1,6 @@
 package com.marcelocuevas.cabify.framework.room
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Update
-import androidx.room.Upsert
+import androidx.room.*
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -14,11 +11,14 @@ interface ProductDao {
     fun getProductsStream(): Flow<List<ProductEntity>>
 
     @Upsert
-    suspend fun saveProducts(products: List<ProductEntity>)
+    suspend fun upsertProducts(products: List<ProductEntity>)
 
-    @Query("SELECT COUNT(*) from product")
-    fun productsCount(): Int
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertProductsIfNotExist(products: List<ProductEntity>)
 
     @Query("UPDATE product SET orderOwnerItemId = :orderItemId WHERE productId = :productCode")
     fun updateOrderIdInProduct(productCode: String, orderItemId: String): Int
+
+    @Query("SELECT COUNT(*) from product")
+    fun productsCount(): Int
 }

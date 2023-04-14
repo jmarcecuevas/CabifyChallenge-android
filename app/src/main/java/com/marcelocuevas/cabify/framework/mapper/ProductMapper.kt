@@ -42,13 +42,13 @@ fun OrderItem.toEntity() = OrderItemEntity(
 
 fun OrderItemAndProductEntity.toDataModel() = OrderItemAndProduct(
     orderItem = orderItem.toDataModel(),
-    product = product.toDataModel(),
+    product = product?.toDataModel(),
     subtotal = subtotal
 )
 
 fun OrderItemAndProduct.toDataModel() = OrderItemAndProductEntity(
     orderItem = orderItem.toEntity(),
-    product = product!!.toEntity(),
+    product = product?.toEntity(),
     subtotal = subtotal
 )
 

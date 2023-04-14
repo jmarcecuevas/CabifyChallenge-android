@@ -28,9 +28,15 @@ class RoomProductsDataSource @Inject constructor(
         }
     }
 
-    override suspend fun saveProducts(products: List<Product>) {
+    override suspend fun upsertProducts(products: List<Product>) {
         val entities = products.map { it.toEntity() }
-        productsDao.saveProducts(entities)
+        productsDao.upsertProducts(entities)
+    }
+
+    override suspend fun insertProductsIfNotExist(products: List<Product>) {
+        withContext(Dispatchers.IO) {
+            productsDao.insertProductsIfNotExist(products.map { it.toEntity() })
+        }
     }
 
     override suspend fun updateOrderIdInProduct(productCode: String, orderItemId: String) {

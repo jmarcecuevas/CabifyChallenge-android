@@ -9,7 +9,9 @@ interface LocalProductsDataSource {
 
     suspend fun isEmpty(): Boolean
 
-    suspend fun saveProducts(products: List<Product>)
+    suspend fun upsertProducts(products: List<Product>)
+
+    suspend fun insertProductsIfNotExist(products: List<Product>)
 
     suspend fun updateOrderIdInProduct(productCode: String, orderItemId: String)
 }

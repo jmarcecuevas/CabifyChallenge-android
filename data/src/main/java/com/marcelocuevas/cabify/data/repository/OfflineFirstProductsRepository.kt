@@ -15,9 +15,14 @@ class OfflineFirstProductsRepository @Inject constructor(
 
     override suspend fun getProducts(): Flow<List<Product>> {
         if (localDataSource.isEmpty()) {
-            saveProducts(getProductsFromRemote())
+            upsertProducts(getProductsFromRemote())
         }
         return localDataSource.getProductsStream()
+    }
+
+    override suspend fun refreshProducts() {
+        val products = getProductsFromRemote()
+        insertProductsIfNotExist(products)
     }
 
     private suspend fun getProductsFromRemote(): List<Product> {
@@ -25,7 +30,11 @@ class OfflineFirstProductsRepository @Inject constructor(
             .products!!.map { mapper(it) }
     }
 
-    private suspend fun saveProducts(products: List<Product>) {
-        localDataSource.saveProducts(products)
+    private suspend fun upsertProducts(products: List<Product>) {
+        localDataSource.upsertProducts(products)
+    }
+
+    private suspend fun insertProductsIfNotExist(products: List<Product>) {
+        localDataSource.insertProductsIfNotExist(products)
     }
 }

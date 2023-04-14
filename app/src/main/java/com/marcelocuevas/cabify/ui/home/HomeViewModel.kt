@@ -2,10 +2,7 @@ package com.marcelocuevas.cabify.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marcelocuevas.cabify.domain.GetProductsUseCase
-import com.marcelocuevas.cabify.domain.DeleteFromCartUseCase
-import com.marcelocuevas.cabify.domain.GetCartUseCase
-import com.marcelocuevas.cabify.domain.UpdateCartUseCase
+import com.marcelocuevas.cabify.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -17,10 +14,15 @@ class HomeViewModel @Inject constructor(
     private val getCart: GetCartUseCase,
     private val updateCart: UpdateCartUseCase,
     private val deleteFromCart: DeleteFromCartUseCase,
+    private val refreshProducts: RefreshProductsUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState = _uiState.asStateFlow()
+
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean>
+        get() = _isRefreshing
 
     init {
         getProducts()
@@ -40,6 +42,14 @@ class HomeViewModel @Inject constructor(
             }.collect {
                 _uiState.value = it
             }
+        }
+    }
+
+    fun refresh() {
+        viewModelScope.launch {
+            _isRefreshing.value = true
+            refreshProducts.invoke()
+            _isRefreshing.value = false
         }
     }
 

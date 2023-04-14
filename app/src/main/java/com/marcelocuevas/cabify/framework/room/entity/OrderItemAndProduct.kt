@@ -9,6 +9,6 @@ data class OrderItemAndProduct(
         parentColumn = "orderItemId",
         entityColumn = "orderOwnerItemId",
     )
-    val product: ProductEntity,
+    val product: ProductEntity?,
     val subtotal: Double
 )

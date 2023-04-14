@@ -11,7 +11,12 @@ import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
+import androidx.compose.material.pullrefresh.PullRefreshState
+import androidx.compose.material.pullrefresh.pullRefresh
+import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,14 +38,21 @@ private val HighlightCardWidth = 170.dp
 private val HighlightCardPadding = 16.dp
 private val sheetPeekHeight = 0.dp
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
+    val pullRefreshState = rememberPullRefreshState(
+        isRefreshing, { viewModel.refresh() })
+
     HomeScreen(
         uiState = uiState,
+        isRefreshing = isRefreshing,
+        pullRefreshState = pullRefreshState,
         onIncreaseClick = { productId, quantity ->
             viewModel.onIncreaseItemClicked(productId, quantity)
         },
@@ -55,6 +67,8 @@ fun HomeRoute(
 @Composable
 private fun HomeScreen(
     uiState: HomeUiState,
+    isRefreshing: Boolean,
+    pullRefreshState: PullRefreshState,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -83,6 +97,8 @@ private fun HomeScreen(
     ) {
         HomeContent(
             uiState = uiState,
+            isRefreshing = isRefreshing,
+            pullRefreshState = pullRefreshState,
             bottomSheetState = bottomSheetScaffoldState,
             onIncreaseClick = onIncreaseClick,
             onDecreaseClick = onDecreaseClick
@@ -118,6 +134,8 @@ private fun HandleBottomSheetState(
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
+    isRefreshing: Boolean,
+    pullRefreshState: PullRefreshState,
     bottomSheetState: BottomSheetScaffoldState,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
@@ -128,8 +146,8 @@ private fun HomeContent(
         Box(modifier = modifier.padding(16.dp)) {
             ProductsGrid(
                 uiState = uiState,
-                bottomSheetState = bottomSheetState,
-                modifier = modifier,
+                isRefreshing = isRefreshing,
+                pullRefreshState = pullRefreshState,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick
             )
@@ -141,32 +159,42 @@ private fun HomeContent(
 @Composable
 private fun ProductsGrid(
     uiState: HomeUiState,
-    bottomSheetState: BottomSheetScaffoldState,
+    isRefreshing: Boolean,
+    pullRefreshState: PullRefreshState,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
-    modifier: Modifier = Modifier
 ){
-    val coroutineScope = rememberCoroutineScope()
+
     when (uiState) {
         is HomeUiState.Loading -> {
-            print("asd")
+
         }
         is HomeUiState.Success -> {
-            LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Adaptive(170.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            Box(
+                Modifier.pullRefresh(pullRefreshState)
             ) {
-                items(uiState.products) {
-                    ProductItemView(
-                        product = it,
-                        onIncreaseClick = onIncreaseClick,
-                        onDecreaseClick = onDecreaseClick,
-                        index = 0,
-                        gradient = CabifyTheme.colors.gradient3_1,
-                        gradientWidth = gradientWidth ,
-                        scroll = 0
-                    )
+                LazyVerticalStaggeredGrid(
+                    columns = StaggeredGridCells.Adaptive(170.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(uiState.products) {
+                        ProductItemView(
+                            product = it,
+                            onIncreaseClick = onIncreaseClick,
+                            onDecreaseClick = onDecreaseClick,
+                            index = 0,
+                            gradient = CabifyTheme.colors.gradient3_1,
+                            gradientWidth = gradientWidth ,
+                            scroll = 0
+                        )
+                    }
                 }
+                PullRefreshIndicator(
+                    refreshing = isRefreshing,
+                    state = pullRefreshState,
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    backgroundColor = CabifyTheme.colors.uiBackground
+                )
             }
         }
     }
