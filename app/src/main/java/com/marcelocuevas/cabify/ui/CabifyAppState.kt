@@ -8,8 +8,8 @@ import androidx.navigation.compose.rememberNavController
 
 sealed class Screen(val route: String) {
     object Home : Screen("home")
-    object Cart : Screen("cart/{cart_id}") {
-        fun createRoute(cart_id: String) = "cart/$cart_id"
+    object OrderDetail : Screen("orderDetail") {
+        //fun createRoute(order_id: String) = "order"
     }
 }
 

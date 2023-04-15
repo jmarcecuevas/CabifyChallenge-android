@@ -8,6 +8,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Badge
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
@@ -25,7 +26,8 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 @Composable
 fun OrderContentView(
-    uiState: HomeUiState.Success
+    uiState: HomeUiState.Success,
+    onOrderButtonClick: () -> Unit
 ) {
     val defaultPadding = dimensionResource(id = R.dimen.padding_default)
     val noPadding = dimensionResource(id = R.dimen.no_padding)
@@ -44,6 +46,7 @@ fun OrderContentView(
             Modifier
                 .fillMaxSize()
                 .padding(start = defaultPadding, end = defaultPadding)
+                .clickable { onOrderButtonClick() }
         ) {
             Text(
                 text = stringResource(id = R.string.see_orders_label),
