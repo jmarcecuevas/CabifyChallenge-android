@@ -74,9 +74,7 @@ fun HomeRoute(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class,
-    ExperimentalCoroutinesApi::class
-)
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 private fun HomeScreen(
     uiState: HomeUiState,
