@@ -40,11 +40,8 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.ui.components.*
-import com.marcelocuevas.cabify.ui.theme.AlphaNearOpaque
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.R
 
@@ -66,7 +63,7 @@ fun OrdersRoute(
 @Composable
 private fun OrderScreen(
     orders: List<OrderItemAndProduct>,
-    removeProduct: (Long) -> Unit,
+    removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -89,7 +86,7 @@ private fun OrderScreen(
 @Composable
 private fun OrderContent(
     orders: List<OrderItemAndProduct>,
-    removeProduct: (Long) -> Unit,
+    removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier

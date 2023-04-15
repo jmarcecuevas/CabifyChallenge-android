@@ -2,8 +2,12 @@ package com.marcelocuevas.cabify.ui.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_QUANTITY
+import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_QUANTITY
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
+import com.marcelocuevas.cabify.domain.DeleteFromCartUseCase
 import com.marcelocuevas.cabify.domain.GetCartUseCase
+import com.marcelocuevas.cabify.domain.UpdateCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val getOrders: GetCartUseCase
+    private val getOrders: GetCartUseCase,
+    private val updateCart: UpdateCartUseCase,
+    private val deleteFromCart: DeleteFromCartUseCase
 ): ViewModel() {
 
     val orders: StateFlow<List<OrderItemAndProduct>> =
@@ -26,23 +32,20 @@ class OrdersViewModel @Inject constructor(
                 initialValue = emptyList()
             )
 
-    fun removeOrder(code: Long) {
-
+    fun removeOrder(code: String) {
+        viewModelScope.launch {
+            deleteFromCart.invoke(code)
+        }
     }
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            //updateCart.invoke(code, quantity = currentQuantity + 1)
+            updateCart.invoke(code, currentQuantity, INCREASE_QUANTITY)
         }
 
     fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            if (currentQuantity > 0) {
-                //updateCart.invoke(code, quantity = currentQuantity - 1)
-                if (currentQuantity == 1) {
-                    //deleteFromCart.invoke(code)
-                }
-            }
+            updateCart.invoke(code, currentQuantity, DECREASE_QUANTITY)
         }
     }
 }

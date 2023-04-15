@@ -16,7 +16,6 @@ class HomeViewModel @Inject constructor(
     private val getProducts: GetProductsUseCase,
     private val getCart: GetCartUseCase,
     private val updateCart: UpdateCartUseCase,
-    private val deleteFromCart: DeleteFromCartUseCase,
     private val refreshProducts: RefreshProductsUseCase
 ) : ViewModel() {
 
@@ -58,17 +57,12 @@ class HomeViewModel @Inject constructor(
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            updateCart.invoke(code, quantity = currentQuantity + 1)
+            updateCart.invoke(code, currentQuantity, OrderAction.INCREASE_QUANTITY)
         }
 
-    fun onDecreaseItemCount(code: String, currentQuantity: Int) {
+    fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            if (currentQuantity > 0) {
-                updateCart.invoke(code, quantity = currentQuantity - 1)
-                if (currentQuantity == 1) {
-                    deleteFromCart.invoke(code)
-                }
-            }
+            updateCart.invoke(code, currentQuantity, OrderAction.DECREASE_QUANTITY)
         }
     }
 }

@@ -30,6 +30,7 @@ interface OrderProductsDao {
     fun deleteOrderAndUpdateProductTransaction(code: String) {
         deleteOrderItem(code)
         updateOrderParentInProduct(code, null)
+        updateQuantityInProduct(code, 0)
     }
 
     @Query("UPDATE product SET orderOwnerItemId = :orderItemId " +

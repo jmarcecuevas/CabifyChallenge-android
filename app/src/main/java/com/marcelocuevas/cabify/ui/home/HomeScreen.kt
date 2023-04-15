@@ -68,7 +68,7 @@ fun HomeRoute(
             viewModel.onIncreaseItemClicked(productId, quantity)
         },
         onDecreaseClick = { productId, quantity ->
-            viewModel.onDecreaseItemCount(productId, quantity)
+            viewModel.onDecreaseItemClicked(productId, quantity)
         },
         onOrderButtonClick = onOrderButtonClick,
         modifier = modifier

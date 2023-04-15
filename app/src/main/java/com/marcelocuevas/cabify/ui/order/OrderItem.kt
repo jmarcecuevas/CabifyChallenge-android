@@ -31,7 +31,7 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 @Composable
 fun OrderItem(
     order: OrderItemAndProduct,
-    removeProduct: (Long) -> Unit,
+    removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -72,7 +72,7 @@ fun OrderItem(
             }
         )
         IconButton(
-            onClick = { /*removeSnack(snack.id)*/ },
+            onClick = { removeProduct(product.code) },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)
@@ -124,10 +124,9 @@ fun OrderItem(
             }
         )
         QuantitySelector(
-            //count = orderLine.count,
-            count = order.orderItem.quantity,
-            decreaseItemCount = { onDecreaseClick("sd",1) },
-            increaseItemCount = { onIncreaseClick("asda",2) },
+            count = product.quantity,
+            decreaseItemCount = { onDecreaseClick(product.code, product.quantity) },
+            increaseItemCount = { onIncreaseClick(product.code, product.quantity) },
             modifier = Modifier.constrainAs(quantity) {
                 baseline.linkTo(price.baseline)
                 end.linkTo(parent.end)
