@@ -1,12 +1,9 @@
 package com.marcelocuevas.cabify.ui.home
 
 import android.content.res.Configuration
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
@@ -35,8 +32,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.CabifyTopAppBar
+import com.marcelocuevas.cabify.ui.components.ConnectivityStatus
 import com.marcelocuevas.cabify.ui.components.bottomsheet.SheetContentCollapsed
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 private val gradientWidth
     @Composable
@@ -75,7 +74,9 @@ fun HomeRoute(
     )
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class, ExperimentalAnimationApi::class,
+    ExperimentalCoroutinesApi::class
+)
 @Composable
 private fun HomeScreen(
     uiState: HomeUiState,
@@ -91,8 +92,8 @@ private fun HomeScreen(
         uiState = uiState,
         bottomSheetState = bottomSheetScaffoldState
     )
-
     val sheetElevation = dimensionResource(id = R.dimen.sheet_elevation)
+
     BottomSheetScaffold(
         modifier = modifier.fillMaxSize(),
         backgroundColor = CabifyTheme.colors.uiBackground,
@@ -146,7 +147,9 @@ private fun HandleBottomSheetState(
     }
 }
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterialApi::class,
+    ExperimentalAnimationApi::class, ExperimentalCoroutinesApi::class
+)
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
@@ -159,14 +162,17 @@ private fun HomeContent(
 ) {
     val defaultPadding = dimensionResource(R.dimen.padding_default)
     CabifySurface(modifier = modifier.fillMaxWidth()) {
-        Box(modifier = modifier.padding(defaultPadding)) {
-            ProductsGrid(
-                uiState = uiState,
-                isRefreshing = isRefreshing,
-                pullRefreshState = pullRefreshState,
-                onIncreaseClick = onIncreaseClick,
-                onDecreaseClick = onDecreaseClick
-            )
+        Column {
+            ConnectivityStatus()
+            Box(modifier = modifier.padding(defaultPadding)) {
+                ProductsGrid(
+                    uiState = uiState,
+                    isRefreshing = isRefreshing,
+                    pullRefreshState = pullRefreshState,
+                    onIncreaseClick = onIncreaseClick,
+                    onDecreaseClick = onDecreaseClick
+                )
+            }
         }
     }
 }
