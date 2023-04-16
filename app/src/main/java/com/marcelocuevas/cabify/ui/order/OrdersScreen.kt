@@ -35,6 +35,7 @@ import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.R
+import com.marcelocuevas.cabify.utils.formatPrice
 
 @Composable
 fun OrdersRoute(
@@ -119,6 +120,7 @@ private fun OrderContent(
             }
         item {
             SummaryItem(
+                uiState = uiState,
                 subtotal = uiState.subtotal,
                 total = uiState.total,
                 shippingCosts = 234
@@ -129,6 +131,7 @@ private fun OrderContent(
 
 @Composable
 fun SummaryItem(
+    uiState: OrdersUiState,
     subtotal: Double,
     total: Double,
     shippingCosts: Long,
@@ -157,7 +160,7 @@ fun SummaryItem(
             )
             Text(
                 //text = formatPrice(subtotal),
-                text = subtotal.toString(),
+                text = formatPrice(subtotal),
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier.alignBy(LastBaseline)
             )
@@ -173,7 +176,7 @@ fun SummaryItem(
             )
             Text(
                 //text = formatPrice(shippingCosts),
-                text = shippingCosts.toString(),
+                text = formatPrice(shippingCosts.toDouble()),
                 style = MaterialTheme.typography.body1,
                 modifier = Modifier.alignBy(LastBaseline)
             )
@@ -192,7 +195,7 @@ fun SummaryItem(
             )
             Text(
                 //text = formatPrice(subtotal + shippingCosts),
-                text = total.toString(),
+                text = formatPrice(total),
                 style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.alignBy(LastBaseline)
             )
