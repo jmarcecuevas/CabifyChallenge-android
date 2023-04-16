@@ -24,9 +24,11 @@ class OrdersRepositoryImp @Inject constructor(
     override fun getOrderItems(): Flow<List<OrderItemAndProduct>> {
         return orderDataSource.getOrderItems().map {
             it.map { order ->
+                val finalPrice = discountCalculator.applyDiscount(order.product!!)
                 order.copy(
-                    total = discountCalculator.applyDiscount(order.product!!),
-                    discountObtained = order.subtotal - order.total
+                    total = finalPrice,
+                    discountObtained = order.subtotal - finalPrice,
+                    hasDiscount = (order.subtotal - finalPrice) != 0.0
                 )
             }
         }

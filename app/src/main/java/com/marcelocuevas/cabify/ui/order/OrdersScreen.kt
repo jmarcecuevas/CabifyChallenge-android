@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +37,7 @@ import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.utils.formatPrice
+import com.marcelocuevas.cabify.utils.promotionDescription
 
 @Composable
 fun OrdersRoute(
@@ -70,7 +72,7 @@ private fun OrderScreen(
                 modifier = Modifier.align(Alignment.TopCenter)
             )
             CabifyTopAppBar()
-            //CheckoutBar(modifier = Modifier.align(Alignment.BottomCenter))
+//            Button(modifier = Modifier.align(Alignment.BottomCenter), onClick = {}) {}
         }
     }
 }
@@ -110,21 +112,93 @@ private fun OrderContent(
             )
         }
         items(uiState.orders) { order ->
-                OrderItem(
-                    order = order,
-                    removeProduct = removeProduct,
-                    onIncreaseClick = onIncreaseClick,
-                    onDecreaseClick = onDecreaseClick,
-                    showPriceWithoutDiscount = uiState.shouldShowOldPrice()
+            OrderItem(
+                order = order,
+                removeProduct = removeProduct,
+                onIncreaseClick = onIncreaseClick,
+                onDecreaseClick = onDecreaseClick,
+                showPriceWithoutDiscount = order.hasDiscount
+            )
+        }
+        item {
+//            SummaryItem(
+//                uiState = uiState,
+//                subtotal = uiState.subtotal,
+//                total = uiState.total,
+//                shippingCosts = 234
+//            )
+
+            Column(modifier) {
+                Text(
+                    text = stringResource(R.string.cart_summary_header),
+                    style = MaterialTheme.typography.h6,
+                    color = CabifyTheme.colors.brand,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    modifier = Modifier
+                        .padding(horizontal = 24.dp)
+                        .heightIn(min = 56.dp)
+                        .wrapContentHeight()
+                )
+                Row(modifier = Modifier.padding(horizontal = 24.dp)) {
+                    Text(
+                        text = stringResource(R.string.cart_subtotal_label),
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.body1,
+                        modifier = Modifier
+                            .weight(1f)
+                            .wrapContentWidth(Alignment.Start)
+                            .alignBy(LastBaseline)
+                    )
+                    Text(
+                        //text = formatPrice(subtotal),
+                        text = formatPrice(uiState.subtotal),
+                        fontWeight = FontWeight.SemiBold,
+                        style = MaterialTheme.typography.body1,
+                        modifier = Modifier.alignBy(LastBaseline)
+                    )
+                }
+            }
+        }
+        items(uiState.orders.filter { it.hasDiscount }) {
+            Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+                Text(
+                    text = it.product!!.promotionDescription(),
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier
+                        .weight(1f)
+                        .wrapContentWidth(Alignment.Start)
+                        .alignBy(LastBaseline)
+                )
+                Text(
+                    text = "-${formatPrice(it.discountObtained)}",
+                    style = MaterialTheme.typography.body1,
+                    modifier = Modifier.alignBy(LastBaseline)
                 )
             }
+        }
         item {
-            SummaryItem(
-                uiState = uiState,
-                subtotal = uiState.subtotal,
-                total = uiState.total,
-                shippingCosts = 234
-            )
+            Spacer(modifier = Modifier.height(8.dp))
+            CabifyDivider()
+            Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+                Text(
+                    text = stringResource(R.string.cart_total_label),
+                    style = MaterialTheme.typography.body1,
+                    fontWeight = FontWeight.Black,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(end = 16.dp)
+                        .wrapContentWidth(Alignment.End)
+                        .alignBy(LastBaseline)
+                )
+                Text(
+                    text = formatPrice(uiState.total),
+                    fontWeight = FontWeight.Black,
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.alignBy(LastBaseline)
+                )
+            }
+            CabifyDivider()
         }
     }
 }
@@ -165,22 +239,22 @@ fun SummaryItem(
                 modifier = Modifier.alignBy(LastBaseline)
             )
         }
-        Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
-            Text(
-                text = stringResource(R.string.cart_shipping_label),
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier
-                    .weight(1f)
-                    .wrapContentWidth(Alignment.Start)
-                    .alignBy(LastBaseline)
-            )
-            Text(
-                //text = formatPrice(shippingCosts),
-                text = formatPrice(shippingCosts.toDouble()),
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier.alignBy(LastBaseline)
-            )
-        }
+//        Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+//            Text(
+//                text = stringResource(R.string.cart_shipping_label),
+//                style = MaterialTheme.typography.body1,
+//                modifier = Modifier
+//                    .weight(1f)
+//                    .wrapContentWidth(Alignment.Start)
+//                    .alignBy(LastBaseline)
+//            )
+//            Text(
+//                //text = formatPrice(shippingCosts),
+//                text = formatPrice(shippingCosts.toDouble()),
+//                style = MaterialTheme.typography.body1,
+//                modifier = Modifier.alignBy(LastBaseline)
+//            )
+//        }
         Spacer(modifier = Modifier.height(8.dp))
         CabifyDivider()
         Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {

@@ -30,7 +30,7 @@ class OrdersViewModel @Inject constructor(
                 orders = it,
                 qtyItemsAdded = it.sumOf { it.orderItem.quantity },
                 total = it.sumOf { it.total },
-                subtotal = it.sumOf { it.subtotal }
+                subtotal = it.sumOf { it.subtotal },
             ) }
             .stateIn(
                 scope = viewModelScope,

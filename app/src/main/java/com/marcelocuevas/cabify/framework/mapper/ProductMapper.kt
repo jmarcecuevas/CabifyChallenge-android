@@ -39,7 +39,8 @@ fun OrderItemAndProductEntity.toDataModel() = OrderItemAndProduct(
     product = product?.toDataModel(),
     subtotal = subtotal,
     total = 0.0,
-    discountObtained = 0.0
+    discountObtained = 0.0,
+    hasDiscount = false
 )
 
 fun OrderItemAndProduct.toDataModel() = OrderItemAndProductEntity(

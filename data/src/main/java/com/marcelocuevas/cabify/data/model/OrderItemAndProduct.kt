@@ -5,7 +5,6 @@ data class OrderItemAndProduct(
     val product: Product?,
     val subtotal: Double,
     val total: Double,
-    val discountObtained: Double
+    val discountObtained: Double,
+    val hasDiscount: Boolean
 )
-
-fun OrderItemAndProduct.hasDiscount() = discountObtained != 0.0
