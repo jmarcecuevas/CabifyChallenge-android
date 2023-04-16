@@ -11,11 +11,11 @@ class DiscountCalculator @Inject constructor() {
         val unitPrice = product.price
 
         return when (product.code) {
-            ProductCode.VOUCHER -> {
+            ProductCode.VOUCHER.name -> {
                 BuyTwoPayOneDiscount()
                     .applyDiscount(quantity, unitPrice)
             }
-            ProductCode.T_SHIRT -> {
+            ProductCode.TSHIRT.name -> {
                 BuyXOrMoreAndGetDiscount(
                     minAmountToDiscount = 3,
                     priceWithDiscount = 19.00

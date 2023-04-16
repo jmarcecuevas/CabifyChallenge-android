@@ -35,6 +35,8 @@ import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.utils.formatPrice
+import com.marcelocuevas.cabify.utils.imageUrl
+import com.marcelocuevas.cabify.utils.promotionDescription
 
 private val CardWidth = 170.dp
 private val CardPadding = 16.dp
@@ -77,14 +79,14 @@ fun ProductItem(
                         .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
                 )
                 ProductImage(
-                    imageUrl = product.imageUrl,
+                    imageUrl = product.imageUrl(),
                     contentDescription = null,
                     modifier = modifier
                         .size(120.dp)
                         .align(Alignment.BottomCenter)
                 )
             }
-            InfoPill(text = product.promotionDescription)
+            InfoPill(text = product.promotionDescription())
             Text(
                 text = product.name,
                 maxLines = 2,
@@ -106,9 +108,9 @@ fun ProductItem(
                 QuantitySelector(
                     count = product.quantity,
                     decreaseItemCount = {
-                        onDecreaseClick(product.code.name, product.quantity)},
+                        onDecreaseClick(product.code, product.quantity)},
                     increaseItemCount = {
-                        onIncreaseClick(product.code.name, product.quantity)
+                        onIncreaseClick(product.code, product.quantity)
                     }
                 )
             }

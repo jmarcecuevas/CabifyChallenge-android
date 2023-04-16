@@ -19,12 +19,6 @@ data class ProductEntity(
     @ColumnInfo(name = "price")
     var price: Double,
 
-    @ColumnInfo(name = "promotionDescription")
-    var promotionDescription: String,
-
-    @ColumnInfo("imageUrl")
-    val imageUrl: String,
-
     @ColumnInfo("quantity")
     val quantity: Int = 0
 )

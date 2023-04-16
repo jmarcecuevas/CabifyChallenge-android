@@ -20,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import coil.compose.AsyncImage
@@ -31,6 +32,8 @@ import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.QuantitySelector
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.utils.formatPrice
+import com.marcelocuevas.cabify.utils.imageUrl
+import com.marcelocuevas.cabify.utils.promotionDescription
 
 @Composable
 fun OrderItem(
@@ -52,7 +55,7 @@ fun OrderItem(
         val (divider, image, name, tag, priceSpacer, price, oldPrice, remove, quantity) = createRefs()
         createVerticalChain(name, tag, priceSpacer, price, chainStyle = ChainStyle.Packed)
         ProductImage(
-            imageUrl = product.imageUrl,
+            imageUrl = product.imageUrl(),
             contentDescription = null,
             modifier = Modifier
                 .size(100.dp)
@@ -65,6 +68,7 @@ fun OrderItem(
         Text(
             text = product.name,
             style = MaterialTheme.typography.subtitle1,
+            fontSize = 17.sp,
             color = CabifyTheme.colors.textSecondary,
             modifier = Modifier.constrainAs(name) {
                 linkTo(
@@ -77,7 +81,7 @@ fun OrderItem(
             }
         )
         IconButton(
-            onClick = { removeProduct(product.code.name) },
+            onClick = { removeProduct(product.code) },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)
@@ -93,7 +97,7 @@ fun OrderItem(
             )
         }
         Text(
-            text = product.promotionDescription,
+            text = product.promotionDescription(),
             style = MaterialTheme.typography.body1,
             color = CabifyTheme.colors.textHelp,
             modifier = Modifier.constrainAs(tag) {
@@ -142,8 +146,8 @@ fun OrderItem(
         }
         QuantitySelector(
             count = product.quantity,
-            decreaseItemCount = { onDecreaseClick(product.code.name, product.quantity) },
-            increaseItemCount = { onIncreaseClick(product.code.name, product.quantity) },
+            decreaseItemCount = { onDecreaseClick(product.code, product.quantity) },
+            increaseItemCount = { onIncreaseClick(product.code, product.quantity) },
             modifier = Modifier.constrainAs(quantity) {
                 baseline.linkTo(price.baseline)
                 end.linkTo(parent.end)

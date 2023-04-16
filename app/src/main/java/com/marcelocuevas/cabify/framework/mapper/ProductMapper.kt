@@ -9,22 +9,18 @@ import com.marcelocuevas.cabify.framework.room.entity.OrderItemEntity
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 
 fun Product.toEntity() = ProductEntity(
-    code = code.name,
+    code = code,
     name = name,
     orderOwnerItemId = orderItemId,
     price = price,
-    promotionDescription = promotionDescription,
-    imageUrl = imageUrl,
     quantity = quantity
 )
 
 fun ProductEntity.toDataModel() = Product(
-    code = ProductCode.valueOf(code),
+    code = code,
     name = name,
     orderItemId = orderOwnerItemId,
     price = price,
-    promotionDescription = promotionDescription,
-    imageUrl = imageUrl,
     quantity = quantity
 )
 

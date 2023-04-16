@@ -4,6 +4,8 @@ data class OrderItemAndProduct(
     val orderItem: OrderItem,
     val product: Product?,
     val subtotal: Double,
-    var total: Double,
-    var discountObtained: Double
+    val total: Double,
+    val discountObtained: Double
+
+
 )
