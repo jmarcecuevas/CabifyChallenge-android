@@ -6,6 +6,6 @@ data class OrderItemAndProduct(
     val subtotal: Double,
     val total: Double,
     val discountObtained: Double
-
-
 )
+
+fun OrderItemAndProduct.hasDiscount() = discountObtained != 0.0

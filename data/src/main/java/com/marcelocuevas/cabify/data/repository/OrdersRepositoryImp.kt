@@ -6,7 +6,6 @@ import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.data.model.discount.DiscountCalculator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class OrdersRepositoryImp @Inject constructor(

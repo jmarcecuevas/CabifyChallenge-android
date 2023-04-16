@@ -46,7 +46,7 @@ fun QuantitySelector(
             Text(
                 text = "$it",
                 style = MaterialTheme.typography.subtitle2,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 color = CabifyTheme.colors.textPrimary,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.widthIn(min = 18.dp)

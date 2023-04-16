@@ -32,7 +32,6 @@ fun OrderContentView(
     onOrderButtonClick: () -> Unit
 ) {
     val defaultPadding = dimensionResource(id = R.dimen.padding_default)
-    val noPadding = dimensionResource(id = R.dimen.no_padding)
     CabifyCard(
         Modifier
             .padding(
@@ -54,7 +53,7 @@ fun OrderContentView(
                 text = stringResource(id = R.string.see_orders_label),
                 color = CabifyTheme.colors.textInteractive,
                 style = MaterialTheme.typography.subtitle2,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 modifier = Modifier.align(Alignment.Center)
             )
             Text(
@@ -62,7 +61,7 @@ fun OrderContentView(
                 color = CabifyTheme.colors.textInteractive,
                 style = MaterialTheme.typography.caption,
                 fontWeight = FontWeight.Medium,
-                fontSize = 16.sp,
+                fontSize = 15.sp,
                 modifier = Modifier.align(Alignment.CenterEnd)
             )
 

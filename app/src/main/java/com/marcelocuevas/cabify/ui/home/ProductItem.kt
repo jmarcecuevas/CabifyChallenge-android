@@ -63,8 +63,6 @@ fun ProductItem(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(start = defaultPadding, end = defaultPadding)
-
         ) {
             Box(
                 modifier = modifier
@@ -86,33 +84,41 @@ fun ProductItem(
                         .align(Alignment.BottomCenter)
                 )
             }
-            InfoPill(text = product.promotionDescription())
-            Text(
-                text = product.name,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.h6,
-                color = CabifyTheme.colors.textSecondary,
-            )
-            Spacer(modifier = modifier.height(4.dp))
-            Row(Modifier.padding(bottom = defaultPadding)) {
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(start = defaultPadding, end = defaultPadding)
+            ) {
+                InfoPill(text = product.promotionDescription())
                 Text(
-                    text = formatPrice(product.price),
-                    style = MaterialTheme.typography.subtitle2,
-                    fontWeight = FontWeight.Medium,
-                    fontSize = 18.sp,
-                    color = CabifyTheme.colors.textPrimary,
-                    modifier = modifier
-                        .weight(1f)
+                    text = product.name,
+                    maxLines = 2,
+                    fontSize = 16.sp,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.subtitle1,
+                    color = CabifyTheme.colors.textSecondary,
                 )
-                QuantitySelector(
-                    count = product.quantity,
-                    decreaseItemCount = {
-                        onDecreaseClick(product.code, product.quantity)},
-                    increaseItemCount = {
-                        onIncreaseClick(product.code, product.quantity)
-                    }
-                )
+                Spacer(modifier = modifier.height(4.dp))
+                Row(Modifier.padding(bottom = defaultPadding)) {
+                    Text(
+                        text = formatPrice(product.price),
+                        style = MaterialTheme.typography.subtitle2,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 17.sp,
+                        color = CabifyTheme.colors.textPrimary,
+                        modifier = modifier
+                            .weight(1f)
+                    )
+                    QuantitySelector(
+                        count = product.quantity,
+                        decreaseItemCount = {
+                            onDecreaseClick(product.code, product.quantity)
+                        },
+                        increaseItemCount = {
+                            onIncreaseClick(product.code, product.quantity)
+                        }
+                    )
+                }
             }
         }
     }
