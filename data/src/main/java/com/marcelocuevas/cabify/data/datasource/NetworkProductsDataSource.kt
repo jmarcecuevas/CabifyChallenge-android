@@ -1,16 +1,19 @@
 package com.marcelocuevas.cabify.data.datasource
 
-import com.marcelocuevas.cabify.data.api.ProductDTO
+import com.marcelocuevas.cabify.data.api.ProductItemDTO
 import com.marcelocuevas.cabify.data.api.ProductsAPI
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import java.io.IOException
 import javax.inject.Inject
 
 class NetworkProductsDataSource @Inject constructor(
     private val productsAPI : ProductsAPI
 ) : ProductsDataSource {
 
-    override suspend fun getProducts(): ProductDTO =
-        productsAPI.getProducts()
-
+    override suspend fun getProducts(): List<ProductItemDTO> {
+        return try {
+            productsAPI.getProducts().products
+        } catch (e: IOException) {
+            emptyList()
+        }
+    }
 }

@@ -27,7 +27,7 @@ class OfflineFirstProductsRepository @Inject constructor(
 
     private suspend fun getProductsFromRemote(): List<Product> {
         return remoteDataSource.getProducts()
-            .products!!.map { mapper(it) }
+                .map { mapper(it) }
     }
 
     private suspend fun upsertProducts(products: List<Product>) {
