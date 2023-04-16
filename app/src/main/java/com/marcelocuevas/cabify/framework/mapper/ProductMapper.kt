@@ -1,10 +1,6 @@
 package com.marcelocuevas.cabify.framework.mapper
 
-import com.marcelocuevas.cabify.data.api.ProductCodeDTO
-import com.marcelocuevas.cabify.data.api.ProductItemDTO
-import com.marcelocuevas.cabify.data.mapper.getImageUrl
-import com.marcelocuevas.cabify.data.mapper.getPromotionDescription
-import com.marcelocuevas.cabify.data.mapper.orZero
+import com.marcelocuevas.cabify.data.api.ProductCode
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.framework.room.entity.OrderItemAndProduct as OrderItemAndProductEntity
@@ -13,7 +9,7 @@ import com.marcelocuevas.cabify.framework.room.entity.OrderItemEntity
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 
 fun Product.toEntity() = ProductEntity(
-    code = code,
+    code = code.name,
     name = name,
     orderOwnerItemId = orderItemId,
     price = price,
@@ -23,7 +19,7 @@ fun Product.toEntity() = ProductEntity(
 )
 
 fun ProductEntity.toDataModel() = Product(
-    code = code,
+    code = ProductCode.valueOf(code),
     name = name,
     orderItemId = orderOwnerItemId,
     price = price,
@@ -45,7 +41,9 @@ fun OrderItem.toEntity() = OrderItemEntity(
 fun OrderItemAndProductEntity.toDataModel() = OrderItemAndProduct(
     orderItem = orderItem.toDataModel(),
     product = product?.toDataModel(),
-    subtotal = subtotal
+    subtotal = subtotal,
+    total = 0.0,
+    discountObtained = 0.0
 )
 
 fun OrderItemAndProduct.toDataModel() = OrderItemAndProductEntity(

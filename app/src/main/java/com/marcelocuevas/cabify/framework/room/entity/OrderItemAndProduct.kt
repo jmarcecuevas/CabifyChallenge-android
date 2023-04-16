@@ -10,5 +10,5 @@ data class OrderItemAndProduct(
         entityColumn = "orderOwnerItemId",
     )
     val product: ProductEntity?,
-    val subtotal: Double
+    val subtotal: Double,
 )

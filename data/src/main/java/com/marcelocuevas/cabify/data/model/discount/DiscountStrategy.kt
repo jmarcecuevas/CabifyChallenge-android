@@ -2,5 +2,5 @@ package com.marcelocuevas.cabify.data.model.discount
 
 interface DiscountStrategy {
 
-    fun applyDiscount(amount: Int, unitPrice: Double): Double
+    fun applyDiscount(quantity: Int, unitPrice: Double): Double
 }

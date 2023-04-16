@@ -72,7 +72,7 @@ fun OrderItem(
             }
         )
         IconButton(
-            onClick = { removeProduct(product.code) },
+            onClick = { removeProduct(product.code.name) },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)
@@ -125,8 +125,8 @@ fun OrderItem(
         )
         QuantitySelector(
             count = product.quantity,
-            decreaseItemCount = { onDecreaseClick(product.code, product.quantity) },
-            increaseItemCount = { onIncreaseClick(product.code, product.quantity) },
+            decreaseItemCount = { onDecreaseClick(product.code.name, product.quantity) },
+            increaseItemCount = { onIncreaseClick(product.code.name, product.quantity) },
             modifier = Modifier.constrainAs(quantity) {
                 baseline.linkTo(price.baseline)
                 end.linkTo(parent.end)

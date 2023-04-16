@@ -1,7 +1,9 @@
 package com.marcelocuevas.cabify.data.model
 
+import com.marcelocuevas.cabify.data.api.ProductCode
+
 data class Product(
-    val code: String,
+    val code: ProductCode,
     val name: String,
     val orderItemId: String? = null,
     val price: Double,

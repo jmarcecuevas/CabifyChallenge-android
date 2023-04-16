@@ -3,12 +3,14 @@ package com.marcelocuevas.cabify.data.repository
 import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
+import com.marcelocuevas.cabify.data.model.discount.DiscountCalculator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class OrdersRepositoryImp @Inject constructor(
-    private val orderDataSource: OrderDataSource
+    private val orderDataSource: OrderDataSource,
+    private val discountCalculator: DiscountCalculator
 ): OrdersRepository {
 
     override suspend fun upsertOrderItem(productId: String, quantity: Int) {
@@ -21,8 +23,10 @@ class OrdersRepositoryImp @Inject constructor(
 
     override fun getOrderItems(): Flow<List<OrderItemAndProduct>> {
         return orderDataSource.getOrderItems().onEach {
-            it.map {
-                it.total = 2.0
+            it.map { order ->
+                order.total = discountCalculator
+                    .applyDiscount(order.product!!)
+                order.discountObtained = order.subtotal - order.total
             }
         }
     }
@@ -31,3 +35,4 @@ class OrdersRepositoryImp @Inject constructor(
         orderDataSource.deleteOrderItem(code)
     }
 }
+

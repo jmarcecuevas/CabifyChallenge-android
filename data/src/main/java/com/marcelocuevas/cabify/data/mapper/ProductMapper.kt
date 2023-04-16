@@ -1,12 +1,12 @@
 package com.marcelocuevas.cabify.data.mapper
 
-import com.marcelocuevas.cabify.data.api.ProductCodeDTO
+import com.marcelocuevas.cabify.data.api.ProductCode
 import com.marcelocuevas.cabify.data.api.ProductItemDTO
 import com.marcelocuevas.cabify.data.model.Product
 
 fun mapProductDto(input: ProductItemDTO) =
     Product(
-        code = input.code.toString(),
+        code = input.code!!,
         name = input.name.orEmpty(),
         price = input.price.orZero(),
         currency = "€",
@@ -14,18 +14,18 @@ fun mapProductDto(input: ProductItemDTO) =
         imageUrl = getImageUrl(input.code)
     )
 
-fun getImageUrl(code: ProductCodeDTO?): String {
+fun getImageUrl(code: ProductCode?): String {
     code?.let { return when (code) {
-        ProductCodeDTO.VOUCHER -> {
+        ProductCode.VOUCHER -> {
             "https://static.vecteezy.com/system/" +
                     "resources/previews/012/371/169/non_2x/" +
                     "greeting-card-or-discount-voucher-" +
                     "template-violet-background-vector.jpg"
         }
-        ProductCodeDTO.T_SHIRT -> {
+        ProductCode.T_SHIRT -> {
             "https://goofy-shannon-8fec5b.netlify.app/tshirt.jpg"
         }
-        ProductCodeDTO.MUG -> {
+        ProductCode.MUG -> {
             "https://goofy-shannon-8fec5b.netlify.app/mug.jpg"
         }
     }}
@@ -34,11 +34,11 @@ fun getImageUrl(code: ProductCodeDTO?): String {
 
 }
 
-fun getPromotionDescription(code: ProductCodeDTO?): String {
+fun getPromotionDescription(code: ProductCode?): String {
     code?.let {
         return when (it) {
-            ProductCodeDTO.T_SHIRT -> "2 x 1"
-            ProductCodeDTO.VOUCHER -> "Up to 5% off"
+            ProductCode.T_SHIRT -> "2 x 1"
+            ProductCode.VOUCHER -> "Up to 5% off"
             else -> {""}
         }
     }

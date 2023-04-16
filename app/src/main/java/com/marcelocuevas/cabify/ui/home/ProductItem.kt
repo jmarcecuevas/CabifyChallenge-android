@@ -105,9 +105,9 @@ fun ProductItem(
                 QuantitySelector(
                     count = product.quantity,
                     decreaseItemCount = {
-                        onDecreaseClick(product.code, product.quantity)},
+                        onDecreaseClick(product.code.name, product.quantity)},
                     increaseItemCount = {
-                        onIncreaseClick(product.code, product.quantity)
+                        onIncreaseClick(product.code.name, product.quantity)
                     }
                 )
             }

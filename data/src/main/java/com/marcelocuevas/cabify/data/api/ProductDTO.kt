@@ -7,12 +7,12 @@ data class ProductDTO(
 )
 
 data class ProductItemDTO(
-    val code: ProductCodeDTO?,
+    val code: ProductCode?,
     val name: String?,
     val price: Double?
 )
 
-enum class ProductCodeDTO{
+enum class ProductCode{
     VOUCHER,
     @SerializedName("TSHIRT")
     T_SHIRT,

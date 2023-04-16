@@ -6,10 +6,10 @@ class BuyThreeOrMoreAndGetDiscount: DiscountStrategy {
         private const val MIN_AMOUNT_TO_DISCOUNT = 3
     }
 
-    override fun applyDiscount(amount: Int, unitPrice: Double): Double {
-        if (amount > MIN_AMOUNT_TO_DISCOUNT) {
-            return ((unitPrice * 5)/100) * amount
+    override fun applyDiscount(quantity: Int, unitPrice: Double): Double {
+        if (quantity > MIN_AMOUNT_TO_DISCOUNT) {
+            return ((unitPrice * 5)/100) * quantity
         }
-        return unitPrice * amount
+        return unitPrice * quantity
     }
 }
