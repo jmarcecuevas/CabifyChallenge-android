@@ -30,6 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
@@ -185,6 +186,7 @@ private fun OrderContent(
                     text = stringResource(R.string.cart_total_label),
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Black,
+                    fontSize = 18.sp,
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 16.dp)
@@ -195,6 +197,7 @@ private fun OrderContent(
                     text = formatPrice(uiState.total),
                     fontWeight = FontWeight.Black,
                     style = MaterialTheme.typography.subtitle1,
+                    fontSize = 18.sp,
                     modifier = Modifier.alignBy(LastBaseline)
                 )
             }
