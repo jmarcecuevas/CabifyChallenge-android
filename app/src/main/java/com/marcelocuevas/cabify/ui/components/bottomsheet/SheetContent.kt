@@ -16,7 +16,7 @@ fun SheetContentCollapsed(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(62.dp)
+            .height(78.dp)
             .background(CabifyTheme.colors.uiBackground),
         verticalAlignment = Alignment.CenterVertically
     ) {

@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -33,6 +34,7 @@ import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.ui.components.*
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
+import com.marcelocuevas.cabify.utils.formatPrice
 
 private val CardWidth = 170.dp
 private val CardPadding = 16.dp
@@ -89,17 +91,16 @@ fun ProductItem(
                 overflow = TextOverflow.Ellipsis,
                 style = MaterialTheme.typography.h6,
                 color = CabifyTheme.colors.textSecondary,
-                modifier = modifier.padding(horizontal = defaultPadding)
             )
             Spacer(modifier = modifier.height(4.dp))
             Row(Modifier.padding(bottom = defaultPadding)) {
                 Text(
-                    text = "${product.price} ${product.currency}",
+                    text = formatPrice(product.price),
                     style = MaterialTheme.typography.subtitle2,
+                    fontWeight = FontWeight.Medium,
                     fontSize = 18.sp,
-                    color = CabifyTheme.colors.textHelp,
+                    color = CabifyTheme.colors.textPrimary,
                     modifier = modifier
-                        .padding(horizontal = defaultPadding)
                         .weight(1f)
                 )
                 QuantitySelector(

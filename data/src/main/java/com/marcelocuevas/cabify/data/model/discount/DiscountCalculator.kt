@@ -16,8 +16,10 @@ class DiscountCalculator @Inject constructor() {
                     .applyDiscount(quantity, unitPrice)
             }
             ProductCode.T_SHIRT -> {
-                BuyThreeOrMoreAndGetDiscount()
-                    .applyDiscount(quantity, unitPrice)
+                BuyXOrMoreAndGetDiscount(
+                    minAmountToDiscount = 3,
+                    priceWithDiscount = 19.00
+                ).applyDiscount(quantity, unitPrice)
             } else -> {
                 unitPrice * quantity
             }

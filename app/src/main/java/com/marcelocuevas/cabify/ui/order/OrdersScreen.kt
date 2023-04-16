@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.order
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -50,9 +49,9 @@ fun OrdersRoute(
     modifier: Modifier = Modifier,
     viewModel: OrdersViewModel = hiltViewModel(),
 ) {
-    val orders by viewModel.orders.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     OrderScreen(
-        orders = orders,
+        uiState = uiState,
         removeProduct = viewModel::removeOrder,
         onIncreaseClick = viewModel::onIncreaseItemClicked,
         onDecreaseClick = viewModel::onDecreaseItemClicked,
@@ -62,7 +61,7 @@ fun OrdersRoute(
 
 @Composable
 private fun OrderScreen(
-    orders: List<OrderItemAndProduct>,
+    uiState: OrdersUiState,
     removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
@@ -71,7 +70,7 @@ private fun OrderScreen(
     CabifySurface(modifier = modifier.fillMaxSize()) {
         Box {
             OrderContent(
-                orders = orders,
+                uiState = uiState,
                 removeProduct = removeProduct,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
@@ -85,17 +84,17 @@ private fun OrderScreen(
 
 @Composable
 private fun OrderContent(
-    orders: List<OrderItemAndProduct>,
+    uiState: OrdersUiState,
     removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val resources = LocalContext.current.resources
-    val productCountFormattedString = remember(orders.size, resources) {
+    val productCountFormattedString = remember(uiState.qtyItemsAdded, resources) {
         resources.getQuantityString(
             R.plurals.cart_order_count,
-            orders.size, orders.size
+            uiState.orders.size, uiState.qtyItemsAdded
         )
     }
     LazyColumn(modifier) {
@@ -117,19 +116,19 @@ private fun OrderContent(
                     .wrapContentHeight()
             )
         }
-        items(orders) { order ->
+        items(uiState.orders) { order ->
                 OrderItem(
                     order = order,
                     removeProduct = removeProduct,
                     onIncreaseClick = onIncreaseClick,
-                    onDecreaseClick = onDecreaseClick
+                    onDecreaseClick = onDecreaseClick,
+                    showPriceWithoutDiscount = uiState.shouldShowOldPrice()
                 )
             }
         item {
             SummaryItem(
-//                subtotal = orderLines.map { it.product.price * it.count }.sum(),
-//                shippingCosts = 369
-                subtotal = 0L,
+                subtotal = uiState.subtotal,
+                total = uiState.total,
                 shippingCosts = 234
             )
         }
@@ -138,7 +137,8 @@ private fun OrderContent(
 
 @Composable
 fun SummaryItem(
-    subtotal: Long,
+    subtotal: Double,
+    total: Double,
     shippingCosts: Long,
     modifier: Modifier = Modifier
 ) {
@@ -200,7 +200,7 @@ fun SummaryItem(
             )
             Text(
                 //text = formatPrice(subtotal + shippingCosts),
-                text = (subtotal + shippingCosts).toString(),
+                text = total.toString(),
                 style = MaterialTheme.typography.subtitle1,
                 modifier = Modifier.alignBy(LastBaseline)
             )

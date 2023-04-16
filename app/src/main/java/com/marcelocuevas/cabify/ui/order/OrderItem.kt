@@ -15,6 +15,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ChainStyle
@@ -27,10 +30,12 @@ import com.marcelocuevas.cabify.ui.components.CabifyDivider
 import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.QuantitySelector
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
+import com.marcelocuevas.cabify.utils.formatPrice
 
 @Composable
 fun OrderItem(
     order: OrderItemAndProduct,
+    showPriceWithoutDiscount: Boolean,
     removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
@@ -44,7 +49,7 @@ fun OrderItem(
             .padding(horizontal = 24.dp)
 
     ) {
-        val (divider, image, name, tag, priceSpacer, price, remove, quantity) = createRefs()
+        val (divider, image, name, tag, priceSpacer, price, oldPrice, remove, quantity) = createRefs()
         createVerticalChain(name, tag, priceSpacer, price, chainStyle = ChainStyle.Packed)
         ProductImage(
             imageUrl = product.imageUrl,
@@ -109,20 +114,32 @@ fun OrderItem(
                 }
         )
         Text(
-            text = product.price.toString(),
-            //text = formatPrice(snack.price),
+            text = formatPrice(order.total),
             style = MaterialTheme.typography.subtitle1,
+            fontWeight = FontWeight.SemiBold,
             color = CabifyTheme.colors.textPrimary,
             modifier = Modifier.constrainAs(price) {
                 linkTo(
                     start = image.end,
-                    end = quantity.start,
+                    end = price.end,
                     startMargin = 16.dp,
                     endMargin = 16.dp,
                     bias = 0f
                 )
             }
         )
+        if (showPriceWithoutDiscount) {
+            Text(
+                text = formatPrice(order.subtotal),
+                style = TextStyle(textDecoration = TextDecoration.LineThrough),
+                color = CabifyTheme.colors.uiBorder,
+                modifier = Modifier.constrainAs(oldPrice) {
+                    baseline.linkTo(price.baseline)
+                    start.linkTo(price.end)
+                    end.linkTo(quantity.start)
+                }
+            )
+        }
         QuantitySelector(
             count = product.quantity,
             decreaseItemCount = { onDecreaseClick(product.code.name, product.quantity) },

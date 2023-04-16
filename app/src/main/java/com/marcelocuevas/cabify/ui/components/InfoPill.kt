@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 
 @Composable
@@ -20,13 +21,14 @@ fun InfoPill(
 ){
     if (text.isNotEmpty()) {
         CabifyCard(
-            modifier = modifier.padding(all = 16.dp),
+            modifier = modifier.padding(top = 16.dp, bottom = 16.dp),
             color = color,
             elevation = 0.dp,
             content = {
                 Text(
                     text = text,
                     style = MaterialTheme.typography.caption,
+                    fontSize = 13.sp,
                     color = textColor,
                     modifier = Modifier.padding(4.dp)
                 )

@@ -9,11 +9,12 @@ import com.marcelocuevas.cabify.domain.DeleteFromCartUseCase
 import com.marcelocuevas.cabify.domain.GetCartUseCase
 import com.marcelocuevas.cabify.domain.UpdateCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,13 +24,18 @@ class OrdersViewModel @Inject constructor(
     private val deleteFromCart: DeleteFromCartUseCase
 ): ViewModel() {
 
-    val orders: StateFlow<List<OrderItemAndProduct>> =
+    val uiState: StateFlow<OrdersUiState> =
         getOrders.invoke()
-            .map { it }
+            .map { OrdersUiState(
+                orders = it,
+                qtyItemsAdded = it.sumOf { it.orderItem.quantity },
+                total = it.sumOf { it.total },
+                subtotal = it.sumOf { it.subtotal }
+            ) }
             .stateIn(
                 scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = emptyList()
+                started = WhileSubscribed(5000),
+                initialValue = OrdersUiState(orders = emptyList())
             )
 
     fun removeOrder(code: String) {
@@ -49,3 +55,13 @@ class OrdersViewModel @Inject constructor(
         }
     }
 }
+
+@Immutable
+data class OrdersUiState(
+    val orders: List<OrderItemAndProduct>,
+    val qtyItemsAdded: Int = 0,
+    val total: Double = 0.0,
+    val subtotal: Double = 0.0,
+)
+
+fun OrdersUiState.shouldShowOldPrice() = total != subtotal
