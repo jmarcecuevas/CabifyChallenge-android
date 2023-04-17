@@ -24,9 +24,9 @@ object DatabaseModule {
         @ApplicationContext context: Context
     ): CabifyDatabase {
         return Room.databaseBuilder(
-            context,
-            CabifyDatabase::class.java,
-            APP_DATABASE_NAME
+            context = context,
+            klass = CabifyDatabase::class.java,
+            name = APP_DATABASE_NAME
         ).build()
     }
 
@@ -38,7 +38,7 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideOrderDao(database: CabifyDatabase): OrderProductsDao {
-        return database.orderDao()
+    fun provideOrderProductsDao(database: CabifyDatabase): OrderProductsDao {
+        return database.orderProductsDao()
     }
 }

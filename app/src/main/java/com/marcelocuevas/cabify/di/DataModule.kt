@@ -52,5 +52,8 @@ class DataModule {
         orderDataSource: OrderDataSource,
         discountCalculator: DiscountCalculator
     ): OrdersRepository =
-        OrdersRepositoryImp(orderDataSource, discountCalculator)
+        OrdersRepositoryImp(
+            orderDataSource = orderDataSource,
+            discountCalculator = discountCalculator
+        )
 }
