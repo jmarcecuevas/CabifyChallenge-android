@@ -10,7 +10,7 @@ data class ProductEntity(
     @ColumnInfo(name = "productId")
     val code: String,
     val orderOwnerItemId: String?,
-    var name: String,
-    var price: Double,
+    val name: String,
+    val price: Double,
     val quantity: Int = 0
 )

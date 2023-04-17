@@ -2,7 +2,12 @@ package com.marcelocuevas.cabify.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marcelocuevas.cabify.domain.*
+import com.marcelocuevas.cabify.domain.GetProductsUseCase
+import com.marcelocuevas.cabify.domain.RefreshProductsUseCase
+import com.marcelocuevas.cabify.domain.GetOrdersUseCase
+import com.marcelocuevas.cabify.domain.UpdateCartUseCase
+import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
+import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -59,7 +64,7 @@ class HomeViewModel @Inject constructor(
             updateCart.invoke(
                 productId = code,
                 quantity = currentQuantity,
-                action = OrderAction.INCREASE_ORDER_QUANTITY
+                action = INCREASE_ORDER_QUANTITY
             )
         }
 
@@ -68,7 +73,7 @@ class HomeViewModel @Inject constructor(
             updateCart.invoke(
                 productId = code,
                 quantity = currentQuantity,
-                action = OrderAction.DECREASE_ORDER_QUANTITY
+                action = DECREASE_ORDER_QUANTITY
             )
         }
     }

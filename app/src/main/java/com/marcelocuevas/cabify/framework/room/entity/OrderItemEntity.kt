@@ -7,5 +7,5 @@ import androidx.room.PrimaryKey
 data class OrderItemEntity(
     @PrimaryKey
     val orderItemId: String,
-    var quantity: Int = 0,
+    val quantity: Int = 0,
 )

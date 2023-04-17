@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
-import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.domain.DeleteOrderUseCase
 import com.marcelocuevas.cabify.domain.GetOrdersUseCase
 import com.marcelocuevas.cabify.domain.UpdateCartUseCase
@@ -14,23 +13,23 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.annotation.concurrent.Immutable
 import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val getOrders: GetOrdersUseCase,
+    getOrders: GetOrdersUseCase,
     private val updateCart: UpdateCartUseCase,
     private val deleteFromCart: DeleteOrderUseCase
 ): ViewModel() {
 
     val uiState: StateFlow<OrdersUiState> =
         getOrders.invoke()
-            .map { OrdersUiState(
-                orders = it,
-                qtyItemsAdded = it.sumOf { it.orderItem.quantity },
-                total = it.sumOf { it.total },
-                subtotal = it.sumOf { it.subtotal },
+            .map { orders ->
+                OrdersUiState(
+                    itemsAddedQuantity = orders.sumOf { it.orderItem.quantity },
+                    total = orders.sumOf { it.total },
+                    subtotal = orders.sumOf { it.subtotal },
+                    orders = orders
             ) }
             .stateIn(
                 scope = viewModelScope,
@@ -46,22 +45,19 @@ class OrdersViewModel @Inject constructor(
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, INCREASE_ORDER_QUANTITY)
+            updateCart.invoke(
+                productId = code,
+                quantity = currentQuantity,
+                action = INCREASE_ORDER_QUANTITY
+            )
         }
 
     fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, DECREASE_ORDER_QUANTITY)
+            updateCart.invoke(
+                productId = code,
+                quantity = currentQuantity,
+                action = DECREASE_ORDER_QUANTITY)
         }
     }
 }
-
-@Immutable
-data class OrdersUiState(
-    val orders: List<OrderItemAndProduct>,
-    val qtyItemsAdded: Int = 0,
-    val total: Double = 0.0,
-    val subtotal: Double = 0.0,
-)
-
-fun OrdersUiState.shouldShowOldPrice() = total != subtotal

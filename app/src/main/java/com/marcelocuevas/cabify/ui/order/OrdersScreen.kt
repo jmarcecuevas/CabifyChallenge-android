@@ -7,18 +7,17 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Text
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -33,8 +32,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
-import com.marcelocuevas.cabify.ui.components.*
+import com.marcelocuevas.cabify.ui.components.CabifySurface
+import com.marcelocuevas.cabify.ui.components.CabifyTopAppBar
+import com.marcelocuevas.cabify.ui.components.CabifyDivider
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.utils.formatPrice
@@ -73,7 +73,6 @@ private fun OrderScreen(
                 modifier = Modifier.align(Alignment.TopCenter)
             )
             CabifyTopAppBar()
-//            Button(modifier = Modifier.align(Alignment.BottomCenter), onClick = {}) {}
         }
     }
 }
@@ -87,10 +86,10 @@ private fun OrderContent(
     modifier: Modifier = Modifier
 ) {
     val resources = LocalContext.current.resources
-    val productCountFormattedString = remember(uiState.qtyItemsAdded, resources) {
+    val productCountFormattedString = remember(uiState.itemsAddedQuantity, resources) {
         resources.getQuantityString(
             R.plurals.cart_order_count,
-            uiState.orders.size, uiState.qtyItemsAdded
+            uiState.orders.size, uiState.itemsAddedQuantity
         )
     }
     LazyColumn(modifier) {
@@ -122,13 +121,6 @@ private fun OrderContent(
             )
         }
         item {
-//            SummaryItem(
-//                uiState = uiState,
-//                subtotal = uiState.subtotal,
-//                total = uiState.total,
-//                shippingCosts = 234
-//            )
-
             Column(modifier) {
                 Text(
                     text = stringResource(R.string.cart_summary_header),
@@ -152,7 +144,6 @@ private fun OrderContent(
                             .alignBy(LastBaseline)
                     )
                     Text(
-                        //text = formatPrice(subtotal),
                         text = formatPrice(uiState.subtotal),
                         fontWeight = FontWeight.SemiBold,
                         style = MaterialTheme.typography.body1,
@@ -203,80 +194,5 @@ private fun OrderContent(
             }
             CabifyDivider()
         }
-    }
-}
-
-@Composable
-fun SummaryItem(
-    uiState: OrdersUiState,
-    subtotal: Double,
-    total: Double,
-    shippingCosts: Long,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier) {
-        Text(
-            text = stringResource(R.string.cart_summary_header),
-            style = MaterialTheme.typography.h6,
-            color = CabifyTheme.colors.brand,
-            maxLines = 1,
-            overflow = TextOverflow.Ellipsis,
-            modifier = Modifier
-                .padding(horizontal = 24.dp)
-                .heightIn(min = 56.dp)
-                .wrapContentHeight()
-        )
-        Row(modifier = Modifier.padding(horizontal = 24.dp)) {
-            Text(
-                text = stringResource(R.string.cart_subtotal_label),
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier
-                    .weight(1f)
-                    .wrapContentWidth(Alignment.Start)
-                    .alignBy(LastBaseline)
-            )
-            Text(
-                //text = formatPrice(subtotal),
-                text = formatPrice(subtotal),
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier.alignBy(LastBaseline)
-            )
-        }
-//        Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
-//            Text(
-//                text = stringResource(R.string.cart_shipping_label),
-//                style = MaterialTheme.typography.body1,
-//                modifier = Modifier
-//                    .weight(1f)
-//                    .wrapContentWidth(Alignment.Start)
-//                    .alignBy(LastBaseline)
-//            )
-//            Text(
-//                //text = formatPrice(shippingCosts),
-//                text = formatPrice(shippingCosts.toDouble()),
-//                style = MaterialTheme.typography.body1,
-//                modifier = Modifier.alignBy(LastBaseline)
-//            )
-//        }
-        Spacer(modifier = Modifier.height(8.dp))
-        CabifyDivider()
-        Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
-            Text(
-                text = stringResource(R.string.cart_total_label),
-                style = MaterialTheme.typography.body1,
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(end = 16.dp)
-                    .wrapContentWidth(Alignment.End)
-                    .alignBy(LastBaseline)
-            )
-            Text(
-                //text = formatPrice(subtotal + shippingCosts),
-                text = formatPrice(total),
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.alignBy(LastBaseline)
-            )
-        }
-        CabifyDivider()
     }
 }

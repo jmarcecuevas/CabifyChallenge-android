@@ -1,5 +1,6 @@
 package com.marcelocuevas.cabify.ui.order
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -15,9 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,6 +31,7 @@ import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.ui.components.CabifyDivider
+import com.marcelocuevas.cabify.ui.components.CabifyImage
 import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.QuantitySelector
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
@@ -52,9 +56,9 @@ fun OrderItem(
             .padding(horizontal = 24.dp)
 
     ) {
-        val (divider, image, name, tag, priceSpacer, price, oldPrice, remove, quantity) = createRefs()
-        createVerticalChain(name, tag, priceSpacer, price, chainStyle = ChainStyle.Packed)
-        ProductImage(
+        val (divider, image, name, promotion, priceSpacer, price, oldPrice, remove, quantity) = createRefs()
+        createVerticalChain(name, promotion, priceSpacer, price, chainStyle = ChainStyle.Packed)
+        CabifyImage(
             imageUrl = product.imageUrl(),
             contentDescription = null,
             modifier = Modifier
@@ -92,15 +96,14 @@ fun OrderItem(
             Icon(
                 imageVector = Icons.Filled.Close,
                 tint = CabifyTheme.colors.iconSecondary,
-                contentDescription = "Remove"
-                //contentDescription = stringResource(R.string.label_remove)
+                contentDescription = stringResource(id = R.string.remove_icon_content_description)
             )
         }
         Text(
             text = product.promotionDescription(),
             style = MaterialTheme.typography.body1,
             color = CabifyTheme.colors.textHelp,
-            modifier = Modifier.constrainAs(tag) {
+            modifier = Modifier.constrainAs(promotion) {
                 linkTo(
                     start = image.end,
                     startMargin = 16.dp,
@@ -114,7 +117,7 @@ fun OrderItem(
             Modifier
                 .height(8.dp)
                 .constrainAs(priceSpacer) {
-                    linkTo(top = tag.bottom, bottom = price.top)
+                    linkTo(top = promotion.bottom, bottom = price.top)
                 }
         )
         Text(
@@ -162,28 +165,3 @@ fun OrderItem(
     }
 }
 
-@Composable
-private fun ProductImage(
-    imageUrl: String,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    elevation: Dp = 0.dp
-) {
-    CabifySurface(
-        color = Color.LightGray,
-        elevation = elevation,
-        shape = CircleShape,
-        modifier = modifier
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(imageUrl)
-                .crossfade(true)
-                .build(),
-            contentDescription = contentDescription,
-            placeholder = painterResource(R.drawable.placeholder),
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
-        )
-    }
-}
