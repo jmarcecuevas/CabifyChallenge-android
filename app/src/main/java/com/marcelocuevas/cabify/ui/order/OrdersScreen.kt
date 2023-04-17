@@ -238,7 +238,8 @@ private fun HasOrdersState(
                     text = stringResource(R.string.cart_total_label),
                     style = MaterialTheme.typography.body1,
                     fontWeight = FontWeight.Black,
-                    fontSize = 18.sp,
+                    color = CabifyTheme.colors.brand,
+                    fontSize = 19.sp,
                     modifier = Modifier
                         .weight(1f)
                         .padding(end = 16.dp)
@@ -248,12 +249,12 @@ private fun HasOrdersState(
                 Text(
                     text = formatPrice(uiState.total),
                     fontWeight = FontWeight.Black,
+                    color = CabifyTheme.colors.brand,
                     style = MaterialTheme.typography.subtitle1,
-                    fontSize = 18.sp,
+                    fontSize = 19.sp,
                     modifier = Modifier.alignBy(LastBaseline)
                 )
             }
-            CabifyDivider()
         }
     }
 }

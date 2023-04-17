@@ -22,6 +22,7 @@ private val LightColorPalette = CabifyColors(
     iconInteractive = Neutral0,
     iconInteractiveInactive = Neutral1,
     error = FunctionalRed,
+    confirmation = Ocean1,
     gradient61 = listOf(Shadow4, Ocean3, Shadow2, Ocean3, Shadow4),
     gradient62 = listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4),
     gradient31 = listOf(Shadow2, Ocean3, Shadow4),
@@ -49,6 +50,7 @@ private val DarkColorPalette = CabifyColors(
     iconInteractive = Neutral7,
     iconInteractiveInactive = Neutral6,
     error = FunctionalRedDark,
+    confirmation = Ocean1,
     gradient61 = listOf(Shadow5, Ocean7, Shadow9, Ocean7, Shadow5),
     gradient62 = listOf(Rose11, Lavender7, Rose8, Lavender7, Rose11),
     gradient31 = listOf(Shadow9, Ocean7, Shadow5),
@@ -125,6 +127,7 @@ class CabifyColors(
     iconInteractive: Color,
     iconInteractiveInactive: Color,
     error: Color,
+    confirmation: Color,
     notificationBadge: Color = error,
     isDark: Boolean
 ) {
@@ -180,6 +183,8 @@ class CabifyColors(
 
     var error by mutableStateOf(error)
 
+    var confirmation by mutableStateOf(confirmation)
+
     private var notificationBadge by mutableStateOf(notificationBadge)
 
     private var isDark by mutableStateOf(isDark)
@@ -211,6 +216,7 @@ class CabifyColors(
         iconInteractive = other.iconInteractive
         iconInteractiveInactive = other.iconInteractiveInactive
         error = other.error
+        confirmation = other.confirmation
         notificationBadge = other.notificationBadge
         isDark = other.isDark
     }
@@ -242,6 +248,7 @@ class CabifyColors(
         iconInteractive = iconInteractive,
         iconInteractiveInactive = iconInteractiveInactive,
         error = error,
+        confirmation = confirmation,
         notificationBadge = notificationBadge,
         isDark = isDark,
     )

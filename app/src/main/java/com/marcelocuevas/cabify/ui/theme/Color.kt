@@ -15,6 +15,7 @@ val Ocean7 = Color(0xff00b9d7)
 val Ocean4 = Color(0xff57eff5)
 val Ocean3 = Color(0xff86f7fa)
 val Ocean2 = Color(0xffbbfdfd)
+val Ocean1 = Color(red = 65, green = 204, blue = 148)
 
 val Lavender7 = Color(0xff5500d7)
 val Lavender3 = Color(0xffc186fa)

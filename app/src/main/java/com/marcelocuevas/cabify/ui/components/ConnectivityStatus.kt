@@ -63,7 +63,7 @@ fun ConnectivityStatus() {
 @Composable
 private fun ConnectivityStatusBox(isConnected: Boolean) {
     val backgroundColor by animateColorAsState(
-        if (isConnected) CabifyTheme.colors.brandSecondary else CabifyTheme.colors.error)
+        if (isConnected) CabifyTheme.colors.confirmation else CabifyTheme.colors.error)
     val message = if (isConnected)
         stringResource(id = R.string.back_online)
     else
