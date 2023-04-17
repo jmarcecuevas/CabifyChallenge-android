@@ -27,7 +27,7 @@ fun Product.imageUrl(): String {
 fun Product.promotionDescription(): String {
     return when (code) {
         ProductCode.VOUCHER.name -> "Buy two, pay one"
-        ProductCode.TSHIRT.name -> "Buying 3+ discount"
+        ProductCode.TSHIRT.name -> "5% off buying 3+"
         else -> { "" }
     }
 }

@@ -10,8 +10,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorPalette = CabifyColors(
     brand = Shadow5,
-    brandSecondary = cabifyGreen,
-    //brandSecondary = Ocean3,
+    brandSecondary = Ocean3,
     uiBackground = Neutral0,
     uiBorder = Neutral5,
     uiFloated = FunctionalGrey,
@@ -36,8 +35,7 @@ private val LightColorPalette = CabifyColors(
 
 private val DarkColorPalette = CabifyColors(
     brand = Shadow1,
-    //brandSecondary = Ocean2,
-    brandSecondary = cabifyGreen,
+    brandSecondary = Ocean2,
     uiBackground = Neutral8,
     uiBorder = Neutral3,
     uiFloated = FunctionalDarkGrey,
@@ -290,4 +288,3 @@ fun debugColors(
     onError = debugColor,
     isLight = !darkTheme
 )
-
