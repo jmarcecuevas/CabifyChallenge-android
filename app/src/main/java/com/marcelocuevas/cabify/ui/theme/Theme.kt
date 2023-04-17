@@ -128,62 +128,61 @@ class CabifyColors(
     notificationBadge: Color = error,
     isDark: Boolean
 ) {
-    var gradient61 by mutableStateOf(gradient61)
-        private set
-    var gradient62 by mutableStateOf(gradient62)
-        private set
-    var gradient31 by mutableStateOf(gradient31)
-        private set
+    private var gradient61 by mutableStateOf(gradient61)
+
+    private var gradient62 by mutableStateOf(gradient62)
+
+    private var gradient31 by mutableStateOf(gradient31)
+
     var gradient32 by mutableStateOf(gradient32)
-        private set
+
     var gradient21 by mutableStateOf(gradient21)
-        private set
-    var gradient22 by mutableStateOf(gradient22)
-        private set
-    var gradient23 by mutableStateOf(gradient23)
-        private set
+
+    private var gradient22 by mutableStateOf(gradient22)
+
+    private var gradient23 by mutableStateOf(gradient23)
+
     var brand by mutableStateOf(brand)
-        private set
+
     var brandSecondary by mutableStateOf(brandSecondary)
-        private set
+
     var uiBackground by mutableStateOf(uiBackground)
-        private set
+
     var uiBorder by mutableStateOf(uiBorder)
-        private set
-    var uiFloated by mutableStateOf(uiFloated)
-        private set
+
+    private var uiFloated by mutableStateOf(uiFloated)
+
     var interactivePrimary by mutableStateOf(interactivePrimary)
-        private set
+
     var interactiveSecondary by mutableStateOf(interactiveSecondary)
-        private set
-    var interactiveMask by mutableStateOf(interactiveMask)
-        private set
+
+    private var interactiveMask by mutableStateOf(interactiveMask)
+
     var textPrimary by mutableStateOf(textPrimary)
-        private set
+
     var textSecondary by mutableStateOf(textSecondary)
-        private set
+
     var textHelp by mutableStateOf(textHelp)
-        private set
+
     var textInteractive by mutableStateOf(textInteractive)
-        private set
-    var tornado1 by mutableStateOf(tornado1)
-        private set
-    var textLink by mutableStateOf(textLink)
-        private set
-    var iconPrimary by mutableStateOf(iconPrimary)
-        private set
+
+    private var tornado1 by mutableStateOf(tornado1)
+
+    private var textLink by mutableStateOf(textLink)
+
+    private var iconPrimary by mutableStateOf(iconPrimary)
+
     var iconSecondary by mutableStateOf(iconSecondary)
-        private set
-    var iconInteractive by mutableStateOf(iconInteractive)
-        private set
-    var iconInteractiveInactive by mutableStateOf(iconInteractiveInactive)
-        private set
+
+    private var iconInteractive by mutableStateOf(iconInteractive)
+
+    private var iconInteractiveInactive by mutableStateOf(iconInteractiveInactive)
+
     var error by mutableStateOf(error)
-        private set
-    var notificationBadge by mutableStateOf(notificationBadge)
-        private set
-    var isDark by mutableStateOf(isDark)
-        private set
+
+    private var notificationBadge by mutableStateOf(notificationBadge)
+
+    private var isDark by mutableStateOf(isDark)
 
     fun update(other: CabifyColors) {
         gradient61 = other.gradient61

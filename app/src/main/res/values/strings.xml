@@ -8,7 +8,6 @@
     <string name="cart_order_header">Order (%1s)</string>
     <string name="cart_summary_header">Summary</string>
     <string name="cart_subtotal_label">Subtotal</string>
-    <string name="cart_shipping_label">Shipping and Handling</string>
     <string name="cart_total_label">Total</string>
     <string name="no_internet_connection">No Internet Connection!</string>
     <string name="back_online">Back Online!</string>
