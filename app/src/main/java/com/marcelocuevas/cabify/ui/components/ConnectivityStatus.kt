@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.marcelocuevas.cabify.R
@@ -60,10 +61,13 @@ fun ConnectivityStatus() {
 }
 
 @Composable
-fun ConnectivityStatusBox(isConnected: Boolean) {
+private fun ConnectivityStatusBox(isConnected: Boolean) {
     val backgroundColor by animateColorAsState(
         if (isConnected) CabifyTheme.colors.brandSecondary else CabifyTheme.colors.error)
-    val message = if (isConnected) "Back Online!" else "No Internet Connection!"
+    val message = if (isConnected)
+        stringResource(id = R.string.back_online)
+    else
+        stringResource(id = R.string.no_internet_connection)
     val iconResource = if (isConnected) {
         R.drawable.ic_connectivity_available
     } else {
@@ -78,7 +82,8 @@ fun ConnectivityStatusBox(isConnected: Boolean) {
         contentAlignment = Alignment.Center
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painterResource(id = iconResource), "Connectivity Icon", tint = Color.White)
+            Icon(painterResource(id = iconResource),
+                stringResource(id = R.string.connectivity_icon_content_description), tint = Color.White)
             Spacer(modifier = Modifier.size(8.dp))
             Text(message, color = Color.White, fontSize = 14.sp)
         }

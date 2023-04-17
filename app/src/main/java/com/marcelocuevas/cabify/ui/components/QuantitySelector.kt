@@ -37,7 +37,6 @@ fun QuantitySelector(
             contentDescription = stringResource(R.string.label_decrease),
             modifier = Modifier.align(Alignment.CenterVertically),
         )
-
         Crossfade(
             targetState = count,
             modifier = Modifier
@@ -67,7 +66,7 @@ fun QuantitySelector(
 fun QuantitySelectorPreview() {
     CabifyTheme {
         CabifySurface {
-            //QuantitySelector(1, {}, {})
+            QuantitySelector(1, {}, {})
         }
     }
 }
@@ -78,7 +77,7 @@ fun QuantitySelectorPreviewRtl() {
     CabifyTheme {
         CabifySurface {
             CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-                //QuantitySelector(1, {}, {})
+                QuantitySelector(1, {}, {})
             }
         }
     }

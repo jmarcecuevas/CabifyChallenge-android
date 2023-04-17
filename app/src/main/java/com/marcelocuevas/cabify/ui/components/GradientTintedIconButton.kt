@@ -33,7 +33,6 @@ fun CabifyGradientTintedIconButton(
 ) {
     val interactionSource = remember { MutableInteractionSource() }
 
-    // This should use a layer + srcIn but needs investigation
     val border = Modifier.fadeInDiagonalGradientBorder(
         showBorder = true,
         colors = CabifyTheme.colors.interactiveSecondary,

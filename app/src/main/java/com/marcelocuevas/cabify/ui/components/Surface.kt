@@ -35,7 +35,8 @@ fun CabifySurface(
     content: @Composable () -> Unit
 ) {
     Box(
-        modifier = modifier.shadow(elevation = elevation, shape = shape, clip = false)
+        modifier = modifier
+            .shadow(elevation = elevation, shape = shape, clip = false)
             .zIndex(elevation.value)
             .then(if (border != null) Modifier.border(border, shape) else Modifier)
             .background(
@@ -50,10 +51,7 @@ fun CabifySurface(
 
 @Composable
 private fun getBackgroundColorForElevation(color: Color, elevation: Dp): Color {
-    return if (elevation > 0.dp // && https://issuetracker.google.com/issues/161429530
-    // CabifyTheme.colors.isDark //&&
-    // color == CabifyTheme.colors.uiBackground
-    ) {
+    return if (elevation > 0.dp) {
         color.withElevation(elevation)
     } else {
         color
@@ -64,7 +62,6 @@ private fun getBackgroundColorForElevation(color: Color, elevation: Dp): Color {
  * Applies a [Color.White] overlay to this color based on the [elevation]. This increases visibility
  * of elevation for surfaces in a dark theme.
  *
- * TODO: Remove when public https://issuetracker.google.com/155181601
  */
 private fun Color.withElevation(elevation: Dp): Color {
     val foreground = calculateForeground(elevation)
@@ -79,3 +76,4 @@ private fun calculateForeground(elevation: Dp): Color {
     val alpha = ((4.5f * ln(elevation.value + 1)) + 2f) / 100f
     return Color.White.copy(alpha = alpha)
 }
+
