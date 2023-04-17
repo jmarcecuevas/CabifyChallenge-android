@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
-import com.marcelocuevas.cabify.domain.DeleteFromCartUseCase
-import com.marcelocuevas.cabify.domain.GetCartUseCase
+import com.marcelocuevas.cabify.domain.DeleteOrderUseCase
+import com.marcelocuevas.cabify.domain.GetOrdersUseCase
 import com.marcelocuevas.cabify.domain.UpdateCartUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted.Companion.WhileSubscribed
@@ -19,9 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OrdersViewModel @Inject constructor(
-    private val getOrders: GetCartUseCase,
+    private val getOrders: GetOrdersUseCase,
     private val updateCart: UpdateCartUseCase,
-    private val deleteFromCart: DeleteFromCartUseCase
+    private val deleteFromCart: DeleteOrderUseCase
 ): ViewModel() {
 
     val uiState: StateFlow<OrdersUiState> =

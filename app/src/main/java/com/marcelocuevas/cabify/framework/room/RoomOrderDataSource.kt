@@ -22,7 +22,7 @@ class RoomOrderDataSource @Inject constructor(
         }
     }
 
-    override fun getOrderItems(): Flow<List<OrderItemAndProduct>> {
+    override fun getOrderItemsStream(): Flow<List<OrderItemAndProduct>> {
         return orderDao.getAllOrderItems().map { it.toDataModel() }
     }
 

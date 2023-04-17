@@ -3,7 +3,7 @@ package com.marcelocuevas.cabify.domain
 import com.marcelocuevas.cabify.data.repository.OrdersRepository
 import javax.inject.Inject
 
-class DeleteFromCartUseCase @Inject constructor(
+class DeleteOrderUseCase @Inject constructor(
     private val repository: OrdersRepository
 ) {
 

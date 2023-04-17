@@ -1,10 +1,11 @@
-package com.marcelocuevas.cabify.data.repository
+package com.marcelocuevas.cabify.data.repository.impl
 
 import com.marcelocuevas.cabify.data.api.ProductItemDTO
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
 import com.marcelocuevas.cabify.data.model.Product
-import kotlinx.coroutines.flow.*
+import com.marcelocuevas.cabify.data.repository.ProductsRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class OfflineFirstProductsRepository @Inject constructor(
@@ -15,7 +16,7 @@ class OfflineFirstProductsRepository @Inject constructor(
 
     override suspend fun getProducts(): Flow<List<Product>> {
         if (localDataSource.isEmpty()) {
-            upsertProducts(getProductsFromRemote())
+            refreshProducts()
         }
         return localDataSource.getProductsStream()
     }
@@ -28,10 +29,6 @@ class OfflineFirstProductsRepository @Inject constructor(
     private suspend fun getProductsFromRemote(): List<Product> {
         return remoteDataSource.getProducts()
                 .map { mapper(it) }
-    }
-
-    private suspend fun upsertProducts(products: List<Product>) {
-        localDataSource.upsertProducts(products)
     }
 
     private suspend fun insertProductsIfNotExist(products: List<Product>) {

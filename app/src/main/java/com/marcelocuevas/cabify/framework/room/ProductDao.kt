@@ -1,6 +1,9 @@
 package com.marcelocuevas.cabify.framework.room
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Query
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -9,9 +12,6 @@ interface ProductDao {
 
     @Query(value = "SELECT * FROM product")
     fun getProductsStream(): Flow<List<ProductEntity>>
-
-    @Upsert
-    suspend fun upsertProducts(products: List<ProductEntity>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertProductsIfNotExist(products: List<ProductEntity>)

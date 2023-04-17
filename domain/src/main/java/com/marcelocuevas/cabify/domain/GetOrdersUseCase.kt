@@ -5,7 +5,7 @@ import com.marcelocuevas.cabify.data.repository.OrdersRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetCartUseCase @Inject constructor(
+class GetOrdersUseCase @Inject constructor(
     private val repository: OrdersRepository
 ) {
 

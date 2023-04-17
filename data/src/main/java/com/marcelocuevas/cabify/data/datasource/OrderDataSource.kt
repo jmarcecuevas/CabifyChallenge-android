@@ -5,10 +5,9 @@ import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import kotlinx.coroutines.flow.Flow
 
 interface OrderDataSource {
+      fun getOrderItemsStream(): Flow<List<OrderItemAndProduct>>
 
       suspend fun upsertOrderItem(item: OrderItem)
 
-      fun getOrderItems(): Flow<List<OrderItemAndProduct>>
-
-      suspend fun deleteOrderItem(code: String)
+      suspend fun deleteOrderItem(itemId: String)
 }

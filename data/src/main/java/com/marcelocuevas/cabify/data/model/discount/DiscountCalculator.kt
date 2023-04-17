@@ -1,16 +1,12 @@
 package com.marcelocuevas.cabify.data.model.discount
 
 import com.marcelocuevas.cabify.data.api.ProductCode
-import com.marcelocuevas.cabify.data.model.Product
 import javax.inject.Inject
 
 class DiscountCalculator @Inject constructor() {
 
-    fun applyDiscount(product: Product): Double {
-        val quantity = product.quantity
-        val unitPrice = product.price
-
-        return when (product.code) {
+    fun applyDiscount(code: String, quantity: Int, unitPrice: Double): Double {
+        return when (code) {
             ProductCode.VOUCHER.name -> {
                 BuyTwoPayOneDiscount().applyDiscount(
                     quantity = quantity,

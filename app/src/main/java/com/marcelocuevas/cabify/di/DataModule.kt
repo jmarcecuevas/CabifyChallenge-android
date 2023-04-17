@@ -3,13 +3,13 @@ package com.marcelocuevas.cabify.di
 import com.marcelocuevas.cabify.data.api.ProductsAPI
 import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
-import com.marcelocuevas.cabify.data.datasource.NetworkProductsDataSource
+import com.marcelocuevas.cabify.data.datasource.impl.RemoteProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
 import com.marcelocuevas.cabify.data.mapper.makeProductDtoMapper
 import com.marcelocuevas.cabify.data.model.discount.DiscountCalculator
 import com.marcelocuevas.cabify.data.repository.OrdersRepository
-import com.marcelocuevas.cabify.data.repository.OrdersRepositoryImp
-import com.marcelocuevas.cabify.data.repository.OfflineFirstProductsRepository
+import com.marcelocuevas.cabify.data.repository.impl.OrdersRepositoryImp
+import com.marcelocuevas.cabify.data.repository.impl.OfflineFirstProductsRepository
 import com.marcelocuevas.cabify.data.repository.ProductsRepository
 import com.marcelocuevas.cabify.framework.room.ProductDao
 import com.marcelocuevas.cabify.framework.room.RoomOrderDataSource
@@ -26,7 +26,7 @@ class DataModule {
 
     @Provides
     fun provideProductsDataSource(api: ProductsAPI): ProductsDataSource =
-        NetworkProductsDataSource(api)
+        RemoteProductsDataSource(api)
 
     @Provides
     fun provideLocalProductsDataSource(productsDao: ProductDao): LocalProductsDataSource =

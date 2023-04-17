@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getProducts: GetProductsUseCase,
-    private val getCart: GetCartUseCase,
+    private val getCart: GetOrdersUseCase,
     private val updateCart: UpdateCartUseCase,
     private val refreshProducts: RefreshProductsUseCase
 ) : ViewModel() {

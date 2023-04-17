@@ -5,4 +5,5 @@ data class Product(
     val name: String,
     val orderItemId: String? = null,
     val price: Double,
-    var quantity: Int = 0)
+    var quantity: Int = 0
+)
