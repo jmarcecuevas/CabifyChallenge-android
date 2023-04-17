@@ -10,6 +10,7 @@ import androidx.compose.material.Badge
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
@@ -21,6 +22,7 @@ import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.ui.components.CabifyCard
@@ -30,17 +32,18 @@ import com.marcelocuevas.cabify.utils.formatPrice
 @Composable
 fun OrderContentView(
     uiState: HomeUiState.Success,
-    onOrderButtonClick: () -> Unit
+    onOrderButtonClick: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val defaultPadding = dimensionResource(id = R.dimen.padding_default)
     CabifyCard(
-        Modifier
+        modifier
             .padding(defaultPadding)
             .fillMaxSize(),
         color = CabifyTheme.colors.brand
     ) {
         Box(
-            Modifier
+            modifier
                 .fillMaxSize()
                 .padding(start = defaultPadding, end = defaultPadding)
                 .clickable { onOrderButtonClick() }
@@ -50,7 +53,7 @@ fun OrderContentView(
                 color = CabifyTheme.colors.textInteractive,
                 style = MaterialTheme.typography.subtitle2,
                 fontSize = 15.sp,
-                modifier = Modifier.align(Alignment.Center)
+                modifier = modifier.align(Alignment.Center)
             )
             Text(
                 text = formatPrice(uiState.subtotal),
@@ -58,11 +61,11 @@ fun OrderContentView(
                 style = MaterialTheme.typography.caption,
                 fontWeight = FontWeight.Medium,
                 fontSize = 15.sp,
-                modifier = Modifier.align(Alignment.CenterEnd)
+                modifier = modifier.align(Alignment.CenterEnd)
             )
 
             BadgedBox(
-                modifier = Modifier.align(Alignment.CenterStart),
+                modifier = modifier.align(Alignment.CenterStart),
                 badge = {
                     Badge(
                         backgroundColor = CabifyTheme.colors.brandSecondary
@@ -70,7 +73,7 @@ fun OrderContentView(
                         val badgeNumber = uiState.qtyItemsAdded.toString()
                         Text(
                             badgeNumber,
-                            modifier = Modifier.semantics {
+                            modifier = modifier.semantics {
                                 contentDescription = "New shopping cart"
                             }
                         )
@@ -98,7 +101,8 @@ private fun PreviewOrderContentView() {
     CabifyTheme {
         OrderContentView(
             uiState = uiState,
-            onOrderButtonClick = {}
+            onOrderButtonClick = {},
+            modifier = Modifier.height(78.dp)
         )
     }
 }
