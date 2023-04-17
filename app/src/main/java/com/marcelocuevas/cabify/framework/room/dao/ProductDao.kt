@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.framework.room
+package com.marcelocuevas.cabify.framework.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query

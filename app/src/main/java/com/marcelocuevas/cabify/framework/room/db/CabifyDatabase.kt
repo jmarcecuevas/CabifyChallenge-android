@@ -1,8 +1,9 @@
-package com.marcelocuevas.cabify.framework.room
+package com.marcelocuevas.cabify.framework.room.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
+import com.marcelocuevas.cabify.framework.room.dao.OrderProductsDao
+import com.marcelocuevas.cabify.framework.room.dao.ProductDao
 import com.marcelocuevas.cabify.framework.room.entity.OrderItemEntity
 import com.marcelocuevas.cabify.framework.room.entity.ProductEntity
 

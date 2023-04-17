@@ -24,12 +24,12 @@ fun ProductEntity.toDataModel() = Product(
 )
 
 fun OrderItemEntity.toDataModel() = OrderItem(
-    productId = productId,
+    orderItemId = orderItemId,
     quantity = quantity,
 )
 
 fun OrderItem.toEntity() = OrderItemEntity(
-    productId = productId,
+    orderItemId = orderItemId,
     quantity = quantity,
 )
 

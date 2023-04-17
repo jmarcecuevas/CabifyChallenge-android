@@ -11,10 +11,10 @@ import com.marcelocuevas.cabify.data.repository.OrdersRepository
 import com.marcelocuevas.cabify.data.repository.impl.OrdersRepositoryImp
 import com.marcelocuevas.cabify.data.repository.impl.OfflineFirstProductsRepository
 import com.marcelocuevas.cabify.data.repository.ProductsRepository
-import com.marcelocuevas.cabify.framework.room.ProductDao
-import com.marcelocuevas.cabify.framework.room.RoomOrderDataSource
-import com.marcelocuevas.cabify.framework.room.RoomProductsDataSource
-import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
+import com.marcelocuevas.cabify.framework.room.dao.ProductDao
+import com.marcelocuevas.cabify.framework.room.datasource.RoomOrderDataSource
+import com.marcelocuevas.cabify.framework.room.datasource.RoomProductsDataSource
+import com.marcelocuevas.cabify.framework.room.dao.OrderProductsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

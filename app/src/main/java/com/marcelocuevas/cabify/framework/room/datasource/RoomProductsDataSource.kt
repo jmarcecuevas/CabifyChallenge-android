@@ -1,7 +1,8 @@
-package com.marcelocuevas.cabify.framework.room
+package com.marcelocuevas.cabify.framework.room.datasource
 
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.model.Product
+import com.marcelocuevas.cabify.framework.room.dao.ProductDao
 import com.marcelocuevas.cabify.mapper.toDataModel
 import com.marcelocuevas.cabify.mapper.toEntity
 import kotlinx.coroutines.Dispatchers

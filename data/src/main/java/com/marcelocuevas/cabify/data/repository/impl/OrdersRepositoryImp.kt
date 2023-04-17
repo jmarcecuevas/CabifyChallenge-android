@@ -16,7 +16,7 @@ class OrdersRepositoryImp @Inject constructor(
 
     override suspend fun upsertOrderItem(orderId: String, quantity: Int) {
         val orderItem = OrderItem(
-            productId = orderId,
+            orderItemId = orderId,
             quantity = quantity
         )
         orderDataSource.upsertOrderItem(orderItem)

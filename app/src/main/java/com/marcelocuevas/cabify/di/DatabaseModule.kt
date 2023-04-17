@@ -2,9 +2,9 @@ package com.marcelocuevas.cabify.di
 
 import android.content.Context
 import androidx.room.Room
-import com.marcelocuevas.cabify.framework.room.CabifyDatabase
-import com.marcelocuevas.cabify.framework.room.ProductDao
-import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
+import com.marcelocuevas.cabify.framework.room.db.CabifyDatabase
+import com.marcelocuevas.cabify.framework.room.dao.ProductDao
+import com.marcelocuevas.cabify.framework.room.dao.OrderProductsDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
