@@ -3,6 +3,7 @@ package com.marcelocuevas.cabify.ui.order
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
@@ -77,6 +78,7 @@ private fun OrderContent(
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
+        is OrdersUiState.Loading -> { LoadingState() }
         is OrdersUiState.NoOrders -> { NoOrdersState() }
         is OrdersUiState.HasOrders -> {
             HasOrdersState(
@@ -87,6 +89,19 @@ private fun OrderContent(
                 modifier = modifier
             )
         }
+    }
+}
+
+@Composable
+private fun LoadingState() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            color = CabifyTheme.colors.brand,
+            strokeWidth = 3.dp
+        )
     }
 }
 

@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.home
 
-import android.content.res.Configuration
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fillMaxSize

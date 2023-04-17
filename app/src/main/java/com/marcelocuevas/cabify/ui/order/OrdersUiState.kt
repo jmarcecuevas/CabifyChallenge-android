@@ -5,6 +5,8 @@ import javax.annotation.concurrent.Immutable
 
 @Immutable
 sealed interface OrdersUiState {
+    object Loading : OrdersUiState
+
     object NoOrders : OrdersUiState
 
     data class HasOrders(

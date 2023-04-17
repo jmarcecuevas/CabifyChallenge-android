@@ -38,7 +38,7 @@ class OrdersViewModel @Inject constructor(
             .stateIn(
                 scope = viewModelScope,
                 started = WhileSubscribed(5000),
-                initialValue = OrdersUiState.NoOrders
+                initialValue = OrdersUiState.Loading
             )
 
     fun removeOrder(code: String) {
