@@ -3,8 +3,8 @@ package com.marcelocuevas.cabify.framework.room
 import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
-import com.marcelocuevas.cabify.framework.mapper.toDataModel
-import com.marcelocuevas.cabify.framework.mapper.toEntity
+import com.marcelocuevas.cabify.mapper.toDataModel
+import com.marcelocuevas.cabify.mapper.toEntity
 import com.marcelocuevas.cabify.framework.room.entity.OrderProductsDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

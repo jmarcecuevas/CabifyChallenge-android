@@ -1,4 +1,4 @@
-package com.marcelocuevas.cabify.framework.mapper
+package com.marcelocuevas.cabify.mapper
 
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.Product
@@ -40,12 +40,6 @@ fun OrderItemAndProductEntity.toDataModel() = OrderItemAndProduct(
     total = 0.0,
     discountObtained = 0.0,
     hasDiscount = false
-)
-
-fun OrderItemAndProduct.toDataModel() = OrderItemAndProductEntity(
-    orderItem = orderItem.toEntity(),
-    product = product.toEntity(),
-    subtotal = subtotal
 )
 
 fun List<OrderItemAndProductEntity>.toDataModel(): List<OrderItemAndProduct> {

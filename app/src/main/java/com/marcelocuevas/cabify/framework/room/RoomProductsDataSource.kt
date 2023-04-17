@@ -2,8 +2,8 @@ package com.marcelocuevas.cabify.framework.room
 
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.model.Product
-import com.marcelocuevas.cabify.framework.mapper.toDataModel
-import com.marcelocuevas.cabify.framework.mapper.toEntity
+import com.marcelocuevas.cabify.mapper.toDataModel
+import com.marcelocuevas.cabify.mapper.toEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
