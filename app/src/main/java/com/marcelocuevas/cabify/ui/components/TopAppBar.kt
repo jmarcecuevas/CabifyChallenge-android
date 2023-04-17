@@ -19,7 +19,10 @@ import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.R
 
 @Composable
-fun CabifyTopAppBar(modifier: Modifier = Modifier) {
+fun CabifyTopAppBar(
+    modifier: Modifier = Modifier,
+    title: String = stringResource(id = R.string.app_name),
+) {
     Column(modifier = modifier.statusBarsPadding()) {
         TopAppBar(
             backgroundColor = CabifyTheme.colors.uiBackground.copy(alpha = AlphaNearOpaque),
@@ -27,7 +30,7 @@ fun CabifyTopAppBar(modifier: Modifier = Modifier) {
             elevation = 0.dp
         ) {
             Text(
-                text = stringResource(id = R.string.app_name),
+                text = title,
                 style = MaterialTheme.typography.h6,
                 color = CabifyTheme.colors.textSecondary,
                 textAlign = TextAlign.Center,

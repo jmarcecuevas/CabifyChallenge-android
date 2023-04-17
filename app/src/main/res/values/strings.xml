@@ -14,6 +14,7 @@
     <string name="back_online">Back Online!</string>
     <string name="connectivity_icon_content_description">Connectivity Icon</string>
     <string name="remove_icon_content_description">Remove icon</string>
+    <string name="orders_screen_title">Orders</string>
     <plurals name="cart_order_count">
         <item quantity="one">%1d item</item>
         <item quantity="other">%1d items</item>

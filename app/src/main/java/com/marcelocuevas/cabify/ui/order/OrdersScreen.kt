@@ -72,7 +72,9 @@ private fun OrderScreen(
                 onDecreaseClick = onDecreaseClick,
                 modifier = Modifier.align(Alignment.TopCenter)
             )
-            CabifyTopAppBar()
+            CabifyTopAppBar(
+                title = stringResource(id = R.string.orders_screen_title),
+            )
         }
     }
 }
