@@ -1,16 +1,9 @@
 package com.marcelocuevas.cabify.ui.order
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -20,7 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -96,8 +91,39 @@ private fun OrderContent(
 }
 
 @Composable
-private fun NoOrdersState() {
-    Text(text = "No orders to show")
+private fun NoOrdersState(
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Icon(
+            modifier = Modifier.size(50.dp),
+            painter = painterResource(id = R.drawable.ic_empty_cart),
+            contentDescription = stringResource(id = R.string.cart_empty_description),
+            tint = CabifyTheme.colors.brand
+        )
+        Text(
+            modifier = Modifier.padding(vertical = 7.dp),
+            text = stringResource(id = R.string.cart_empty_title),
+            style = TextStyle(
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Medium,
+                color = CabifyTheme.colors.textSecondary
+            )
+        )
+        Text(
+            text = stringResource(id = R.string.cart_empty_description),
+            minLines = 2,
+            style = TextStyle(
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Normal,
+                color = CabifyTheme.colors.uiBorder
+            )
+        )
+    }
 }
 
 @Composable
