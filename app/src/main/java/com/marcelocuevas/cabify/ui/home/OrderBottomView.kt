@@ -70,7 +70,7 @@ fun OrderContentView(
                     Badge(
                         backgroundColor = CabifyTheme.colors.brandSecondary
                     ){
-                        val badgeNumber = uiState.qtyItemsAdded.toString()
+                        val badgeNumber = uiState.itemsAddedQuantity.toString()
                         Text(
                             badgeNumber,
                             modifier = modifier.semantics {
@@ -95,8 +95,10 @@ fun OrderContentView(
 @Composable
 private fun PreviewOrderContentView() {
     val uiState = HomeUiState.Success(
-        products = emptyList(),
-        orders = emptyList()
+        showOrderView = false,
+        itemsAddedQuantity = 3,
+        subtotal = 54.00,
+        products = emptyList()
     )
     CabifyTheme {
         OrderContentView(

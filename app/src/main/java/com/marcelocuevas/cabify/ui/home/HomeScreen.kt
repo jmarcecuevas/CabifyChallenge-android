@@ -44,7 +44,7 @@ fun HomeRoute(
     val isRefreshing by viewModel.isRefreshing.collectAsStateWithLifecycle()
 
     val pullRefreshState = rememberPullRefreshState(
-        isRefreshing, { viewModel.refresh() })
+        isRefreshing, { viewModel.refreshProducts() })
 
     HomeScreen(
         uiState = uiState,
@@ -145,7 +145,7 @@ private fun HandleBottomSheetState(
 ) {
     if (uiState is HomeUiState.Success) {
         LaunchedEffect(uiState) {
-            when (uiState.shouldShowOrdersBottomSheet) {
+            when (uiState.showOrderView) {
                 true -> {
                     if (bottomSheetState.bottomSheetState.isCollapsed) {
                         bottomSheetState.bottomSheetState.expand()

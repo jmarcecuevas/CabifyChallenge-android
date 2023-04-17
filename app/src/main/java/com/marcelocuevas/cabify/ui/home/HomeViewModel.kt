@@ -6,7 +6,6 @@ import com.marcelocuevas.cabify.domain.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,32 +13,32 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val getProducts: GetProductsUseCase,
-    private val getCart: GetOrdersUseCase,
+    private val refreshProducts: RefreshProductsUseCase,
+    private val getOrders: GetOrdersUseCase,
     private val updateCart: UpdateCartUseCase,
-    private val refreshProducts: RefreshProductsUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState = _uiState.asStateFlow()
 
     private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean>
-        get() = _isRefreshing
+    val isRefreshing = _isRefreshing.asStateFlow()
 
     init {
-        getProducts()
+        collectHomeData()
     }
 
-    private fun getProducts() {
+    private fun collectHomeData() {
         viewModelScope.launch {
             combine(
                 getProducts.invoke(),
-                getCart.invoke()
+                getOrders.invoke()
             ) { products, orders ->
                 HomeUiState.Success(
-                    shouldShowOrdersBottomSheet = orders.isNotEmpty(),
-                    products = products,
-                    orders = orders
+                    showOrderView = orders.isNotEmpty(),
+                    itemsAddedQuantity = orders.sumOf { it.orderItem.quantity },
+                    subtotal = orders.sumOf { it.subtotal },
+                    products = products
                 )
             }.collect {
                 _uiState.value = it
@@ -47,7 +46,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun refresh() {
+    fun refreshProducts() {
         viewModelScope.launch {
             _isRefreshing.value = true
             refreshProducts.invoke()
@@ -57,12 +56,20 @@ class HomeViewModel @Inject constructor(
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, OrderAction.INCREASE_ORDER_QUANTITY)
+            updateCart.invoke(
+                productId = code,
+                quantity = currentQuantity,
+                action = OrderAction.INCREASE_ORDER_QUANTITY
+            )
         }
 
     fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, OrderAction.DECREASE_ORDER_QUANTITY)
+            updateCart.invoke(
+                productId = code,
+                quantity = currentQuantity,
+                action = OrderAction.DECREASE_ORDER_QUANTITY
+            )
         }
     }
 }

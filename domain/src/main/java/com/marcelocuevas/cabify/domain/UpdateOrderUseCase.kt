@@ -12,9 +12,9 @@ class UpdateCartUseCase @Inject constructor(
     suspend operator fun invoke(
         productId: String,
         quantity: Int,
-        orderAction: OrderAction
+        action: OrderAction
     ) {
-        when (orderAction) {
+        when (action) {
             INCREASE_ORDER_QUANTITY -> increaseQuantity(productId,quantity)
             DECREASE_ORDER_QUANTITY -> decreaseQuantity(productId, quantity)
         }
