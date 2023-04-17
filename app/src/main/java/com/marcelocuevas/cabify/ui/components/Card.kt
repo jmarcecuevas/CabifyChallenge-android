@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme

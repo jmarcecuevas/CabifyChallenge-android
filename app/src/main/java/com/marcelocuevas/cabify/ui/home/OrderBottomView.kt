@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Box

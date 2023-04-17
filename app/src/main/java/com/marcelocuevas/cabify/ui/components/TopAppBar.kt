@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.TopAppBar

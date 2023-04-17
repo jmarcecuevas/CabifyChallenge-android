@@ -22,38 +22,40 @@ private val LightColorPalette = CabifyColors(
     iconInteractive = Neutral0,
     iconInteractiveInactive = Neutral1,
     error = FunctionalRed,
-    gradient6_1 = listOf(Shadow4, Ocean3, Shadow2, Ocean3, Shadow4),
-    gradient6_2 = listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4),
-    gradient3_1 = listOf(Shadow2, Ocean3, Shadow4),
-    gradient3_2 = listOf(Rose2, Lavender3, Rose4),
-    gradient2_1 = listOf(Shadow4, Shadow11),
-    gradient2_2 = listOf(Ocean3, Shadow3),
-    gradient2_3 = listOf(Lavender3, Rose2),
+    gradient61 = listOf(Shadow4, Ocean3, Shadow2, Ocean3, Shadow4),
+    gradient62 = listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4),
+    gradient31 = listOf(Shadow2, Ocean3, Shadow4),
+    gradient32 = listOf(Rose2, Lavender3, Rose4),
+    gradient21 = listOf(Shadow4, Shadow11),
+    gradient22 = listOf(Ocean3, Shadow3),
+    gradient23 = listOf(Lavender3, Rose2),
     tornado1 = listOf(Shadow4, Ocean3),
     isDark = false
 )
 
 private val DarkColorPalette = CabifyColors(
-    brand = Shadow5,
-    brandSecondary = Ocean3,
-    uiBackground = Neutral0,
-    uiBorder = Neutral5,
-    uiFloated = FunctionalGrey,
-    textSecondary = Neutral7,
-    textHelp = Neutral6,
-    textInteractive = Neutral0,
-    textLink = Ocean11,
-    iconSecondary = Neutral7,
-    iconInteractive = Neutral0,
-    iconInteractiveInactive = Neutral1,
-    error = FunctionalRed,
-    gradient6_1 = listOf(Shadow4, Ocean3, Shadow2, Ocean3, Shadow4),
-    gradient6_2 = listOf(Rose4, Lavender3, Rose2, Lavender3, Rose4),
-    gradient3_1 = listOf(Shadow2, Ocean3, Shadow4),
-    gradient3_2 = listOf(Rose2, Lavender3, Rose4),
-    gradient2_1 = listOf(Shadow4, Shadow11),
-    gradient2_2 = listOf(Ocean3, Shadow3),
-    gradient2_3 = listOf(Lavender3, Rose2),
+    brand = Shadow1,
+    brandSecondary = Ocean2,
+    uiBackground = Neutral8,
+    uiBorder = Neutral3,
+    uiFloated = FunctionalDarkGrey,
+    textPrimary = Shadow1,
+    textSecondary = Neutral0,
+    textHelp = Neutral1,
+    textInteractive = Neutral7,
+    textLink = Ocean2,
+    iconPrimary = Shadow1,
+    iconSecondary = Neutral0,
+    iconInteractive = Neutral7,
+    iconInteractiveInactive = Neutral6,
+    error = FunctionalRedDark,
+    gradient61 = listOf(Shadow5, Ocean7, Shadow9, Ocean7, Shadow5),
+    gradient62 = listOf(Rose11, Lavender7, Rose8, Lavender7, Rose11),
+    gradient31 = listOf(Shadow9, Ocean7, Shadow5),
+    gradient32 = listOf(Rose8, Lavender7, Rose11),
+    gradient21 = listOf(Ocean3, Shadow3),
+    gradient22 = listOf(Ocean4, Shadow2),
+    gradient23 = listOf(Lavender3, Rose3),
     tornado1 = listOf(Shadow4, Ocean3),
     isDark = true
 )
@@ -97,21 +99,21 @@ object CabifyTheme {
  */
 @Stable
 class CabifyColors(
-    gradient6_1: List<Color>,
-    gradient6_2: List<Color>,
-    gradient3_1: List<Color>,
-    gradient3_2: List<Color>,
-    gradient2_1: List<Color>,
-    gradient2_2: List<Color>,
-    gradient2_3: List<Color>,
+    gradient61: List<Color>,
+    gradient62: List<Color>,
+    gradient31: List<Color>,
+    gradient32: List<Color>,
+    gradient21: List<Color>,
+    gradient22: List<Color>,
+    gradient23: List<Color>,
     brand: Color,
     brandSecondary: Color,
     uiBackground: Color,
     uiBorder: Color,
     uiFloated: Color,
-    interactivePrimary: List<Color> = gradient2_1,
-    interactiveSecondary: List<Color> = gradient2_2,
-    interactiveMask: List<Color> = gradient6_1,
+    interactivePrimary: List<Color> = gradient21,
+    interactiveSecondary: List<Color> = gradient22,
+    interactiveMask: List<Color> = gradient61,
     textPrimary: Color = brand,
     textSecondary: Color,
     textHelp: Color,
@@ -126,19 +128,19 @@ class CabifyColors(
     notificationBadge: Color = error,
     isDark: Boolean
 ) {
-    var gradient6_1 by mutableStateOf(gradient6_1)
+    var gradient61 by mutableStateOf(gradient61)
         private set
-    var gradient6_2 by mutableStateOf(gradient6_2)
+    var gradient62 by mutableStateOf(gradient62)
         private set
-    var gradient3_1 by mutableStateOf(gradient3_1)
+    var gradient31 by mutableStateOf(gradient31)
         private set
-    var gradient3_2 by mutableStateOf(gradient3_2)
+    var gradient32 by mutableStateOf(gradient32)
         private set
-    var gradient2_1 by mutableStateOf(gradient2_1)
+    var gradient21 by mutableStateOf(gradient21)
         private set
-    var gradient2_2 by mutableStateOf(gradient2_2)
+    var gradient22 by mutableStateOf(gradient22)
         private set
-    var gradient2_3 by mutableStateOf(gradient2_3)
+    var gradient23 by mutableStateOf(gradient23)
         private set
     var brand by mutableStateOf(brand)
         private set
@@ -184,13 +186,13 @@ class CabifyColors(
         private set
 
     fun update(other: CabifyColors) {
-        gradient6_1 = other.gradient6_1
-        gradient6_2 = other.gradient6_2
-        gradient3_1 = other.gradient3_1
-        gradient3_2 = other.gradient3_2
-        gradient2_1 = other.gradient2_1
-        gradient2_2 = other.gradient2_2
-        gradient2_3 = other.gradient2_3
+        gradient61 = other.gradient61
+        gradient62 = other.gradient62
+        gradient31 = other.gradient31
+        gradient32 = other.gradient32
+        gradient21 = other.gradient21
+        gradient22 = other.gradient22
+        gradient23 = other.gradient23
         brand = other.brand
         brandSecondary = other.brandSecondary
         uiBackground = other.uiBackground
@@ -215,13 +217,13 @@ class CabifyColors(
     }
 
     fun copy(): CabifyColors = CabifyColors(
-        gradient6_1 = gradient6_1,
-        gradient6_2 = gradient6_2,
-        gradient3_1 = gradient3_1,
-        gradient3_2 = gradient3_2,
-        gradient2_1 = gradient2_1,
-        gradient2_2 = gradient2_2,
-        gradient2_3 = gradient2_3,
+        gradient61 = gradient61,
+        gradient62 = gradient62,
+        gradient31 = gradient31,
+        gradient32 = gradient32,
+        gradient21 = gradient21,
+        gradient22 = gradient22,
+        gradient23 = gradient23,
         brand = brand,
         brandSecondary = brandSecondary,
         uiBackground = uiBackground,

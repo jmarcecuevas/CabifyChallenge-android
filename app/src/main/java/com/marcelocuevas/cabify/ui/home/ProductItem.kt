@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.home
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Box
@@ -127,7 +126,7 @@ private fun PreviewProductItemView() {
         ProductItem(
             product = testProduct,
             index = 0,
-            gradient = CabifyTheme.colors.gradient2_1,
+            gradient = CabifyTheme.colors.gradient21,
             gradientWidth = gradientWidth,
             scroll = 0,
             onDecreaseClick = { _, _ ->},

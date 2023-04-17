@@ -15,10 +15,3 @@ import androidx.compose.ui.unit.LayoutDirection
 fun mirroringIcon(ltrIcon: ImageVector, rtlIcon: ImageVector): ImageVector =
     if (LocalLayoutDirection.current == LayoutDirection.Ltr) ltrIcon else rtlIcon
 
-/**
- * Returns the correct back navigation icon based on the current layout direction.
- */
-@Composable
-fun mirroringBackIcon() = mirroringIcon(
-    ltrIcon = Icons.Outlined.ArrowBack, rtlIcon = Icons.Outlined.ArrowForward
-)

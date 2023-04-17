@@ -1,9 +1,7 @@
 package com.marcelocuevas.cabify.ui.order
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -12,27 +10,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.ui.components.CabifyDivider
 import com.marcelocuevas.cabify.ui.components.CabifyImage
-import com.marcelocuevas.cabify.ui.components.CabifySurface
 import com.marcelocuevas.cabify.ui.components.QuantitySelector
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.utils.formatPrice

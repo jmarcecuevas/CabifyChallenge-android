@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -37,7 +36,7 @@ fun InfoPill(
     }
 }
 
-@Preview("dafault")
+@Preview("default")
 @Composable
 fun PreviewInfoPill() {
     CabifyTheme {

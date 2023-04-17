@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.widthIn
