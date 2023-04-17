@@ -63,7 +63,7 @@ fun ProductsGrid(
                             onIncreaseClick = onIncreaseClick,
                             onDecreaseClick = onDecreaseClick,
                             index = 0,
-                            gradient = CabifyTheme.colors.gradient3_1,
+                            gradient = CabifyTheme.colors.gradient3_2,
                             gradientWidth = gradientWidth ,
                             scroll = 0
                         )

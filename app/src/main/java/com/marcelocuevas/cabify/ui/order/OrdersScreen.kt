@@ -146,6 +146,7 @@ private fun HasOrdersState(
             Text(
                 text = stringResource(R.string.cart_order_header, productCountFormattedString),
                 style = MaterialTheme.typography.h6,
+                fontSize = 18.sp,
                 color = CabifyTheme.colors.brand,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -169,6 +170,7 @@ private fun HasOrdersState(
                 Text(
                     text = stringResource(R.string.cart_summary_header),
                     style = MaterialTheme.typography.h6,
+                    fontSize = 18.sp,
                     color = CabifyTheme.colors.brand,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,

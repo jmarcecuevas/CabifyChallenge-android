@@ -64,7 +64,7 @@ fun OrderItem(
             modifier = Modifier
                 .size(100.dp)
                 .constrainAs(image) {
-                    top.linkTo(parent.top, margin = 16.dp)
+                    top.linkTo(parent.top, margin = 4.dp)
                     bottom.linkTo(parent.bottom, margin = 16.dp)
                     start.linkTo(parent.start)
                 }

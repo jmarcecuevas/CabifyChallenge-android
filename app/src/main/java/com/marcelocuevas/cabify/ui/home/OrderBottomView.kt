@@ -91,7 +91,6 @@ fun OrderContentView(
 
 @Preview
 @Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun PreviewOrderContentView() {
     val uiState = HomeUiState.Success(

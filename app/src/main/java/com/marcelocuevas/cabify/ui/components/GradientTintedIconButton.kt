@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.ui.components
 
-import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -44,7 +43,7 @@ fun CabifyGradientTintedIconButton(
     } else {
         Modifier.background(CabifyTheme.colors.uiBackground)
     }
-    val blendMode = if (CabifyTheme.colors.isDark) BlendMode.Darken else BlendMode.Plus
+    val blendMode = BlendMode.Plus
     val modifierColor = if (pressed) {
         Modifier.diagonalGradientTint(
             colors = listOf(
@@ -80,7 +79,6 @@ fun CabifyGradientTintedIconButton(
 }
 
 @Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun GradientTintedIconButtonPreview() {
     CabifyTheme {

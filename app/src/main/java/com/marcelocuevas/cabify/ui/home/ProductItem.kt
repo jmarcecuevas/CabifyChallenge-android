@@ -115,7 +115,6 @@ fun ProductItem(
 }
 
 @Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun PreviewProductItemView() {
     CabifyTheme {
@@ -128,7 +127,7 @@ private fun PreviewProductItemView() {
         ProductItem(
             product = testProduct,
             index = 0,
-            gradient = CabifyTheme.colors.gradient6_1,
+            gradient = CabifyTheme.colors.gradient2_1,
             gradientWidth = gradientWidth,
             scroll = 0,
             onDecreaseClick = { _, _ ->},

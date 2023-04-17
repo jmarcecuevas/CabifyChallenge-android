@@ -36,8 +36,6 @@ fun CabifyCard(
 }
 
 @Preview("default")
-@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
-@Preview("large font", fontScale = 2f)
 @Composable
 private fun CardPreview() {
     CabifyTheme {
