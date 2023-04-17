@@ -44,7 +44,7 @@ fun OrderItem(
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val product = order.product!!
+    val product = order.product
     ConstraintLayout(
         modifier = modifier
             .fillMaxWidth()

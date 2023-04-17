@@ -164,7 +164,7 @@ private fun OrderContent(
         items(uiState.orders.filter { it.hasDiscount }) {
             Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
                 Text(
-                    text = it.product!!.promotionDescription(),
+                    text = it.product.promotionDescription(),
                     style = MaterialTheme.typography.body1,
                     modifier = Modifier
                         .weight(1f)

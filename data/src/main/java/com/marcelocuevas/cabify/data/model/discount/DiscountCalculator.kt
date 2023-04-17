@@ -12,8 +12,10 @@ class DiscountCalculator @Inject constructor() {
 
         return when (product.code) {
             ProductCode.VOUCHER.name -> {
-                BuyTwoPayOneDiscount()
-                    .applyDiscount(quantity, unitPrice)
+                BuyTwoPayOneDiscount().applyDiscount(
+                    quantity = quantity,
+                    unitPrice = unitPrice
+                )
             }
             ProductCode.TSHIRT.name -> {
                 BuyXOrMoreAndGetDiscount(

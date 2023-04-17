@@ -1,6 +1,5 @@
 package com.marcelocuevas.cabify.framework.mapper
 
-import com.marcelocuevas.cabify.data.api.ProductCode
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.framework.room.entity.OrderItemAndProduct as OrderItemAndProductEntity
@@ -36,7 +35,7 @@ fun OrderItem.toEntity() = OrderItemEntity(
 
 fun OrderItemAndProductEntity.toDataModel() = OrderItemAndProduct(
     orderItem = orderItem.toDataModel(),
-    product = product?.toDataModel(),
+    product = product.toDataModel(),
     subtotal = subtotal,
     total = 0.0,
     discountObtained = 0.0,
@@ -45,7 +44,7 @@ fun OrderItemAndProductEntity.toDataModel() = OrderItemAndProduct(
 
 fun OrderItemAndProduct.toDataModel() = OrderItemAndProductEntity(
     orderItem = orderItem.toEntity(),
-    product = product?.toEntity(),
+    product = product.toEntity(),
     subtotal = subtotal
 )
 
