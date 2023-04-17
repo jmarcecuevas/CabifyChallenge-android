@@ -10,26 +10,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.marcelocuevas.cabify.R
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.ui.components.*
@@ -56,10 +49,7 @@ fun ProductItem(
         (CardWidth + CardPadding).toPx()
     }
     val defaultPadding = dimensionResource(id = R.dimen.padding_default)
-    CabifyCard(
-        modifier = modifier
-            .padding(bottom = defaultPadding)
-    ) {
+    CabifyCard(modifier = modifier.padding(bottom = defaultPadding)) {
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -76,7 +66,7 @@ fun ProductItem(
                         .fillMaxWidth()
                         .offsetGradientBackground(gradient, gradientWidth, gradientOffset)
                 )
-                ProductImage(
+                CabifyImage(
                     imageUrl = product.imageUrl(),
                     contentDescription = null,
                     modifier = modifier
@@ -124,45 +114,25 @@ fun ProductItem(
     }
 }
 
-@Composable
-private fun ProductImage(
-    imageUrl: String,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    elevation: Dp = 0.dp
-) {
-    CabifySurface(
-        color = Color.LightGray,
-        elevation = elevation,
-        shape = CircleShape,
-        modifier = modifier
-    ) {
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(imageUrl)
-                .crossfade(true)
-                .build(),
-            contentDescription = contentDescription,
-            placeholder = painterResource(R.drawable.placeholder),
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds,
-        )
-    }
-}
-
 @Preview("default")
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun PreviewProductItemView() {
     CabifyTheme {
-//        val product = Product("VOUCHER","Cabify Coffee Mug", "20.0", "20.00 €","€","2 x 1", "https://www.julieseatsandtreats.com/wp-content/uploads/2020/06/Rainbow-Ice-Cream-14-of-16.jpg")
-//        ProductItemView(
-//            product = product,
-//            index = 0,
-//            gradient = CabifyTheme.colors.gradient6_1,
-//            gradientWidth = gradientWidth,
-//            scroll = 0
-//        )
+        val testProduct = Product(
+            code = "VOUCHER",
+            name = "Cabify Voucher",
+            price = 5.00,
+            quantity = 0
+        )
+        ProductItem(
+            product = testProduct,
+            index = 0,
+            gradient = CabifyTheme.colors.gradient6_1,
+            gradientWidth = gradientWidth,
+            scroll = 0,
+            onDecreaseClick = { _, _ ->},
+            onIncreaseClick = { _,_ ->  }
+        )
     }
 }
-

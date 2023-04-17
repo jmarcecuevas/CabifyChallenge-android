@@ -1,5 +1,6 @@
 package com.marcelocuevas.cabify.ui.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.Box
@@ -34,12 +35,7 @@ fun OrderContentView(
     val defaultPadding = dimensionResource(id = R.dimen.padding_default)
     CabifyCard(
         Modifier
-            .padding(
-                start = defaultPadding,
-                top = defaultPadding,
-                end = defaultPadding,
-                bottom = defaultPadding
-            )
+            .padding(defaultPadding)
             .fillMaxSize(),
         color = CabifyTheme.colors.brand
     ) {
@@ -91,7 +87,18 @@ fun OrderContentView(
 }
 
 @Preview
+@Preview("default")
+@Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun Preview() {
-    //OrderContentView()
+private fun PreviewOrderContentView() {
+    val uiState = HomeUiState.Success(
+        products = emptyList(),
+        orders = emptyList()
+    )
+    CabifyTheme {
+        OrderContentView(
+            uiState = uiState,
+            onOrderButtonClick = {}
+        )
+    }
 }
