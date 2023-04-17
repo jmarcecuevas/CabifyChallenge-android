@@ -2,7 +2,7 @@ package com.marcelocuevas.cabify.domain
 
 import com.marcelocuevas.cabify.data.model.Product
 import com.marcelocuevas.cabify.data.repository.ProductsRepository
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetProductsUseCase @Inject constructor(

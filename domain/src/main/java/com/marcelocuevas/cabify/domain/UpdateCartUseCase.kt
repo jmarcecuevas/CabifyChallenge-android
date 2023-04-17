@@ -2,8 +2,8 @@ package com.marcelocuevas.cabify.domain
 
 import com.marcelocuevas.cabify.data.repository.OrdersRepository
 import javax.inject.Inject
-import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_QUANTITY
-import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_QUANTITY
+import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
+import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 
 class UpdateCartUseCase @Inject constructor(
     private val repository: OrdersRepository
@@ -15,8 +15,8 @@ class UpdateCartUseCase @Inject constructor(
         orderAction: OrderAction
     ) {
         when (orderAction) {
-            INCREASE_QUANTITY -> increaseQuantity(productId,quantity)
-            DECREASE_QUANTITY -> decreaseQuantity(productId, quantity)
+            INCREASE_ORDER_QUANTITY -> increaseQuantity(productId,quantity)
+            DECREASE_ORDER_QUANTITY -> decreaseQuantity(productId, quantity)
         }
     }
 
@@ -35,6 +35,6 @@ class UpdateCartUseCase @Inject constructor(
 }
 
 enum class OrderAction{
-    INCREASE_QUANTITY,
-    DECREASE_QUANTITY
+    INCREASE_ORDER_QUANTITY,
+    DECREASE_ORDER_QUANTITY
 }

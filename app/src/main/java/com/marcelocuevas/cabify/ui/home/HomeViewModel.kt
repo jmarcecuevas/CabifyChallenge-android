@@ -57,12 +57,12 @@ class HomeViewModel @Inject constructor(
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, OrderAction.INCREASE_QUANTITY)
+            updateCart.invoke(code, currentQuantity, OrderAction.INCREASE_ORDER_QUANTITY)
         }
 
     fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, OrderAction.DECREASE_QUANTITY)
+            updateCart.invoke(code, currentQuantity, OrderAction.DECREASE_ORDER_QUANTITY)
         }
     }
 }

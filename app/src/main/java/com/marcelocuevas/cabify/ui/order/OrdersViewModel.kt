@@ -2,8 +2,8 @@ package com.marcelocuevas.cabify.ui.order
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_QUANTITY
-import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_QUANTITY
+import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
+import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.data.model.OrderItemAndProduct
 import com.marcelocuevas.cabify.domain.DeleteFromCartUseCase
 import com.marcelocuevas.cabify.domain.GetCartUseCase
@@ -46,12 +46,12 @@ class OrdersViewModel @Inject constructor(
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, INCREASE_QUANTITY)
+            updateCart.invoke(code, currentQuantity, INCREASE_ORDER_QUANTITY)
         }
 
     fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            updateCart.invoke(code, currentQuantity, DECREASE_QUANTITY)
+            updateCart.invoke(code, currentQuantity, DECREASE_ORDER_QUANTITY)
         }
     }
 }
