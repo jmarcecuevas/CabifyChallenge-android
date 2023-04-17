@@ -1,17 +1,12 @@
 package com.marcelocuevas.cabify.ui.order
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -64,16 +59,15 @@ private fun OrderScreen(
     modifier: Modifier = Modifier
 ) {
     CabifySurface(modifier = modifier.fillMaxSize()) {
-        Box {
+        Column {
+            CabifyTopAppBar(
+                title = stringResource(id = R.string.orders_screen_title),
+            )
             OrderContent(
                 uiState = uiState,
                 removeProduct = removeProduct,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
-                modifier = Modifier.align(Alignment.TopCenter)
-            )
-            CabifyTopAppBar(
-                title = stringResource(id = R.string.orders_screen_title),
             )
         }
     }
@@ -82,6 +76,33 @@ private fun OrderScreen(
 @Composable
 private fun OrderContent(
     uiState: OrdersUiState,
+    removeProduct: (String) -> Unit,
+    onIncreaseClick: (String, Int) -> Unit,
+    onDecreaseClick: (String, Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    when (uiState) {
+        is OrdersUiState.NoOrders -> { NoOrdersState() }
+        is OrdersUiState.HasOrders -> {
+            HasOrdersState(
+                uiState = uiState,
+                removeProduct = removeProduct,
+                onIncreaseClick = onIncreaseClick,
+                onDecreaseClick = onDecreaseClick,
+                modifier = modifier
+            )
+        }
+    }
+}
+
+@Composable
+private fun NoOrdersState() {
+    Text(text = "No orders to show")
+}
+
+@Composable
+private fun HasOrdersState(
+    uiState: OrdersUiState.HasOrders,
     removeProduct: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
@@ -96,11 +117,6 @@ private fun OrderContent(
     }
     LazyColumn(modifier) {
         item {
-            Spacer(
-                Modifier.windowInsetsTopHeight(
-                    WindowInsets.statusBars.add(WindowInsets(top = 56.dp))
-                )
-            )
             Text(
                 text = stringResource(R.string.cart_order_header, productCountFormattedString),
                 style = MaterialTheme.typography.h6,

@@ -25,16 +25,20 @@ class OrdersViewModel @Inject constructor(
     val uiState: StateFlow<OrdersUiState> =
         getOrders.invoke()
             .map { orders ->
-                OrdersUiState(
-                    itemsAddedQuantity = orders.sumOf { it.orderItem.quantity },
-                    total = orders.sumOf { it.total },
-                    subtotal = orders.sumOf { it.subtotal },
-                    orders = orders
-            ) }
+                if (orders.isNotEmpty()) {
+                    OrdersUiState.HasOrders(
+                        itemsAddedQuantity = orders.sumOf { it.orderItem.quantity },
+                        total = orders.sumOf { it.total },
+                        subtotal = orders.sumOf { it.subtotal },
+                        orders = orders
+                    )
+                } else {
+                    OrdersUiState.NoOrders
+                }}
             .stateIn(
                 scope = viewModelScope,
                 started = WhileSubscribed(5000),
-                initialValue = OrdersUiState(orders = emptyList())
+                initialValue = OrdersUiState.NoOrders
             )
 
     fun removeOrder(code: String) {
