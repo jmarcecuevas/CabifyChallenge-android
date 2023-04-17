@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-@Suppress("unused")
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
 
