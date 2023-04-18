@@ -6,7 +6,7 @@ import com.marcelocuevas.cabify.data.model.Product
 fun Product.imageUrl(): String {
     return when (code) {
         ProductCode.VOUCHER.name -> {
-            "https://media.istockphoto.com/id/1286165036/vector/summer-gift-vouchers-template.jpg?s=612x612&w=0&k=20&c=ZNwRBcqVt_H7E12JhWCvyTm9_G2IUQNWpIWr4oqomo0="
+            "https://www.originalprofesional.com.ar/img/articulos/2020/12/gift_card_gold_para_regalar_1_imagen1.jpg"
         }
         ProductCode.TSHIRT.name -> {
             "https://goofy-shannon-8fec5b.netlify.app/tshirt.jpg"
