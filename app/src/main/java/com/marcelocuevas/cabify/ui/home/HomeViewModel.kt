@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.GetProductsUseCase
 import com.marcelocuevas.cabify.domain.RefreshProductsUseCase
 import com.marcelocuevas.cabify.domain.GetOrdersUseCase
-import com.marcelocuevas.cabify.domain.UpdateCartUseCase
+import com.marcelocuevas.cabify.domain.UpdateOrderUseCase
 import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
     private val getProducts: GetProductsUseCase,
     private val refreshProducts: RefreshProductsUseCase,
     private val getOrders: GetOrdersUseCase,
-    private val updateCart: UpdateCartUseCase,
+    private val updateOrder: UpdateOrderUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -61,7 +61,7 @@ class HomeViewModel @Inject constructor(
 
     fun onIncreaseItemClicked(code: String, currentQuantity: Int) =
         viewModelScope.launch {
-            updateCart.invoke(
+            updateOrder.invoke(
                 productId = code,
                 quantity = currentQuantity,
                 action = INCREASE_ORDER_QUANTITY
@@ -70,7 +70,7 @@ class HomeViewModel @Inject constructor(
 
     fun onDecreaseItemClicked(code: String, currentQuantity: Int) {
         viewModelScope.launch {
-            updateCart.invoke(
+            updateOrder.invoke(
                 productId = code,
                 quantity = currentQuantity,
                 action = DECREASE_ORDER_QUANTITY

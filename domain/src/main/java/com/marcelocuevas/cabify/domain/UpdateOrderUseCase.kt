@@ -5,7 +5,7 @@ import javax.inject.Inject
 import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 
-class UpdateCartUseCase @Inject constructor(
+class UpdateOrderUseCase @Inject constructor(
     private val repository: OrdersRepository
 ) {
 
