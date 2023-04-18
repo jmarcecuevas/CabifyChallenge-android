@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -109,8 +110,9 @@ private fun LoadingState() {
 private fun NoOrdersState(
     modifier: Modifier = Modifier
 ) {
+    val defaultPadding = dimensionResource(R.dimen.padding_default)
     Column(
-        modifier = modifier.fillMaxSize().padding(start = 16.dp, end = 16.dp),
+        modifier = modifier.fillMaxSize().padding(start = defaultPadding, end = defaultPadding),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -149,6 +151,7 @@ private fun HasOrdersState(
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val defaultPadding = dimensionResource(R.dimen.padding_default)
     val resources = LocalContext.current.resources
     val productCountFormattedString = remember(uiState.itemsAddedQuantity, resources) {
         resources.getQuantityString(
@@ -242,7 +245,7 @@ private fun HasOrdersState(
                     fontSize = 19.sp,
                     modifier = Modifier
                         .weight(1f)
-                        .padding(end = 16.dp)
+                        .padding(end = defaultPadding)
                         .wrapContentWidth(Alignment.End)
                         .alignBy(LastBaseline)
                 )
