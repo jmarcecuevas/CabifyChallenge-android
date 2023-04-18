@@ -1,24 +1,27 @@
 <resources>
     <string name="app_name">Cabify Shop</string>
+    <string name="see_orders_label">See my order</string>
+
+    <!-- Quantity selector -->
     <string name="label_decrease">Decrease</string>
     <string name="label_increase">Increase</string>
 
-    <string name="see_orders_label">Ver mi pedido</string>
-
+    <!-- OrdersScreen -->
+    <string name="orders_screen_title">Orders</string>
     <string name="cart_order_header">Order (%1s)</string>
     <string name="cart_summary_header">Summary</string>
     <string name="cart_subtotal_label">Subtotal</string>
     <string name="cart_total_label">Total</string>
-    <string name="no_internet_connection">No Internet Connection!</string>
-    <string name="back_online">Back Online!</string>
-    <string name="connectivity_icon_content_description">Connectivity Icon</string>
     <string name="remove_icon_content_description">Remove icon</string>
-    <string name="orders_screen_title">Orders</string>
-    <string name="cart_empty_title">Your cart is empty</string>
-    <string name="cart_empty_description">Looks like you haven\'t added anything to your cart yet</string>
     <plurals name="cart_order_count">
         <item quantity="one">%1d item</item>
         <item quantity="other">%1d items</item>
     </plurals>
+    <string name="cart_empty_title">Your cart is empty</string>
+    <string name="cart_empty_description">Looks like you haven\'t added anything to your cart yet</string>
 
+    <!-- Connectivity status -->
+    <string name="no_internet_connection">No Internet Connection!</string>
+    <string name="back_online">Back Online!</string>
+    <string name="connectivity_icon_content_description">Connectivity Icon</string>
 </resources>
