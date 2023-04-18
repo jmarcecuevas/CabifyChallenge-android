@@ -153,7 +153,7 @@ private fun HasOrdersState(
     val productCountFormattedString = remember(uiState.itemsAddedQuantity, resources) {
         resources.getQuantityString(
             R.plurals.cart_order_count,
-            uiState.orders.size, uiState.itemsAddedQuantity
+            uiState.itemsAddedQuantity, uiState.itemsAddedQuantity
         )
     }
     LazyColumn(modifier) {
