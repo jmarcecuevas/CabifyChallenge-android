@@ -1,10 +1,9 @@
-package com.marcelocuevas.cabify.data
+package com.marcelocuevas.cabify.data.repository
 
 import com.marcelocuevas.cabify.data.api.ProductItemDTO
 import com.marcelocuevas.cabify.data.datasource.LocalProductsDataSource
 import com.marcelocuevas.cabify.data.datasource.ProductsDataSource
 import com.marcelocuevas.cabify.data.model.Product
-import com.marcelocuevas.cabify.data.repository.ProductsRepository
 import com.marcelocuevas.cabify.data.repository.impl.OfflineFirstProductsRepository
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify

@@ -12,6 +12,10 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class UpdateOrderUseCaseTest {
 
+    companion object {
+        private const val TEST_PRODUCT_CODE = "VOUCHER"
+    }
+
     private var repository: OrdersRepository = mock()
     private lateinit var updateOrder: UpdateOrderUseCase
 
@@ -79,9 +83,5 @@ class UpdateOrderUseCaseTest {
         )
 
         verify(repository, never()).upsertOrderItem(TEST_PRODUCT_CODE, currentQuantity - 1)
-    }
-
-    companion object {
-        private const val TEST_PRODUCT_CODE = "VOUCHER"
     }
 }

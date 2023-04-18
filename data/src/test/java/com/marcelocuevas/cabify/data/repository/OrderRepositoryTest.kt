@@ -1,9 +1,8 @@
-package com.marcelocuevas.cabify.data
+package com.marcelocuevas.cabify.data.repository
 
 import com.marcelocuevas.cabify.data.datasource.OrderDataSource
 import com.marcelocuevas.cabify.data.model.OrderItem
 import com.marcelocuevas.cabify.data.model.discount.DiscountCalculator
-import com.marcelocuevas.cabify.data.repository.OrdersRepository
 import com.marcelocuevas.cabify.data.repository.impl.OrdersRepositoryImp
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
@@ -17,6 +16,11 @@ import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class OrderRepositoryTest {
+
+    companion object {
+        private const val ORDER_ID = "VOUCHER"
+        private const val QUANTITY = 2
+    }
 
     private var orderDataSource: OrderDataSource = mock()
     private lateinit var discountCalculator: DiscountCalculator
@@ -73,10 +77,5 @@ class OrderRepositoryTest {
         repository.deleteOrderItem(ORDER_ID)
 
         verify(orderDataSource).deleteOrderItem(ORDER_ID)
-    }
-
-    companion object {
-        private const val ORDER_ID = "VOUCHER"
-        private const val QUANTITY = 2
     }
 }

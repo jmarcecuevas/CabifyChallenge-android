@@ -11,6 +11,11 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class DeleteOrderUseCaseTest {
 
+    companion object {
+        private const val PRODUCT_CODE = "VOUCHER"
+        private const val EMPTY_PRODUCT_CODE = ""
+    }
+
     private var repository: OrdersRepository = mock()
     private lateinit var deleteOrder: DeleteOrderUseCase
 
@@ -31,10 +36,5 @@ class DeleteOrderUseCaseTest {
         deleteOrder.invoke(EMPTY_PRODUCT_CODE)
 
         verify(repository).deleteOrderItem(EMPTY_PRODUCT_CODE)
-    }
-
-    companion object {
-        private const val PRODUCT_CODE = "VOUCHER"
-        private const val EMPTY_PRODUCT_CODE = ""
     }
 }
