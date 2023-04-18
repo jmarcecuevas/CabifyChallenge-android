@@ -81,7 +81,7 @@ fun OrderContentView(
                 Icon(
                     Icons.Filled.ShoppingCart,
                     tint = CabifyTheme.colors.uiBackground,
-                    contentDescription = "Shopping cart"
+                    contentDescription = stringResource(id = R.string.shopping_cart_badge_content_description)
                 )
             }
         }
