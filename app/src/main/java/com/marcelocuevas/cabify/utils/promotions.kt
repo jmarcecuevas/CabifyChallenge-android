@@ -6,10 +6,7 @@ import com.marcelocuevas.cabify.data.model.Product
 fun Product.imageUrl(): String {
     return when (code) {
         ProductCode.VOUCHER.name -> {
-            "https://static.vecteezy.com/system/" +
-                    "resources/previews/012/371/169/non_2x/" +
-                    "greeting-card-or-discount-voucher-" +
-                    "template-violet-background-vector.jpg"
+            "https://media.istockphoto.com/id/1286165036/vector/summer-gift-vouchers-template.jpg?s=612x612&w=0&k=20&c=ZNwRBcqVt_H7E12JhWCvyTm9_G2IUQNWpIWr4oqomo0="
         }
         ProductCode.TSHIRT.name -> {
             "https://goofy-shannon-8fec5b.netlify.app/tshirt.jpg"
@@ -18,7 +15,7 @@ fun Product.imageUrl(): String {
             "https://goofy-shannon-8fec5b.netlify.app/mug.jpg"
         }
         else -> {
-            return "https://jhm-images.images.sardius.media" +
+            "https://jhm-images.images.sardius.media" +
                     "/JHM/Shop/product_image_unavailable.png?width=260"
         }
     }
