@@ -27,20 +27,21 @@
 
 <a name="introduction"></a>
 ## Introduction
-This is an **unofficial** application that responds to a technical challenge with the sole purpose of translating a series of given requirements into the Android platform. This is also a fully functional Android app built entirely with Kotlin and **Jetpack Compose**. It follows Android design and development best practices.
+This is an unofficial application that responds to a technical challenge for the sole purpose of showing knowledge associated with software development on the Android platform.
+Cabify Shop is also a fully functional app built entirely with Kotlin and Jetpack Compose. Moreover, It follows the official architecture guidance as closely as possible.
 
 <a name="features"></a>
 ## Features
 A few of the things you can do with Cabify Shop:
 
-* View products that you can buy
+* View products list with their price and promotions (if applicable)
 * Add them to cart
 * Navigate the app **offline**
 * You can add products, exit the app, come back and continue shopping
 * Pull to refresh product list when you have network connectivity, so you can sync with the latest
-* See the list of products added to the cart and from there modify the quantity required or directly delete them
-* You can see for each order the original price and the current price that contains the discounts applied (if applicable)
-* You can also see the detail with each discount applied, the subtotal and the final price to pay
+* See the list of products added to the cart and from there modify the amount required or directly delete them from cart
+* You can also see for each order the original price and the current price that contains the discounts applied (if applicable)
+* Moreover, you can see the detail with each discount applied, the subtotal and the final price to pay
 
 <p align="center">
   <img src="docs/images/screenshot1.jpeg" width="250" />
