@@ -128,7 +128,7 @@ A repository may depend on one or more data sources. For example, the `OfflineFi
 
 Repositories are responsible for reconciling data in local storage with remote sources. Once data is obtained from a remote data source it is immediately written to local storage. The  updated data is emitted from local storage (Room) into the relevant data stream and received by any listening clients.
 
-This approach ensures that the read and write concerns of the app are separate and do not interfere with each other. however, you can sync by pulling to refresh on the products screen. This will fetch products via remote and update the local database.
+This approach ensures that the read and write concerns of the app are separate and do not interfere with each other. However, you can sync by pulling to refresh on the products screen. This will fetch products from remote and update the local database.
 
 <a name="domain-layer"></a>
 ## Domain layer
@@ -162,7 +162,7 @@ UI state is modeled as a sealed hierarchy using interfaces and immutable data cl
 The list of orders on the Orders screen is modeled using `OrdersUiState`. This is a sealed interface which creates a hierarchy of three possible states:
 
 
-*   `Loading` indicates that the data is loading
+*   `Loading` indicates that the data is loading.
 *   `HasOrders` indicates that there are orders items stored. The HasOrders state contains the list of orders among other properties.
 *   `NoOrders` indicates that the there is not order items added into the local database.
 
@@ -173,7 +173,7 @@ The `uiState` is passed to the `OrdersScreen` composable, which handle these sta
 
 ViewModels receive streams of data as cold [flows](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/index.html) from one or more use cases or repositories. These are [combined](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/combine.html) together, or simply [mapped](https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/map.html), to produce a single flow of UI state. This single flow is then converted to a hot flow using [stateIn](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/state-in.html). The conversion to a state flow enables UI elements to read the last known state from the flow.
 
-**Example: Displaying followed topics**
+**Example: Displaying order items added to cart**
 
 The `OrdersViewModel` exposes `uiState` as a `StateFlow<OrdersUiState>`. This hot flow is created by obtaining the cold flow of `List<OrderItemAndProduct>` provided by `GetOrdersUseCase`. Each time a new list is emitted, it is converted into an `OrdersUiState` state which is exposed to the UI.
 
