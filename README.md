@@ -196,7 +196,7 @@ Dependency injection provides your app with the following advantages:
 - Ease of refactoring: The dependencies become a verifiable part of the API surface, so they can be checked at object-creation time or at compile time rather than being hidden as implementation details.
 - Ease of testing: A class doesn't manage its dependencies, so when you're testing it, you can pass in different implementations to test all of your different cases.
 
-**Cabify Shop** uses [Hilt][hilt] to manage its dependencies. Hilt's ViewModel (with the
+**Cabify Shop** uses [Hilt](https://developer.android.com/training/dependency-injection/hilt-android?hl=es-419) to manage its dependencies. Hilt's ViewModel (with the
 `@HiltViewModel` annotation) works perfectly with Compose's ViewModel integration (`hiltViewModel()`
 composable function) as you can see in the following snippet of code. `hiltViewModel()` will
 automatically use the factory that Hilt creates for the ViewModel:
