@@ -23,6 +23,7 @@
   - [Modeling UI state](#modeling-ui-state)
   - [Transforming streams into UI state](#transforming-streams-into-ui-state)
   - [Processing user interactions](#processing-user-interactions)
+- [Dependency Injection](#dependency-injection)
 
 <a name="introduction"></a>
 ## Introduction
@@ -185,3 +186,36 @@ User actions are communicated from UI elements to ViewModels using regular metho
 **Example: Removing an order from cart**
 
 The `OrdersScreen` takes a lambda expression named `removeOrder` which is supplied from `OrdersViewModel.removeOrder`. Each time the user taps on the close icon in an order to remove it, this method is called. The ViewModel then processes this action by using the `DeleteOrderUseCase`.
+
+<a name="dependency-injection"></a>
+## Dependency injection
+
+Dependency injection provides your app with the following advantages:
+
+- Reusability of classes and decoupling of dependencies: It's easier to swap out implementations of a dependency. Code reuse is improved because of inversion of control, and classes no longer control how their dependencies are created, but instead work with any configuration.
+- Ease of refactoring: The dependencies become a verifiable part of the API surface, so they can be checked at object-creation time or at compile time rather than being hidden as implementation details.
+- Ease of testing: A class doesn't manage its dependencies, so when you're testing it, you can pass in different implementations to test all of your different cases.
+
+**Cabify Shop** uses [Hilt][hilt] to manage its dependencies. Hilt's ViewModel (with the
+`@HiltViewModel` annotation) works perfectly with Compose's ViewModel integration (`hiltViewModel()`
+composable function) as you can see in the following snippet of code. `hiltViewModel()` will
+automatically use the factory that Hilt creates for the ViewModel:
+
+```
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val getProducts: GetProductsUseCase,
+    private val refreshProducts: RefreshProductsUseCase,
+    private val getOrders: GetOrdersUseCase,
+    private val updateOrder: UpdateOrderUseCase,
+) : ViewModel() { ... }
+
+@Composable
+fun HomeRoute(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = hiltViewModel(),
+    onOrderButtonClick: () -> Unit
+) {
+    ...
+}
+```
