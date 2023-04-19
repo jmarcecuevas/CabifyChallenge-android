@@ -43,8 +43,8 @@ A few of the things you can do with Cabify Shop:
 
 <p align="center">
   <img src="docs/images/screenshot1.jpeg" width="250" />
-    <img src="docs/images/screenshot2.jpeg" width="250" />
-    <img src="docs/images/screenshot3.jpeg" width="250" />
+  <img src="docs/images/screenshot2.jpeg" width="250" />
+  <img src="docs/images/screenshot3.jpeg" width="250" />
   <img src="docs/images/screenshot4.jpeg" width="250" />
   <img src="docs/images/screenshot5.jpeg" width="250" />
   <img src="docs/images/screenshot6.jpeg" width="250" />
