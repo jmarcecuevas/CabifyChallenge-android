@@ -42,11 +42,12 @@ A few of the things you can do with Cabify Shop:
 * You can also see the detail with each discount applied, the subtotal and the final price to pay
 
 <p align="center">
-  <img src="docs/images/screenshot1.jpeg" width="150" />
-    <img src="docs/images/screenshot2.jpeg" width="150" />
-    <img src="docs/images/screenshot3.jpeg" width="150" />
-  <img src="docs/images/screenshot4.jpeg" width="150" />
-  <img src="docs/images/screenshot5.jpeg" width="150" />
+  <img src="docs/images/screenshot1.jpeg" width="250" />
+    <img src="docs/images/screenshot2.jpeg" width="250" />
+    <img src="docs/images/screenshot3.jpeg" width="250" />
+  <img src="docs/images/screenshot4.jpeg" width="250" />
+  <img src="docs/images/screenshot5.jpeg" width="250" />
+  <img src="docs/images/screenshot6.jpeg" width="250" />
 </p>
 
 <a name="architecture"></a>
