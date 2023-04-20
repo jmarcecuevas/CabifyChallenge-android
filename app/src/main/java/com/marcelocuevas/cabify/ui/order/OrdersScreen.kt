@@ -1,10 +1,11 @@
 package com.marcelocuevas.cabify.ui.order
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -15,9 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.LastBaseline
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -29,12 +28,15 @@ import com.marcelocuevas.cabify.ui.components.CabifyTopAppBar
 import com.marcelocuevas.cabify.ui.components.CabifyDivider
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import com.marcelocuevas.cabify.R
+import com.marcelocuevas.cabify.ui.components.CabifyCard
+import com.marcelocuevas.cabify.ui.components.InformationView
 import com.marcelocuevas.cabify.utils.formatPrice
 import com.marcelocuevas.cabify.utils.promotionDescription
 
 @Composable
 fun OrdersRoute(
     modifier: Modifier = Modifier,
+    onCheckoutClick: () -> Unit,
     viewModel: OrdersViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -43,6 +45,10 @@ fun OrdersRoute(
         removeOrder = viewModel::removeOrder,
         onIncreaseClick = viewModel::onIncreaseItemClicked,
         onDecreaseClick = viewModel::onDecreaseItemClicked,
+        onCheckoutClick = {
+            viewModel.emptyTheCart()
+            onCheckoutClick()
+        },
         modifier = modifier
     )
 }
@@ -53,6 +59,7 @@ private fun OrderScreen(
     removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
+    onCheckoutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     CabifySurface(modifier = modifier.fillMaxSize()) {
@@ -65,6 +72,7 @@ private fun OrderScreen(
                 removeOrder = removeOrder,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
+                onCheckoutClick = onCheckoutClick
             )
         }
     }
@@ -76,6 +84,7 @@ private fun OrderContent(
     removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
+    onCheckoutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     when (uiState) {
@@ -87,6 +96,7 @@ private fun OrderContent(
                 removeOrder = removeOrder,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
+                onCheckoutClick = onCheckoutClick,
                 modifier = modifier
             )
         }
@@ -110,37 +120,13 @@ private fun LoadingState() {
 private fun NoOrdersState(
     modifier: Modifier = Modifier
 ) {
-    val defaultPadding = dimensionResource(R.dimen.padding_default)
-    Column(
-        modifier = modifier.fillMaxSize().padding(start = defaultPadding, end = defaultPadding),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Icon(
-            modifier = Modifier.size(50.dp),
-            painter = painterResource(id = R.drawable.ic_empty_cart),
-            contentDescription = stringResource(id = R.string.cart_empty_description),
-            tint = CabifyTheme.colors.brand
-        )
-        Text(
-            modifier = Modifier.padding(vertical = 7.dp),
-            text = stringResource(id = R.string.cart_empty_title),
-            style = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Medium,
-                color = CabifyTheme.colors.textSecondary
-            )
-        )
-        Text(
-            text = stringResource(id = R.string.cart_empty_description),
-            minLines = 2,
-            style = TextStyle(
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Normal,
-                color = CabifyTheme.colors.uiBorder
-            )
-        )
-    }
+    InformationView(
+        modifier = modifier,
+        iconResId = R.drawable.ic_empty_cart,
+        titleResId = R.string.cart_empty_title,
+        descriptionResId = R.string.cart_empty_description,
+        contentDescriptionResId = R.string.cart_empty_description
+    )
 }
 
 @Composable
@@ -149,6 +135,7 @@ private fun HasOrdersState(
     removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
+    onCheckoutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val defaultPadding = dimensionResource(R.dimen.padding_default)
@@ -159,48 +146,68 @@ private fun HasOrdersState(
             uiState.itemsAddedQuantity, uiState.itemsAddedQuantity
         )
     }
-    LazyColumn(modifier) {
-        item {
-            Text(
-                text = stringResource(R.string.cart_order_header, productCountFormattedString),
-                style = MaterialTheme.typography.h6,
-                fontSize = 18.sp,
-                color = CabifyTheme.colors.brand,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier
-                    .heightIn(min = 56.dp)
-                    .padding(horizontal = 24.dp, vertical = 4.dp)
-                    .wrapContentHeight()
-            )
-        }
-        items(uiState.orders) { order ->
-            OrderItem(
-                order = order,
-                removeOrder = removeOrder,
-                onIncreaseClick = onIncreaseClick,
-                onDecreaseClick = onDecreaseClick,
-                showPriceWithoutDiscount = order.hasDiscount
-            )
-        }
-        item {
-            Column(modifier) {
+    Column {
+        LazyColumn(modifier = Modifier.weight(1f)) {
+            item {
                 Text(
-                    text = stringResource(R.string.cart_summary_header),
+                    text = stringResource(R.string.cart_order_header, productCountFormattedString),
                     style = MaterialTheme.typography.h6,
                     fontSize = 18.sp,
                     color = CabifyTheme.colors.brand,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier
-                        .padding(horizontal = 24.dp)
                         .heightIn(min = 56.dp)
+                        .padding(horizontal = 24.dp, vertical = 4.dp)
                         .wrapContentHeight()
                 )
-                Row(modifier = Modifier.padding(horizontal = 24.dp)) {
+            }
+            items(uiState.orders) { order ->
+                OrderItem(
+                    order = order,
+                    removeOrder = removeOrder,
+                    onIncreaseClick = onIncreaseClick,
+                    onDecreaseClick = onDecreaseClick,
+                    showPriceWithoutDiscount = order.hasDiscount
+                )
+            }
+            item {
+                Column(modifier) {
                     Text(
-                        text = stringResource(R.string.cart_subtotal_label),
-                        fontWeight = FontWeight.SemiBold,
+                        text = stringResource(R.string.cart_summary_header),
+                        style = MaterialTheme.typography.h6,
+                        fontSize = 18.sp,
+                        color = CabifyTheme.colors.brand,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier
+                            .padding(horizontal = 24.dp)
+                            .heightIn(min = 56.dp)
+                            .wrapContentHeight()
+                    )
+                    Row(modifier = Modifier.padding(horizontal = 24.dp)) {
+                        Text(
+                            text = stringResource(R.string.cart_subtotal_label),
+                            fontWeight = FontWeight.SemiBold,
+                            style = MaterialTheme.typography.body1,
+                            modifier = Modifier
+                                .weight(1f)
+                                .wrapContentWidth(Alignment.Start)
+                                .alignBy(LastBaseline)
+                        )
+                        Text(
+                            text = formatPrice(uiState.subtotal),
+                            fontWeight = FontWeight.SemiBold,
+                            style = MaterialTheme.typography.body1,
+                            modifier = Modifier.alignBy(LastBaseline)
+                        )
+                    }
+                }
+            }
+            items(uiState.orders.filter { it.hasDiscount }) {
+                Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+                    Text(
+                        text = it.product.promotionDescription(),
                         style = MaterialTheme.typography.body1,
                         modifier = Modifier
                             .weight(1f)
@@ -208,54 +215,89 @@ private fun HasOrdersState(
                             .alignBy(LastBaseline)
                     )
                     Text(
-                        text = formatPrice(uiState.subtotal),
-                        fontWeight = FontWeight.SemiBold,
+                        text = "-${formatPrice(it.discountObtained)}",
                         style = MaterialTheme.typography.body1,
                         modifier = Modifier.alignBy(LastBaseline)
                     )
                 }
             }
-        }
-        items(uiState.orders.filter { it.hasDiscount }) {
-            Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
-                Text(
-                    text = it.product.promotionDescription(),
-                    style = MaterialTheme.typography.body1,
-                    modifier = Modifier
-                        .weight(1f)
-                        .wrapContentWidth(Alignment.Start)
-                        .alignBy(LastBaseline)
-                )
-                Text(
-                    text = "-${formatPrice(it.discountObtained)}",
-                    style = MaterialTheme.typography.body1,
-                    modifier = Modifier.alignBy(LastBaseline)
-                )
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                CabifyDivider()
+                Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+                    Text(
+                        text = stringResource(R.string.cart_total_label),
+                        style = MaterialTheme.typography.body1,
+                        fontWeight = FontWeight.Black,
+                        color = CabifyTheme.colors.brand,
+                        fontSize = 19.sp,
+                        modifier = Modifier
+                            .weight(1f)
+                            .padding(end = defaultPadding)
+                            .wrapContentWidth(Alignment.End)
+                            .alignBy(LastBaseline)
+                    )
+                    Text(
+                        text = formatPrice(uiState.total),
+                        fontWeight = FontWeight.Black,
+                        color = CabifyTheme.colors.brand,
+                        style = MaterialTheme.typography.subtitle1,
+                        fontSize = 19.sp,
+                        modifier = Modifier.alignBy(LastBaseline)
+                    )
+                }
             }
         }
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
-            CabifyDivider()
-            Row(modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp)) {
+        CheckoutBar(
+            uiState = uiState,
+            onCheckoutClick = onCheckoutClick,
+            modifier = modifier)
+    }
+}
+
+@Composable
+fun CheckoutBar(
+    uiState: OrdersUiState.HasOrders,
+    onCheckoutClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(78.dp)
+            .background(CabifyTheme.colors.uiBackground),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        val defaultPadding = dimensionResource(id = R.dimen.padding_default)
+        CabifyCard(
+            modifier
+                .padding(defaultPadding)
+                .height(78.dp)
+                .fillMaxSize(),
+            color = CabifyTheme.colors.brand
+        ) {
+            Box(
+                modifier
+                    .fillMaxSize()
+                    .padding(start = defaultPadding, end = defaultPadding)
+                    .clickable {
+                        onCheckoutClick()
+                    }
+            ) {
                 Text(
-                    text = stringResource(R.string.cart_total_label),
-                    style = MaterialTheme.typography.body1,
-                    fontWeight = FontWeight.Black,
-                    color = CabifyTheme.colors.brand,
-                    fontSize = 19.sp,
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = defaultPadding)
-                        .wrapContentWidth(Alignment.End)
-                        .alignBy(LastBaseline)
+                    text = stringResource(id = R.string.checkout_button_text),
+                    color = CabifyTheme.colors.textInteractive,
+                    style = MaterialTheme.typography.subtitle2,
+                    fontSize = 15.sp,
+                    modifier = modifier.align(Alignment.Center)
                 )
                 Text(
                     text = formatPrice(uiState.total),
-                    fontWeight = FontWeight.Black,
-                    color = CabifyTheme.colors.brand,
-                    style = MaterialTheme.typography.subtitle1,
-                    fontSize = 19.sp,
-                    modifier = Modifier.alignBy(LastBaseline)
+                    color = CabifyTheme.colors.textInteractive,
+                    style = MaterialTheme.typography.caption,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 15.sp,
+                    modifier = modifier.align(Alignment.CenterEnd)
                 )
             }
         }

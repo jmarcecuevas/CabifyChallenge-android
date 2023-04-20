@@ -22,6 +22,9 @@ interface OrderProductsDao {
     @Query("DELETE FROM order_item WHERE orderItemId = :code")
     fun deleteOrderItem(code: String)
 
+    @Query("DELETE FROM order_item")
+    fun deleteOrderItems()
+
     @Query("UPDATE product SET orderOwnerItemId = :orderItemId " +
             "WHERE productId = :productCode")
     fun updateOrderParentInProduct(productCode: String, orderItemId: String?)
@@ -29,6 +32,12 @@ interface OrderProductsDao {
     @Query("UPDATE product SET quantity = :quantity " +
             "WHERE productId = :productCode")
     fun updateQuantityInProduct(productCode: String, quantity: Int)
+
+    @Query("UPDATE product SET orderOwnerItemId = null")
+    fun removeOrdersParentInAllProducts()
+
+    @Query("UPDATE product SET quantity = 0")
+    fun removeQuantitiesInAllProducts()
 
     @Transaction
     fun upsertOrderAndUpdateProductTransaction(orderItem: OrderItemEntity) {
@@ -43,5 +52,12 @@ interface OrderProductsDao {
         deleteOrderItem(code)
         updateOrderParentInProduct(code, null)
         updateQuantityInProduct(code, 0)
+    }
+
+    @Transaction
+    fun deleteAllOrderItemsTransaction() {
+        deleteOrderItems()
+        removeOrdersParentInAllProducts()
+        removeQuantitiesInAllProducts()
     }
 }

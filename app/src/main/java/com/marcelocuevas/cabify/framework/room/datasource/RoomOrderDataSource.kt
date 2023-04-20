@@ -31,4 +31,10 @@ class RoomOrderDataSource @Inject constructor(
             orderDao.deleteOrderAndUpdateProductTransaction(itemId)
         }
     }
+
+    override suspend fun deleteAllOrderItems() {
+        withContext(Dispatchers.IO) {
+            orderDao.deleteAllOrderItemsTransaction()
+        }
+    }
 }

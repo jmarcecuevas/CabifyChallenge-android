@@ -43,4 +43,8 @@ class OrdersRepositoryImp @Inject constructor(
     override suspend fun deleteOrderItem(code: String) {
         orderDataSource.deleteOrderItem(code)
     }
+
+    override suspend fun deleteAllOrderItems() {
+        orderDataSource.deleteAllOrderItems()
+    }
 }

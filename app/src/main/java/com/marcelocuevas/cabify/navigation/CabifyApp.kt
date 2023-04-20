@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import com.marcelocuevas.cabify.ui.theme.CabifyTheme
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.marcelocuevas.cabify.ui.checkout.CheckoutRoute
 import com.marcelocuevas.cabify.ui.home.HomeRoute
 import com.marcelocuevas.cabify.ui.order.OrdersRoute
 
@@ -34,7 +35,16 @@ fun CabifyNavHost(
                 )
             }
             composable(Screen.OrderDetail.route) {
-                OrdersRoute()
+                OrdersRoute(
+                    onCheckoutClick = {
+                        navController.navigate(Screen.Checkout.route) {
+                            popUpToTop(navController)
+                        }
+                    }
+                )
+            }
+            composable(Screen.Checkout.route) {
+                CheckoutRoute()
             }
         }
     }

@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.marcelocuevas.cabify.domain.OrderAction.INCREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.domain.OrderAction.DECREASE_ORDER_QUANTITY
 import com.marcelocuevas.cabify.domain.DeleteOrderUseCase
+import com.marcelocuevas.cabify.domain.EmptyTheCartUseCase
 import com.marcelocuevas.cabify.domain.GetOrdersUseCase
 import com.marcelocuevas.cabify.domain.UpdateOrderUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class OrdersViewModel @Inject constructor(
     getOrders: GetOrdersUseCase,
     private val updateOrder: UpdateOrderUseCase,
-    private val deleteFromCart: DeleteOrderUseCase
+    private val deleteFromCart: DeleteOrderUseCase,
+    private val emptyTheCart: EmptyTheCartUseCase
 ): ViewModel() {
 
     val uiState: StateFlow<OrdersUiState> =
@@ -44,6 +46,12 @@ class OrdersViewModel @Inject constructor(
     fun removeOrder(code: String) {
         viewModelScope.launch {
             deleteFromCart.invoke(code)
+        }
+    }
+
+    fun emptyTheCart() {
+        viewModelScope.launch {
+            emptyTheCart.invoke()
         }
     }
 

@@ -9,4 +9,6 @@ interface OrdersRepository {
       suspend fun upsertOrderItem(orderId: String, quantity: Int)
 
       suspend fun deleteOrderItem(code: String)
+
+      suspend fun deleteAllOrderItems()
 }

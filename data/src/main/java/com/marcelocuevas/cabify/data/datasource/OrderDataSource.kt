@@ -10,4 +10,6 @@ interface OrderDataSource {
       suspend fun upsertOrderItem(item: OrderItem)
 
       suspend fun deleteOrderItem(itemId: String)
+
+      suspend fun deleteAllOrderItems()
 }

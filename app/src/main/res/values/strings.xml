@@ -25,4 +25,9 @@
     <string name="back_online">Back Online!</string>
     <string name="connectivity_icon_content_description">Connectivity Icon</string>
     <string name="shopping_cart_badge_content_description">Icon for shopping cart badge</string>
+    <string name="checkout_title">Congratulations</string>
+    <string name="checkout_description">Your order has been placed</string>
+    <string name="checkout_content_description">Checkout success icon</string>
+    <string name="checkout_topbar_title">Checkout</string>
+    <string name="checkout_button_text">Checkout</string>
 </resources>
