@@ -29,7 +29,7 @@
 
 <a name="introduction"></a>
 ## Introduction
-This is an unofficial application that responds to a technical challenge for the sole purpose of showing knowledge associated with software development on the Android platform.
+This is an unofficial application that responds to a [technical challenge](https://github.com/cabify/MobileChallenge) for the sole purpose of showing knowledge associated with software development on the Android platform.
 Cabify Shop is also a fully functional app built entirely with Kotlin and Jetpack Compose. Moreover, It follows the official architecture guidance as closely as possible.
 
 <a name="features"></a>
