@@ -12,6 +12,7 @@
 
 - [Introduction](#introduction)
 - [Features](#features)
+- [Considerations](#considerations)
 - [Architecture overview](#architecture)
 - [Data Layer](#data-layer)
   - [Reading data](#reading-data)
@@ -52,6 +53,12 @@ A few of the things you can do with Cabify Shop:
   <img src="docs/images/screenshot5.jpeg" width="250" />
   <img src="docs/images/screenshot6.jpeg" width="250" />
 </p>
+
+<a name="considerations"></a>
+## Considerations
+Taking into account that the discounts that apply to certain types of products will change frequently, I used the Strategy design pattern for the correct calculation of the final price of each product added to the cart. Ideally, this logic for the calculation should not be done in the application, but we should have a BE endpoint that provides us with that information.
+
+In addition to using this design pattern, I made heavy use of the local database created with Room to give the user an offline experience and be able to use the app regardless of whether they have internet connectivity or not.
 
 <a name="architecture"></a>
 ## Architecture overview
