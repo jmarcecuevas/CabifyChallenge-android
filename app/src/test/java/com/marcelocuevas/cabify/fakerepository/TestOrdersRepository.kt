@@ -41,6 +41,10 @@ class TestOrdersRepository : OrdersRepository {
         Log.i(javaClass.name, "deleteOrderItem called from test environment")
     }
 
+    override suspend fun deleteAllOrderItems() {
+        Log.i(javaClass.name, "deleteAllOrderItems called from test environment")
+    }
+
     fun sendOrderItems(orderItems: List<OrderItemAndProduct>) {
         ordersFlow.tryEmit(orderItems)
     }

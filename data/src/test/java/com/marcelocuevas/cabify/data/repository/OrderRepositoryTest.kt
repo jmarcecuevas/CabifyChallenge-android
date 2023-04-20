@@ -78,4 +78,11 @@ class OrderRepositoryTest {
 
         verify(orderDataSource).deleteOrderItem(ORDER_ID)
     }
+
+    @Test
+    fun `deleteAllOrderItems should call orderDataSource deleteAllItems method`() = runTest {
+        repository.deleteAllOrderItems()
+
+        verify(orderDataSource).deleteAllOrderItems()
+    }
 }

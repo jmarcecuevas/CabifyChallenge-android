@@ -3,6 +3,7 @@ package com.marcelocuevas.cabify.viewmodel
 import com.marcelocuevas.cabify.util.MainDispatcherRule
 import com.marcelocuevas.cabify.fakerepository.TestOrdersRepository
 import com.marcelocuevas.cabify.domain.DeleteOrderUseCase
+import com.marcelocuevas.cabify.domain.EmptyTheCartUseCase
 import com.marcelocuevas.cabify.domain.GetOrdersUseCase
 import com.marcelocuevas.cabify.domain.UpdateOrderUseCase
 import com.marcelocuevas.cabify.testOrdersList
@@ -33,6 +34,9 @@ class OrdersViewModelTest {
     private val deleteFromCartUseCase = DeleteOrderUseCase(
         repository = ordersRepository
     )
+    private val emptyTheCartUseCase = EmptyTheCartUseCase(
+        repository = ordersRepository
+    )
 
     private lateinit var viewModel: OrdersViewModel
 
@@ -41,7 +45,8 @@ class OrdersViewModelTest {
         viewModel = OrdersViewModel(
             getOrders = getOrdersUseCase,
             updateOrder = updateOrderUseCase,
-            deleteFromCart = deleteFromCartUseCase
+            deleteFromCart = deleteFromCartUseCase,
+            emptyTheCart = emptyTheCartUseCase
         )
     }
 
