@@ -32,7 +32,7 @@ import com.marcelocuevas.cabify.utils.promotionDescription
 fun OrderItem(
     order: OrderItemAndProduct,
     showPriceWithoutDiscount: Boolean,
-    removeProduct: (String) -> Unit,
+    removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -74,7 +74,7 @@ fun OrderItem(
             }
         )
         IconButton(
-            onClick = { removeProduct(product.code) },
+            onClick = { removeOrder(product.code) },
             modifier = Modifier
                 .constrainAs(remove) {
                     top.linkTo(parent.top)

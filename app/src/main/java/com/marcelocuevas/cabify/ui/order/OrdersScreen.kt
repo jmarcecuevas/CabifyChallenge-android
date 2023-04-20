@@ -40,7 +40,7 @@ fun OrdersRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     OrderScreen(
         uiState = uiState,
-        removeProduct = viewModel::removeOrder,
+        removeOrder = viewModel::removeOrder,
         onIncreaseClick = viewModel::onIncreaseItemClicked,
         onDecreaseClick = viewModel::onDecreaseItemClicked,
         modifier = modifier
@@ -50,7 +50,7 @@ fun OrdersRoute(
 @Composable
 private fun OrderScreen(
     uiState: OrdersUiState,
-    removeProduct: (String) -> Unit,
+    removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -62,7 +62,7 @@ private fun OrderScreen(
             )
             OrderContent(
                 uiState = uiState,
-                removeProduct = removeProduct,
+                removeOrder = removeOrder,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
             )
@@ -73,7 +73,7 @@ private fun OrderScreen(
 @Composable
 private fun OrderContent(
     uiState: OrdersUiState,
-    removeProduct: (String) -> Unit,
+    removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -84,7 +84,7 @@ private fun OrderContent(
         is OrdersUiState.HasOrders -> {
             HasOrdersState(
                 uiState = uiState,
-                removeProduct = removeProduct,
+                removeOrder = removeOrder,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
                 modifier = modifier
@@ -146,7 +146,7 @@ private fun NoOrdersState(
 @Composable
 private fun HasOrdersState(
     uiState: OrdersUiState.HasOrders,
-    removeProduct: (String) -> Unit,
+    removeOrder: (String) -> Unit,
     onIncreaseClick: (String, Int) -> Unit,
     onDecreaseClick: (String, Int) -> Unit,
     modifier: Modifier = Modifier
@@ -177,7 +177,7 @@ private fun HasOrdersState(
         items(uiState.orders) { order ->
             OrderItem(
                 order = order,
-                removeProduct = removeProduct,
+                removeOrder = removeOrder,
                 onIncreaseClick = onIncreaseClick,
                 onDecreaseClick = onDecreaseClick,
                 showPriceWithoutDiscount = order.hasDiscount
